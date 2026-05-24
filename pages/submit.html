@@ -226,7 +226,7 @@
 
               <!-- Toolbar: custom roster picker -->
               <div style="margin-bottom:0.875rem;position:relative;display:inline-block;" id="roster-dropdown-wrap">
-                <button class="btn btn-outline" id="roster-trigger" onclick="toggleRosterDropdown(event)" type="button"
+                <button class="btn btn-outline" id="roster-trigger" type="button"
                   style="min-width:16rem;justify-content:space-between;gap:0.75rem;">
                   <span id="roster-trigger-label">Add officer from roster…</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -234,7 +234,7 @@
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
                 </button>
-                <div class="dropdown-menu" id="roster-menu" onclick="event.stopPropagation()"
+                <div class="roster-menu" id="roster-menu" onclick="event.stopPropagation()"
                   style="min-width:22rem;width:22rem;flex-direction:column;max-height:24rem;">
                   <!-- search -->
                   <div style="padding:0.5rem;flex-shrink:0;border-bottom:1px solid var(--border);">
@@ -566,7 +566,8 @@ function renderRosterItems() {
     btn.className = 'dropdown-item';
     if (isDisabled) btn.style.cssText = 'opacity:0.45;cursor:default;';
 
-    btn.onclick = () => {
+    btn.onclick = (event) => {
+      event.stopPropagation();
       if (isDisabled) return;
       if (pendingIds.has(o.id)) pendingIds.delete(o.id);
       else pendingIds.add(o.id);
@@ -629,10 +630,13 @@ function confirmRosterSelection(e) {
 }
 
 function toggleRosterDropdown(e) {
-  e.stopPropagation();
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   const menu = document.getElementById('roster-menu');
   const isOpen = menu.classList.contains('open');
-  document.querySelectorAll('.dropdown-menu.open').forEach(m => { if (m !== menu) m.classList.remove('open'); });
+  document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
   if (isOpen) { menu.classList.remove('open'); return; }
   // Reset search + pending on open
   const search = document.getElementById('roster-search');
@@ -641,13 +645,39 @@ function toggleRosterDropdown(e) {
   updateRosterAddBtn();
   renderRosterItems();
   menu.classList.add('open');
-  search?.focus();
+  if (window.innerWidth > 700) search?.focus();
 }
 
 function closeRosterDropdown() {
   pendingIds.clear();
   document.getElementById('roster-menu').classList.remove('open');
 }
+
+document.addEventListener('click', (event) => {
+  if (
+    event.target.closest('#roster-dropdown-wrap') ||
+    event.target.closest('#roster-menu')
+  ) return;
+  closeRosterDropdown();
+});
+
+const rosterTrigger = document.getElementById('roster-trigger');
+let rosterTouchHandled = false;
+
+rosterTrigger.addEventListener('touchend', (event) => {
+  rosterTouchHandled = true;
+  toggleRosterDropdown(event);
+  setTimeout(() => { rosterTouchHandled = false; }, 350);
+}, { passive: false });
+
+rosterTrigger.addEventListener('click', (event) => {
+  if (rosterTouchHandled) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  toggleRosterDropdown(event);
+});
 
 // ── Tab 1: for-whom selection ─────────────────────────────────────
 function selectFor(val) {
@@ -657,6 +687,10 @@ function selectFor(val) {
   // Show/hide trainee sections immediately
   document.getElementById('self-trainee-section').style.display   = val === 'self'   ? '' : 'none';
   document.getElementById('others-trainee-section').style.display = val === 'others' ? '' : 'none';
+  if (val === 'others') {
+    renderRosterItems();
+    updateRosterAddBtn();
+  }
 }
 
 function validateTab1AndNext() {

@@ -541,7 +541,6 @@ select.input {
   pointer-events: none;
 }
 @media (max-width: 600px) {
-  .tab-lift-label    { display: none; }
   .tabs-lift-trigger { padding: 0.5625rem 0.875rem; }
 }
 
@@ -1059,8 +1058,21 @@ select.input {
   animation: fadeIn 0.1s ease;
 }
 .dropdown-menu.open { display: block; }
-/* Roster menu needs flex layout when open */
-#roster-menu.open { display: flex; }
+.roster-menu {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  min-width: 11rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  z-index: 80;
+  padding: 0.25rem;
+  display: none;
+  animation: fadeIn 0.1s ease;
+}
+.roster-menu.open { display: flex; }
 .dropdown-menu.align-right { left: auto; right: 0; }
 
 .dropdown-item {
@@ -2190,11 +2202,40 @@ select.input {
   }
 
   .tab-lift-label {
-    display: none;
+    display: inline;
   }
 }
 
 @media (max-width: 700px) {
+  #roster-dropdown-wrap {
+    display: block !important;
+    width: 100%;
+  }
+
+  #roster-trigger {
+    display: none;
+  }
+
+  #roster-menu {
+    position: static !important;
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    box-shadow: var(--shadow-sm);
+    pointer-events: auto;
+  }
+
+  #roster-items {
+    max-height: 16rem;
+  }
+
+  #roster-menu .dropdown-item {
+    min-height: 3rem;
+    white-space: normal;
+  }
+
   .table-card-mobile {
     display: block !important;
     min-width: 0 !important;
