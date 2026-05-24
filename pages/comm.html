@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training Comm — BB Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../components/styles.css" />
+</head>
+<body style="height:100%;overflow:hidden;">
+
+<div class="layout" style="height:100%;">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">BB</div>
+        <span class="sidebar-brand-name">Training Portal</span>
+      </div>
+      <button class="sidebar-toggle" title="Collapse sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Overview</div>
+        <button class="nav-item active" onclick="switchTab('overview')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+          <span class="nav-item-label">Dashboard</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('approvals')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span class="nav-item-label">Pending Approvals</span>
+          <span class="nav-item-badge"><span class="badge badge-destructive" style="font-size:.65rem;padding:.125rem .4rem;">5</span></span>
+        </button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Management</div>
+        <button class="nav-item" onclick="switchTab('courses')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <span class="nav-item-label">Courses</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('curriculums')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
+          <span class="nav-item-label">Curriculums</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('requirements')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span class="nav-item-label">Requirements Matrix</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('officers')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="nav-item-label">Officer Directory</span>
+        </button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Export</div>
+        <button class="nav-item" onclick="switchTab('reports')">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+          <span class="nav-item-label">Reports</span>
+        </button>
+      </div>
+    </nav>
+
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <div class="page-wrapper">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <nav class="breadcrumb">
+          <div class="breadcrumb-item"><a href="#">Home</a></div>
+          <div class="breadcrumb-separator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="breadcrumb-item" id="topbar-section">Dashboard</div>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">
+          <button class="btn btn-ghost btn-icon" title="Notifications" data-dropdown="comm-notif">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </button>
+          <span class="notif-dot"></span>
+        </div>
+        <div class="dropdown-menu align-right" id="comm-notif" style="width:18rem;">
+          <div class="dropdown-label">Notifications</div>
+          <div class="dropdown-separator"></div>
+          <div style="padding:0.5rem;font-size:0.8125rem;">
+            <div style="padding:0.5rem;border-radius:var(--radius);background:var(--muted);margin-bottom:0.375rem;">
+              <div style="font-weight:500;">5 submissions awaiting your review</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.1rem;">Chaplain-approved · needs Training Comm</div>
+            </div>
+            <div style="padding:0.5rem;border-radius:var(--radius);">
+              <div style="font-weight:500;">New course request from Theodor Gunawan</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.1rem;">Leadership & Management Workshop · 2h ago</div>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <button class="avatar avatar-sm" style="background:#fef3c7;color:#b45309;cursor:pointer;border:none;" data-dropdown="topbar-user-menu">WT</button>
+          <div class="dropdown-menu align-right" id="topbar-user-menu" style="width:14rem;top:2.5rem;">
+            <div class="dropdown-label">Wendy Tio</div>
+            <div style="padding:0.25rem 0.75rem 0.5rem;font-size:0.75rem;color:var(--muted-fg);">Training Comm</div>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</button>
+            <div class="dropdown-separator"></div>
+            <a href="login.html" class="dropdown-item destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <main class="page-content">
+
+      <!-- ══ TAB: OVERVIEW ══════════════════════════════════════ -->
+      <div id="tab-overview">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Training Comm Dashboard</h1>
+            <p class="page-subtitle">Saturday, 24 May 2025 · Global overview across all companies</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline" onclick="showToast('info','Export','Generating compliance report…')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Stat Cards -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.5rem;">
+          <div class="stat-card">
+            <div class="stat-card-header"><span class="stat-card-label">Total Officers</span><div class="stat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div></div>
+            <div class="stat-card-value">48</div>
+            <div class="stat-card-trend"><span class="up">↑ 3</span> this month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header"><span class="stat-card-label">Pending Approvals</span><div class="stat-card-icon" style="background:#fef2f2;color:var(--destructive);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div>
+            <div class="stat-card-value" style="color:var(--destructive);">5</div>
+            <div class="stat-card-trend">awaiting your review</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header"><span class="stat-card-label">Compliance Rate</span><div class="stat-card-icon" style="background:#f0fdf4;color:var(--success);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+            <div class="stat-card-value">78%</div>
+            <div class="stat-card-trend"><span class="up">↑ 4%</span> vs last quarter</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header"><span class="stat-card-label">Expiring ≤90 days</span><div class="stat-card-icon" style="background:#fffbeb;color:var(--warning);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div></div>
+            <div class="stat-card-value">7</div>
+            <div class="stat-card-trend"><span class="down">↑ 2</span> vs last month</div>
+          </div>
+        </div>
+
+        <!-- Two column: compliance + pending -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start;">
+
+          <!-- Per-company compliance -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Company Compliance</h3>
+              <p class="card-description">Mandatory training fulfilment by company</p>
+            </div>
+            <div class="card-content">
+              <div class="compliance-row">
+                <div class="compliance-row-header"><span class="compliance-company">Alpha Company</span><span class="compliance-pct">85% · 17/20</span></div>
+                <div class="progress"><div class="progress-bar success" data-value="85"></div></div>
+              </div>
+              <div class="compliance-row">
+                <div class="compliance-row-header"><span class="compliance-company">Bravo Company</span><span class="compliance-pct">72% · 13/18</span></div>
+                <div class="progress"><div class="progress-bar" data-value="72"></div></div>
+              </div>
+              <div class="compliance-row">
+                <div class="compliance-row-header"><span class="compliance-company">Charlie Company</span><span class="compliance-pct">60% · 6/10</span></div>
+                <div class="progress"><div class="progress-bar warning" data-value="60"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pending by stage -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Approvals by Stage</h3>
+              <p class="card-description">Where submissions are stuck right now</p>
+            </div>
+            <div class="card-content" style="display:flex;flex-direction:column;gap:0.625rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem;background:var(--muted);border-radius:var(--radius);">
+                <div style="display:flex;align-items:center;gap:0.625rem;font-size:0.875rem;">
+                  <div class="approval-node-dot done" style="width:.625rem;height:.625rem;"></div>
+                  <span style="font-weight:500;">Awaiting Captain</span>
+                </div>
+                <span class="badge badge-secondary">3</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem;background:var(--muted);border-radius:var(--radius);">
+                <div style="display:flex;align-items:center;gap:0.625rem;font-size:0.875rem;">
+                  <div class="approval-node-dot current" style="width:.625rem;height:.625rem;"></div>
+                  <span style="font-weight:500;">Awaiting Chaplain</span>
+                </div>
+                <span class="badge badge-warning">4</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem;background:#fef2f2;border-radius:var(--radius);border:1px solid #fecaca;">
+                <div style="display:flex;align-items:center;gap:0.625rem;font-size:0.875rem;">
+                  <div style="width:.625rem;height:.625rem;border-radius:50%;background:var(--destructive);"></div>
+                  <span style="font-weight:500;color:var(--destructive);">Awaiting Training Comm</span>
+                </div>
+                <span class="badge badge-destructive">5</span>
+              </div>
+              <button class="btn btn-default w-full" style="margin-top:0.25rem;" onclick="switchTab('approvals')">
+                Review Pending Approvals →
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent activity -->
+          <div class="card" style="grid-column:1/-1;">
+            <div class="card-header"><h3 class="card-title">Recent Activity</h3></div>
+            <div class="card-content" style="padding-top:0.5rem;">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div class="timeline-content"><div class="timeline-title">Approved: First Aid Level 1 — Sarah Lim</div><div class="timeline-meta">Training Comm (you) · Today, 09:15</div></div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div class="timeline-content"><div class="timeline-title">New course added: Youth Mental Health Awareness</div><div class="timeline-meta">Training Comm (you) · Yesterday, 14:30</div></div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                  <div class="timeline-content"><div class="timeline-title">Rejected: Leadership Workshop — Ahmad Wafi</div><div class="timeline-meta">Training Comm (you) · 22 May · Insufficient justification</div></div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                  <div class="timeline-content"><div class="timeline-title">Course created: Safeguarding for Youth Workers</div><div class="timeline-meta">Training Comm (you) · 20 May</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB: APPROVALS ═════════════════════════════════════ -->
+      <div id="tab-approvals" style="display:none;">
+        <div class="page-header">
+          <div><h1 class="page-title">Pending Approvals</h1><p class="page-subtitle">5 submissions awaiting your decision</p></div>
+          <div class="page-actions">
+            <select class="input" style="width:11rem;"><option>All Stages</option><option>Awaiting Training Comm</option><option>Awaiting Chaplain</option><option>Awaiting Captain</option></select>
+            <select class="input" style="width:10rem;"><option>All Companies</option><option>Alpha</option><option>Bravo</option><option>Charlie</option></select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-toolbar">
+            <div class="table-toolbar-left">
+              <div class="input-wrapper"><span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span><input class="input has-icon-left" style="width:14rem;" type="search" placeholder="Search submissions…" /></div>
+            </div>
+            <div class="table-toolbar-right">
+              <span class="selected-count text-sm text-muted" id="approval-count"></span>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width:2.5rem;"><input type="checkbox" class="table-checkbox select-all" /></th>
+                  <th>Officer</th>
+                  <th>Course / Training</th>
+                  <th>Type</th>
+                  <th>Dates</th>
+                  <th>Stage</th>
+                  <th style="width:12rem;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" class="table-checkbox row-checkbox" /></td>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div class="font-medium text-sm">Theodor Gunawan</div><div class="text-xs text-muted">2LT · Alpha</div></div></div></td>
+                  <td><div class="font-medium text-sm">First Aid Level 1</div><div class="text-xs text-muted">#SUB-00124</div></td>
+                  <td><span class="badge badge-success" style="font-size:.7rem;">Pre-approved</span></td>
+                  <td class="text-sm">10–12 Jun 2025</td>
+                  <td><span class="status-pill pending">Training Comm</span></td>
+                  <td>
+                    <div class="flex gap-1">
+                      <button class="btn btn-default btn-sm" onclick="openApproveDialog('JT','First Aid Level 1','SUB-00124')">Approve</button>
+                      <button class="btn btn-ghost btn-icon btn-sm" title="More" data-dropdown="more-00124">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                      </button>
+                      <div class="dropdown-menu align-right" id="more-00124">
+                        <button class="dropdown-item" onclick="showToast('info','Returned','Submission returned for amendment.')">Return for Amendment</button>
+                        <button class="dropdown-item destructive" onclick="openRejectDialog('First Aid Level 1','SUB-00124')">Reject</button>
+                        <div class="dropdown-separator"></div>
+                        <button class="dropdown-item">View Full Details</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="table-checkbox row-checkbox" /></td>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div class="font-medium text-sm">Priya Raj</div><div class="text-xs text-muted">2LT · Alpha</div></div></div></td>
+                  <td><div class="font-medium text-sm">CPR + AED Certification</div><div class="text-xs text-muted">#SUB-00121</div></td>
+                  <td><span class="badge badge-success" style="font-size:.7rem;">Pre-approved</span></td>
+                  <td class="text-sm">5–5 Jul 2025</td>
+                  <td><span class="status-pill pending">Training Comm</span></td>
+                  <td>
+                    <div class="flex gap-1">
+                      <button class="btn btn-default btn-sm" onclick="openApproveDialog('PR','CPR + AED Certification','SUB-00121')">Approve</button>
+                      <button class="btn btn-ghost btn-icon btn-sm" data-dropdown="more-00121">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                      </button>
+                      <div class="dropdown-menu align-right" id="more-00121">
+                        <button class="dropdown-item" onclick="showToast('info','Returned','Submission returned for amendment.')">Return for Amendment</button>
+                        <button class="dropdown-item destructive" onclick="openRejectDialog('CPR + AED Certification','SUB-00121')">Reject</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="table-checkbox row-checkbox" /></td>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm">AW</div><div><div class="font-medium text-sm">Ahmad Wafi</div><div class="text-xs text-muted">OCT · Charlie</div></div></div></td>
+                  <td><div class="font-medium text-sm">Youth Mental Health Awareness</div><div class="text-xs text-muted">#SUB-00119 · New course</div></td>
+                  <td><span class="badge badge-secondary" style="font-size:.7rem;">New Course</span></td>
+                  <td class="text-sm">18–19 Aug 2025</td>
+                  <td><span class="status-pill pending">Training Comm</span></td>
+                  <td>
+                    <div class="flex gap-1">
+                      <button class="btn btn-default btn-sm" onclick="openApproveDialog('AW','Youth Mental Health Awareness','SUB-00119')">Approve</button>
+                      <button class="btn btn-ghost btn-icon btn-sm" data-dropdown="more-00119">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                      </button>
+                      <div class="dropdown-menu align-right" id="more-00119">
+                        <button class="dropdown-item" onclick="showToast('info','Returned','Submission returned for amendment.')">Return for Amendment</button>
+                        <button class="dropdown-item destructive" onclick="openRejectDialog('Youth Mental Health Awareness','SUB-00119')">Reject</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-pagination">
+            <span class="table-pagination-info">Showing 1–3 of 5 results awaiting Training Comm</span>
+            <div class="table-pagination-controls">
+              <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB: COURSES ═══════════════════════════════════════ -->
+      <div id="tab-courses" style="display:none;">
+        <div class="page-header">
+          <div><h1 class="page-title">Course Catalogue</h1><p class="page-subtitle">Manage all courses available for training submissions</p></div>
+          <div class="page-actions">
+            <button class="btn btn-default" data-dialog-open="dialog-add-course">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Course
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-toolbar">
+            <div class="table-toolbar-left">
+              <div class="input-wrapper"><span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span><input class="input has-icon-left" style="width:14rem;" type="search" placeholder="Search courses…" /></div>
+              <select class="input" style="width:9rem;"><option>All Sources</option><option>Internal</option><option>External</option></select>
+              <select class="input" style="width:10rem;"><option>All Statuses</option><option>Active</option><option>Archived</option></select>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="sortable">Course Name <span class="sort-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span></th>
+                  <th>Source</th>
+                  <th>Provider</th>
+                  <th>Pre-approved</th>
+                  <th>Status</th>
+                  <th style="width:8rem;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="font-medium">First Aid Level 1</div></td>
+                  <td><span class="chip chip-primary" style="padding:.2rem .6rem;">External</span></td>
+                  <td class="text-sm">Red Cross</td>
+                  <td><span class="badge badge-success">Yes</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><div class="flex gap-1"><button class="btn btn-ghost btn-icon btn-sm" title="Edit" onclick="showToast('info','Edit Course','Opening First Aid Level 1 for editing…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-ghost btn-icon btn-sm" title="Archive" onclick="showToast('warning','Archived','First Aid Level 1 has been archived.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="font-medium">CPR + AED Certification</div></td>
+                  <td><span class="chip chip-primary" style="padding:.2rem .6rem;">External</span></td>
+                  <td class="text-sm">Red Cross</td>
+                  <td><span class="badge badge-success">Yes</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><div class="flex gap-1"><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('info','Edit Course','Opening CPR + AED for editing…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('warning','Archived','CPR + AED has been archived.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="font-medium">BB Basic Officers Course</div><div class="text-xs text-muted">Part of BOTC curriculum</div></td>
+                  <td><span class="chip chip-success" style="padding:.2rem .6rem;">Internal</span></td>
+                  <td class="text-sm">BB HQ</td>
+                  <td><span class="badge badge-secondary">No</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><div class="flex gap-1"><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('info','Edit Course','Opening BB Basic Officers Course for editing…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-ghost btn-icon btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="font-medium">Youth Mental Health Awareness</div></td>
+                  <td><span class="chip chip-primary" style="padding:.2rem .6rem;">External</span></td>
+                  <td class="text-sm">IMH / SAMH</td>
+                  <td><span class="badge badge-success">Yes</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><div class="flex gap-1"><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('info','Edit','Editing course…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn btn-ghost btn-icon btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="font-medium text-muted">Safeguarding Level 1 (Legacy)</div></td>
+                  <td><span class="chip" style="padding:.2rem .6rem;">External</span></td>
+                  <td class="text-sm text-muted">—</td>
+                  <td><span class="badge badge-secondary">No</span></td>
+                  <td><span class="status-pill expired">Archived</span></td>
+                  <td><div class="flex gap-1"><button class="btn btn-ghost btn-icon btn-sm btn-sm" onclick="showToast('info','Restored','Course restored to active.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.54"/></svg></button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-pagination">
+            <span class="table-pagination-info">Showing 1–5 of 12 courses</span>
+            <div class="table-pagination-controls">
+              <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button>
+              <button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB: CURRICULUMS ═══════════════════════════════════ -->
+      <div id="tab-curriculums" style="display:none;">
+        <div class="page-header">
+          <div><h1 class="page-title">Curriculums</h1><p class="page-subtitle">Curated training paths mapped to officer rank progression</p></div>
+          <div class="page-actions">
+            <button class="btn btn-default" onclick="showToast('info','New Curriculum','Opening curriculum builder…')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Curriculum
+            </button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <!-- OCO -->
+          <div class="card">
+            <div class="card-header">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <h3 class="card-title">OCO</h3>
+                <span class="status-pill approved">Active</span>
+              </div>
+              <p class="card-description">Officer Cadet Course — required for new officer induction</p>
+            </div>
+            <div class="card-content" style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Mapped Ranks</div>
+              <div class="chip-list"><span class="chip">OCT</span></div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Courses (3)</div>
+              <div style="display:flex;flex-direction:column;gap:0.375rem;font-size:0.8125rem;">
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">1.</span> BB Orientation & Mission</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">2.</span> Safeguarding for Youth Workers</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">3.</span> First Aid Level 1</div>
+              </div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Preconditions</div>
+              <div style="font-size:0.8125rem;color:var(--muted-fg);">None</div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('info','Edit','Opening OCO for editing…')">Edit</button>
+              <button class="btn btn-ghost btn-sm">View Officers</button>
+            </div>
+          </div>
+
+          <!-- BOTC -->
+          <div class="card">
+            <div class="card-header">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <h3 class="card-title">BOTC</h3>
+                <span class="status-pill approved">Active</span>
+              </div>
+              <p class="card-description">Basic Officers Training Course — progression from OCT to 2LT</p>
+            </div>
+            <div class="card-content" style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Mapped Ranks</div>
+              <div class="chip-list"><span class="chip">2LT</span></div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Courses (4)</div>
+              <div style="display:flex;flex-direction:column;gap:0.375rem;font-size:0.8125rem;">
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">1.</span> BB Basic Officers Course</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">2.</span> Youth Leadership Fundamentals</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">3.</span> CPR + AED Certification</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;color:var(--muted-fg);font-size:0.75rem;">+ 1 more…</div>
+              </div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Preconditions</div>
+              <div><span class="chip chip-primary" style="font-size:.75rem;">OCO</span></div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('info','Edit','Opening BOTC for editing…')">Edit</button>
+              <button class="btn btn-ghost btn-sm">View Officers</button>
+            </div>
+          </div>
+
+          <!-- AOTC -->
+          <div class="card">
+            <div class="card-header">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <h3 class="card-title">AOTC</h3>
+                <span class="status-pill approved">Active</span>
+              </div>
+              <p class="card-description">Advanced Officers Training Course — progression from 2LT to LTA</p>
+            </div>
+            <div class="card-content" style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Mapped Ranks</div>
+              <div class="chip-list"><span class="chip">LTA</span></div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Courses (3)</div>
+              <div style="display:flex;flex-direction:column;gap:0.375rem;font-size:0.8125rem;">
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">1.</span> BB Advanced Officers Course</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">2.</span> Leadership &amp; Management</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--muted-fg);font-size:0.75rem;">3.</span> Youth Mental Health Awareness</div>
+              </div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;">Preconditions</div>
+              <div class="chip-list"><span class="chip chip-primary" style="font-size:.75rem;">OCO</span><span class="chip chip-primary" style="font-size:.75rem;">BOTC</span></div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('info','Edit','Opening AOTC for editing…')">Edit</button>
+              <button class="btn btn-ghost btn-sm">View Officers</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB: REQUIREMENTS ══════════════════════════════════ -->
+      <div id="tab-requirements" style="display:none;">
+        <div class="page-header">
+          <div><h1 class="page-title">Requirements Matrix</h1><p class="page-subtitle">Define what officers must complete before rank or appointment progression</p></div>
+          <div class="page-actions"><button class="btn btn-default" onclick="showToast('info','New Requirement','Opening requirement editor…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Requirement</button></div>
+        </div>
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Requirement</th>
+                  <th>Applies To</th>
+                  <th>Type</th>
+                  <th>Required Curriculum</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="font-medium">New officer induction / Reinstatement</div><div class="text-xs text-muted">Officer must complete OCO to become OCT or be reinstated</div></td>
+                  <td><div class="chip-list"><span class="chip">New Officers</span><span class="chip">Inactive Officers</span></div></td>
+                  <td><span class="badge badge-info">Curriculum</span></td>
+                  <td><span class="chip chip-primary">OCO</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('info','Edit','Editing requirement…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><div class="font-medium">Progression from OCT to 2LT</div><div class="text-xs text-muted">Must complete BOTC before becoming 2LT</div></td>
+                  <td><div class="chip-list"><span class="chip">OCT</span></div></td>
+                  <td><span class="badge badge-info">Curriculum</span></td>
+                  <td><span class="chip chip-primary">BOTC</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('info','Edit','Editing requirement…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><div class="font-medium">Progression from 2LT to LTA</div><div class="text-xs text-muted">Must complete AOTC before becoming LTA</div></td>
+                  <td><div class="chip-list"><span class="chip">2LT</span></div></td>
+                  <td><span class="badge badge-info">Curriculum</span></td>
+                  <td><span class="chip chip-primary">AOTC</span></td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-icon btn-sm" onclick="showToast('info','Edit','Editing requirement…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB: OFFICERS ══════════════════════════════════════ -->
+      <div id="tab-officers" style="display:none;">
+        <div class="page-header">
+          <div><h1 class="page-title">Officer Directory</h1><p class="page-subtitle">48 active officers · Showing requirement fulfilment status</p></div>
+          <div class="page-actions"><button class="btn btn-outline" onclick="showToast('info','Export','Downloading officer directory…')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button></div>
+        </div>
+        <div class="table-wrapper">
+          <div class="table-toolbar">
+            <div class="table-toolbar-left">
+              <div class="input-wrapper"><span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span><input class="input has-icon-left" style="width:14rem;" type="search" placeholder="Search by name, email, rank…" /></div>
+              <select class="input" style="width:10rem;"><option>All Companies</option><option>Alpha</option><option>Bravo</option><option>Charlie</option></select>
+              <select class="input" style="width:9rem;"><option>All Ranks</option><option>OCT</option><option>2LT</option><option>LTA</option></select>
+              <select class="input" style="width:11rem;"><option>All Fulfilment</option><option>Fulfilled</option><option>Not Fulfilled</option></select>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="sortable">Officer <span class="sort-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span></th>
+                  <th>Rank</th>
+                  <th>Company</th>
+                  <th>Captain</th>
+                  <th>Fulfilment</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div class="font-medium text-sm">Theodor Gunawan</div><div class="text-xs text-muted">john.tan@bb.org.sg</div></div></div></td>
+                  <td><span class="badge badge-default">2LT</span></td>
+                  <td>Alpha</td>
+                  <td>Capt Koh</td>
+                  <td><span class="badge badge-destructive">Not Fulfilled</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('info','Officer Profile','Viewing Theodor Gunawan\'s training records…')">View</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#f0fdf4;color:var(--success);">SL</div><div><div class="font-medium text-sm">Sarah Lim</div><div class="text-xs text-muted">sarah.lim@bb.org.sg</div></div></div></td>
+                  <td><span class="badge badge-default">LTA</span></td>
+                  <td>Bravo</td>
+                  <td>Capt Ng</td>
+                  <td><span class="badge badge-success">Fulfilled</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('info','Officer Profile','Viewing Sarah Lim\'s training records…')">View</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm">AW</div><div><div class="font-medium text-sm">Ahmad Wafi</div><div class="text-xs text-muted">ahmad.wafi@bb.org.sg</div></div></div></td>
+                  <td><span class="badge badge-secondary">OCT</span></td>
+                  <td>Charlie</td>
+                  <td>Maj Yeo</td>
+                  <td><span class="badge badge-destructive">Not Fulfilled</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('info','Officer Profile','Viewing Ahmad Wafi\'s training records…')">View</button></td>
+                </tr>
+                <tr>
+                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div class="font-medium text-sm">Priya Raj</div><div class="text-xs text-muted">priya.raj@bb.org.sg</div></div></div></td>
+                  <td><span class="badge badge-default">2LT</span></td>
+                  <td>Alpha</td>
+                  <td>Capt Koh</td>
+                  <td><span class="badge badge-success">Fulfilled</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('info','Officer Profile','Viewing Priya Raj\'s training records…')">View</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-pagination">
+            <span class="table-pagination-info">Showing 1–4 of 48 officers</span>
+            <div class="table-pagination-controls">
+              <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="page-btn active">1</button><button class="page-btn">2</button><span style="padding:0 0.25rem;color:var(--muted-fg);">…</span><button class="page-btn">12</button>
+              <button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TAB: REPORTS ═══════════════════════════════════════ -->
+      <div id="tab-reports" style="display:none;">
+        <div class="page-header"><div><h1 class="page-title">Reports &amp; Exports</h1><p class="page-subtitle">Download training data in CSV or Excel format</p></div></div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Officer Training History</h3><p class="card-description">All completed training records per officer</p></div>
+            <div class="card-content" style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="form-group"><label class="label">Company</label><select class="input"><option>All Companies</option><option>Alpha</option><option>Bravo</option><option>Charlie</option></select></div>
+                <div class="form-group"><label class="label">Date Range</label><select class="input"><option>All Time</option><option>This Year</option><option>Last 6 Months</option></select></div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('success','Export started','Officer training history CSV is being prepared…')">Export CSV</button>
+              <button class="btn btn-default btn-sm" onclick="showToast('success','Export started','Officer training history Excel is being prepared…')">Export Excel</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Compliance Report</h3><p class="card-description">Company-level mandatory training compliance summary</p></div>
+            <div class="card-content" style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div class="form-group"><label class="label">Company</label><select class="input"><option>All Companies</option><option>Alpha</option><option>Bravo</option><option>Charlie</option></select></div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('success','Export started','Compliance report CSV is being prepared…')">Export CSV</button>
+              <button class="btn btn-default btn-sm" onclick="showToast('success','Export started','Compliance report Excel is being prepared…')">Export Excel</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Expiring Certifications</h3><p class="card-description">Officers with certs expiring within a specified window</p></div>
+            <div class="card-content">
+              <div class="form-group"><label class="label">Expiry Window</label><select class="input"><option>Next 30 days</option><option>Next 60 days</option><option>Next 90 days</option></select></div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('success','Export started','Expiring certifications report ready shortly…')">Export CSV</button>
+              <button class="btn btn-default btn-sm" onclick="showToast('success','Export started','Expiring certifications Excel ready shortly…')">Export Excel</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Pending Approvals</h3><p class="card-description">All submissions currently in the approval workflow</p></div>
+            <div class="card-content">
+              <div class="form-group"><label class="label">Stage</label><select class="input"><option>All Stages</option><option>Captain</option><option>Chaplain</option><option>Training Comm</option></select></div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-outline btn-sm" onclick="showToast('success','Export started','Pending approvals report ready shortly…')">Export CSV</button>
+              <button class="btn btn-default btn-sm" onclick="showToast('success','Export started','Pending approvals Excel ready shortly…')">Export Excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /page-wrapper -->
+</div><!-- /layout -->
+
+<!-- ── Approve Dialog ────────────────────────────────────────── -->
+<div class="dialog-overlay" id="dialog-approve">
+  <div class="dialog" style="max-width:28rem;">
+    <button class="dialog-close" data-dialog-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="dialog-header">
+      <h2 class="dialog-title">Approve Submission</h2>
+      <p class="dialog-description" id="approve-desc">Confirm approval for this training request.</p>
+    </div>
+    <div class="dialog-content">
+      <div class="form-group">
+        <label class="label">Remarks <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
+        <textarea class="input" rows="2" placeholder="Add a note for the officer…"></textarea>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" data-dialog-close>Cancel</button>
+      <button class="btn btn-default" onclick="confirmApprove()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Approve
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Reject Dialog ─────────────────────────────────────────── -->
+<div class="dialog-overlay" id="dialog-reject">
+  <div class="dialog" style="max-width:28rem;">
+    <button class="dialog-close" data-dialog-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="dialog-header">
+      <h2 class="dialog-title">Reject Submission</h2>
+      <p class="dialog-description" id="reject-desc">This will notify the officer and close the submission.</p>
+    </div>
+    <div class="dialog-content">
+      <div class="form-group">
+        <label class="label label-required">Reason for Rejection</label>
+        <textarea class="input" rows="3" placeholder="Explain why this submission is being rejected…"></textarea>
+        <span class="helper-text">The officer will see this message.</span>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" data-dialog-close>Cancel</button>
+      <button class="btn btn-destructive" onclick="confirmReject()">Reject Submission</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Add Course Dialog ─────────────────────────────────────── -->
+<div class="dialog-overlay" id="dialog-add-course">
+  <div class="dialog" style="max-width:36rem;">
+    <button class="dialog-close" data-dialog-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="dialog-header"><h2 class="dialog-title">Add New Course</h2><p class="dialog-description">Add a course to the catalogue. Pre-approved courses are immediately available to officers.</p></div>
+    <div class="dialog-content">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group" style="grid-column:1/-1;"><label class="label label-required">Course Name</label><input class="input" type="text" placeholder="e.g. Youth Development Certificate" /></div>
+        <div class="form-group"><label class="label label-required">Source</label><select class="input"><option>Internal</option><option>External</option></select></div>
+        <div class="form-group"><label class="label">Provider</label><input class="input" type="text" placeholder="Organisation name" /></div>
+        <div class="form-group" style="grid-column:1/-1;"><label class="label">Description</label><textarea class="input" rows="2" placeholder="Brief course description…"></textarea></div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <label class="checkbox-group"><input type="checkbox" class="checkbox" checked /> <span class="label" style="margin:0;">Pre-approved</span> <span class="text-xs text-muted" style="margin-left:.25rem;">— Officers can submit without Training Comm review</span></label>
+            <label class="checkbox-group"><input type="checkbox" class="checkbox" /> <span class="label" style="margin:0;">Active</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" data-dialog-close>Cancel</button>
+      <button class="btn btn-default" onclick="addCourse()">Add Course</button>
+    </div>
+  </div>
+</div>
+
+<script src="../components/components.js"></script>
+<script src="../data/data.js"></script>
+<script>
+// ── Tab switching ──────────────────────────────────────────────
+const tabs = ['overview','approvals','courses','curriculums','requirements','officers','reports'];
+const labels = { overview:'Dashboard', approvals:'Pending Approvals', courses:'Courses', curriculums:'Curriculums', requirements:'Requirements Matrix', officers:'Officer Directory', reports:'Reports' };
+
+function switchTab(id) {
+  tabs.forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = t === id ? (el.dataset.display || 'block') : 'none';
+  });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  event?.currentTarget?.classList?.add('active');
+  document.getElementById('topbar-section').textContent = labels[id] || id;
+}
+
+// ── Approve / Reject dialog helpers ───────────────────────────
+function openApproveDialog(initials, course, ref) {
+  document.getElementById('approve-desc').textContent = `Approve "${course}" (${ref}) for the officer.`;
+  document.getElementById('dialog-approve').classList.add('open');
+}
+function openRejectDialog(course, ref) {
+  document.getElementById('reject-desc').textContent = `Reject "${course}" (${ref}). The officer will be notified.`;
+  document.getElementById('dialog-reject').classList.add('open');
+}
+function confirmApprove() {
+  document.getElementById('dialog-approve').classList.remove('open');
+  showToast('success', 'Submission approved', 'A training record will be created for the officer.');
+}
+function confirmReject() {
+  document.getElementById('dialog-reject').classList.remove('open');
+  showToast('destructive', 'Submission rejected', 'The officer has been notified.');
+}
+function addCourse() {
+  document.getElementById('dialog-add-course').classList.remove('open');
+  showToast('success', 'Course added', 'The new course is now in the catalogue.');
+}
+</script>
+</body>
+</html>

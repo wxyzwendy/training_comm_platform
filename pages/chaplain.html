@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chaplain — BB Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../components/styles.css" />
+</head>
+<body style="height:100%;overflow:hidden;">
+
+<div class="layout" style="height:100%;">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">BB</div>
+        <span class="sidebar-brand-name">Training Portal</span>
+      </div>
+      <button class="sidebar-toggle" title="Collapse sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Menu</div>
+        <a href="#" id="nav-dashboard" class="nav-item active" onclick="showSection('dashboard');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+          <span class="nav-item-label">Dashboard</span>
+        </a>
+        <a href="#" id="nav-approvals" class="nav-item" onclick="showSection('approvals');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span class="nav-item-label">Pending Endorsements</span>
+          <span class="nav-item-badge"><span class="badge badge-info" style="font-size:.65rem;padding:.125rem .4rem;">2</span></span>
+        </a>
+        <a href="#" id="nav-history" class="nav-item" onclick="showSection('history');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span class="nav-item-label">Endorsement History</span>
+        </a>
+        <a href="#" id="nav-records" class="nav-item" onclick="showSection('records');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span class="nav-item-label">Training Records</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <div class="page-wrapper">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <nav class="breadcrumb">
+          <div class="breadcrumb-item"><a href="#">Home</a></div>
+          <div class="breadcrumb-separator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="breadcrumb-item" id="breadcrumb-current">Dashboard</div>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">
+          <button class="btn btn-ghost btn-icon" title="Notifications" data-dropdown="notif-menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </button>
+          <span class="notif-dot"></span>
+        </div>
+        <div class="dropdown-menu align-right" id="notif-menu" style="width:18rem;">
+          <div class="dropdown-label">Notifications</div>
+          <div class="dropdown-separator"></div>
+          <div style="padding:0.5rem;display:flex;flex-direction:column;gap:0.375rem;">
+            <div style="padding:0.5rem;border-radius:var(--radius);background:var(--muted);font-size:0.8125rem;">
+              <div style="font-weight:500;color:var(--fg);">Endorsement requested</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.125rem;">Theodor Gunawan · First Aid Level 1 · 2 hours ago</div>
+            </div>
+            <div style="padding:0.5rem;border-radius:var(--radius);font-size:0.8125rem;">
+              <div style="font-weight:500;color:var(--fg);">Endorsement requested</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.125rem;">Ahmad Wafi · Safeguarding Training · 5 hours ago</div>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <button class="avatar avatar-sm" style="background:#fef9c3;color:#713f12;cursor:pointer;border:none;" data-dropdown="topbar-user-menu">JG</button>
+          <div class="dropdown-menu align-right" id="topbar-user-menu" style="width:14rem;top:2.5rem;">
+            <div class="dropdown-label">Joseph Goh</div>
+            <div style="padding:0.25rem 0.75rem 0.5rem;font-size:0.75rem;color:var(--muted-fg);">Chaplain</div>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</button>
+            <div class="dropdown-separator"></div>
+            <a href="login.html" class="dropdown-item destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="page-content">
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Dashboard
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Good morning, Rev Goh 👋</h1>
+            <p class="page-subtitle">Saturday, 24 May 2025</p>
+          </div>
+        </div>
+
+        <!-- Stat cards -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.875rem;margin-bottom:1.5rem;">
+          <div class="stat-card" style="cursor:pointer;" onclick="showSection('approvals')">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Pending Endorsements</span>
+              <div class="stat-card-icon" style="background:#fffbeb;color:var(--warning);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">2</div>
+            <div class="stat-card-trend">awaiting your endorsement</div>
+          </div>
+          <div class="stat-card" style="cursor:pointer;" onclick="showSection('history')">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Endorsed This Month</span>
+              <div class="stat-card-icon" style="background:#f0fdf4;color:var(--success);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">5</div>
+            <div class="stat-card-trend">this month</div>
+          </div>
+          <div class="stat-card" style="cursor:pointer;" onclick="showSection('history')">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Returned</span>
+              <div class="stat-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.29"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">1</div>
+            <div class="stat-card-trend">returned for revision</div>
+          </div>
+        </div>
+
+        <!-- Pending endorsements preview -->
+        <div class="section">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Submissions Awaiting Endorsement</div>
+              <div class="section-subtitle">Approved by the respective Captain — your endorsement is the next step</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('approvals')">View All</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:0.75rem;max-width:52rem;">
+
+            <div class="submission-card">
+              <div class="submission-card-header">
+                <div>
+                  <div class="submission-card-title">First Aid Level 1</div>
+                  <div class="submission-card-meta">Pre-approved · Theodor Gunawan · 10–12 Jun 2025 · Red Cross</div>
+                </div>
+                <span class="status-pill pending">Awaiting Endorsement</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.625rem;margin:0.5rem 0 0.625rem;font-size:0.8125rem;">
+                <div style="display:flex;align-items:center;gap:0.375rem;padding:0.25rem 0.625rem;background:#f0fdf4;border-radius:var(--radius-sm);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span style="color:#166534;font-weight:500;font-size:0.75rem;">Approved by Capt Sarah Koh</span>
+                </div>
+                <span style="color:var(--muted-fg);font-size:0.75rem;">22 May 2025</span>
+              </div>
+              <div style="font-size:0.8125rem;color:var(--muted-fg);margin-bottom:0.625rem;">
+                <strong style="color:var(--fg);">Officer's purpose:</strong> Renewing First Aid certification before expiry to maintain readiness for camp and activity facilitation.
+              </div>
+              <div class="submission-card-footer">
+                <div style="font-size:0.75rem;color:var(--muted-fg);">#SUB-00124 · Alpha Company</div>
+                <div style="display:flex;gap:0.375rem;">
+                  <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00124')">View</button>
+                  <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00124','Theodor Gunawan','First Aid Level 1')">Return</button>
+                  <button class="btn btn-default btn-sm" onclick="openEndorseDialog('SUB-00124','Theodor Gunawan','First Aid Level 1')">Endorse</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="submission-card">
+              <div class="submission-card-header">
+                <div>
+                  <div class="submission-card-title">Safeguarding Children &amp; Youth</div>
+                  <div class="submission-card-meta">Pre-approved · Ahmad Wafi · 7 Jun 2025 · MSF</div>
+                </div>
+                <span class="status-pill pending">Awaiting Endorsement</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.625rem;margin:0.5rem 0 0.625rem;font-size:0.8125rem;">
+                <div style="display:flex;align-items:center;gap:0.375rem;padding:0.25rem 0.625rem;background:#f0fdf4;border-radius:var(--radius-sm);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span style="color:#166534;font-weight:500;font-size:0.75rem;">Approved by Capt Marcus Ng</span>
+                </div>
+                <span style="color:var(--muted-fg);font-size:0.75rem;">21 May 2025</span>
+              </div>
+              <div style="font-size:0.8125rem;color:var(--muted-fg);margin-bottom:0.625rem;">
+                <strong style="color:var(--fg);">Officer's purpose:</strong> Mandatory certification renewal. Needed to remain authorised for youth-facing programme roles.
+              </div>
+              <div class="submission-card-footer">
+                <div style="font-size:0.75rem;color:var(--muted-fg);">#SUB-00129 · Bravo Company</div>
+                <div style="display:flex;gap:0.375rem;">
+                  <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00129')">View</button>
+                  <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00129','Ahmad Wafi','Safeguarding Children & Youth')">Return</button>
+                  <button class="btn btn-default btn-sm" onclick="openEndorseDialog('SUB-00129','Ahmad Wafi','Safeguarding Children & Youth')">Endorse</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- /section-dashboard -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Pending Endorsements
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-approvals" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Pending Endorsements</h1>
+            <p class="page-subtitle">Submissions approved by their Captain, awaiting your endorsement</p>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+          <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+            <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+            <input class="input has-icon-left" type="text" placeholder="Search by officer or course…" oninput="filterEndorsements(this.value)" />
+          </div>
+          <select class="input" style="width:auto;" onchange="filterEndorsementCompany(this.value)">
+            <option value="">All Companies</option>
+            <option value="alpha">Alpha</option>
+            <option value="bravo">Bravo</option>
+            <option value="charlie">Charlie</option>
+          </select>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table" id="endorsements-table">
+            <thead>
+              <tr>
+                <th>Ref #</th>
+                <th>Officer</th>
+                <th>Course</th>
+                <th>Type</th>
+                <th>Captain Approved</th>
+                <th>Dates</th>
+                <th style="width:11rem;"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-endorsements">
+              <tr data-company="alpha" data-search="john tan first aid level 1 sub-00124 alpha">
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00124</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div>
+                    <div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT · Alpha</div></div>
+                  </div>
+                </td>
+                <td style="font-weight:500;">First Aid Level 1</td>
+                <td><span class="chip">Pre-approved</span></td>
+                <td>
+                  <div style="font-size:0.8125rem;">Capt Sarah Koh</div>
+                  <div style="font-size:0.75rem;color:var(--muted-fg);">22 May 2025</div>
+                </td>
+                <td style="color:var(--muted-fg);">10–12 Jun 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00124')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00124','Theodor Gunawan','First Aid Level 1')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openEndorseDialog('SUB-00124','Theodor Gunawan','First Aid Level 1')">Endorse</button>
+                  </div>
+                </td>
+              </tr>
+              <tr data-company="bravo" data-search="ahmad wafi safeguarding children youth sub-00129 bravo">
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00129</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm">AW</div>
+                    <div><div style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</div><div style="font-size:0.75rem;color:var(--muted-fg);">OCT · Bravo</div></div>
+                  </div>
+                </td>
+                <td style="font-weight:500;">Safeguarding Children &amp; Youth</td>
+                <td><span class="chip">Pre-approved</span></td>
+                <td>
+                  <div style="font-size:0.8125rem;">Capt Marcus Ng</div>
+                  <div style="font-size:0.75rem;color:var(--muted-fg);">21 May 2025</div>
+                </td>
+                <td style="color:var(--muted-fg);">7 Jun 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00129')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00129','Ahmad Wafi','Safeguarding Children & Youth')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openEndorseDialog('SUB-00129','Ahmad Wafi','Safeguarding Children & Youth')">Endorse</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /section-approvals -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Endorsement History
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-history" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Endorsement History</h1>
+            <p class="page-subtitle">All submissions you have endorsed or returned</p>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Ref #</th>
+                <th>Officer</th>
+                <th>Course</th>
+                <th>Action</th>
+                <th>Date</th>
+                <th>Forwarded to</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-endorsement-history">
+              <tr>
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00118</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div>
+                    <span style="font-weight:500;font-size:0.875rem;">Priya Raj</span>
+                  </div>
+                </td>
+                <td>BOTC</td>
+                <td><span class="status-pill approved">Endorsed</span></td>
+                <td style="color:var(--muted-fg);">15 May 2025</td>
+                <td style="font-size:0.8125rem;color:var(--muted-fg);">Training Comm</td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00112</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm">AW</div>
+                    <span style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</span>
+                  </div>
+                </td>
+                <td>Youth Mental Health Awareness</td>
+                <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Returned</span></td>
+                <td style="color:var(--muted-fg);">10 May 2025</td>
+                <td style="font-size:0.8125rem;color:var(--muted-fg);">Returned to officer</td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00108</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div>
+                    <span style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</span>
+                  </div>
+                </td>
+                <td>Outdoor Adventure Leadership</td>
+                <td><span class="status-pill approved">Endorsed</span></td>
+                <td style="color:var(--muted-fg);">2 Apr 2025</td>
+                <td style="font-size:0.8125rem;color:var(--muted-fg);">Completed</td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00101</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#fce7f3;color:#9d174d;">LY</div>
+                    <span style="font-weight:500;font-size:0.875rem;">Lena Yeo</span>
+                  </div>
+                </td>
+                <td>AOTC</td>
+                <td><span class="status-pill approved">Endorsed</span></td>
+                <td style="color:var(--muted-fg);">18 Mar 2025</td>
+                <td style="font-size:0.8125rem;color:var(--muted-fg);">Training Comm</td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00095</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div>
+                    <span style="font-weight:500;font-size:0.875rem;">Samuel Lim</span>
+                  </div>
+                </td>
+                <td>Rifle Range Safety</td>
+                <td><span class="status-pill approved">Endorsed</span></td>
+                <td style="color:var(--muted-fg);">5 Mar 2025</td>
+                <td style="font-size:0.8125rem;color:var(--muted-fg);">Completed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /section-history -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Training Records
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-records" style="display:none;">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Training Records</h1>
+            <p class="page-subtitle">Your personal certifications and an overview of all officers you've endorsed</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline" onclick="showToast('success','Export','Training records exported as CSV')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-tab switcher -->
+        <div style="display:flex;gap:0.25rem;padding:0.25rem;background:var(--muted);border-radius:var(--radius);width:fit-content;margin-bottom:1.5rem;">
+          <button id="chaptab-mine" onclick="switchChapRecordsTab('mine')" style="padding:0.4rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);">My Records</button>
+          <button id="chaptab-officers" onclick="switchChapRecordsTab('officers')" style="padding:0.4rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:transparent;color:var(--muted-fg);">Officers Overview</button>
+        </div>
+
+        <!-- ── My Records ── -->
+        <div id="chap-records-mine">
+          <div style="display:flex;gap:0.625rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius);font-size:0.8125rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span style="font-weight:600;color:#166534;">5</span><span style="color:#166534;">Completed</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--muted);border:1px solid var(--border);border-radius:var(--radius);font-size:0.8125rem;color:var(--muted-fg);">
+              All active
+            </div>
+          </div>
+
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Course / Training</th>
+                  <th>Category</th>
+                  <th>Completed</th>
+                  <th>Expiry</th>
+                  <th>Status</th>
+                  <th style="width:7rem;"></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-chap-my-records">
+                <tr>
+                  <td style="font-weight:500;">BB Chaplaincy Orientation</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>5 Aug 2017</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openChapRecordDetail('orientation')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">Safeguarding Children &amp; Youth</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>20 Jan 2022</td>
+                  <td style="color:var(--muted-fg);">20 Jan 2025</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openChapRecordDetail('safeguard')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">Youth Mental Health Awareness</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>11 Mar 2022</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openChapRecordDetail('mentalhealth')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">CPR + AED Certification</td>
+                  <td><span class="chip">Recurring</span></td>
+                  <td>14 Feb 2024</td>
+                  <td style="color:var(--muted-fg);">14 Feb 2026</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openChapRecordDetail('cpr')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">Pastoral Care in Youth Organisations</td>
+                  <td><span class="chip">Elective</span></td>
+                  <td>7 Oct 2020</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openChapRecordDetail('pastoral')">View details</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── Officers Overview ── -->
+        <div id="chap-records-officers" style="display:none;">
+          <div class="alert alert-info" style="margin-bottom:1rem;">
+            <div class="alert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div class="alert-body">
+              <div class="alert-title">Cross-company view</div>
+              <div class="alert-description">As Chaplain, you can view training records for all officers across companies whose submissions you have endorsed.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+            <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+              <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+              <input class="input has-icon-left" type="text" placeholder="Search officer or course…" oninput="filterChapOfficerRecords(this.value)" />
+            </div>
+            <select class="input" style="width:auto;" onchange="filterChapOfficerRecordsByCompany(this.value)">
+              <option value="">All Companies</option>
+              <option value="alpha">Alpha</option>
+              <option value="bravo">Bravo</option>
+              <option value="charlie">Charlie</option>
+            </select>
+          </div>
+
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table class="table" id="chap-officer-records-table">
+              <thead>
+                <tr>
+                  <th>Officer</th>
+                  <th>Company</th>
+                  <th>Course / Training</th>
+                  <th>Completed</th>
+                  <th>Expiry</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-chap-officers">
+                <tr data-company="alpha" data-search="john tan first aid level 1 alpha">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div></div></td>
+                  <td style="color:var(--muted-fg);">Alpha</td>
+                  <td style="font-weight:500;">First Aid Level 1</td>
+                  <td>12 Jun 2025</td>
+                  <td style="color:var(--muted-fg);">12 Jun 2027</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-company="alpha" data-search="john tan oco alpha">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div></div></td>
+                  <td style="color:var(--muted-fg);">Alpha</td>
+                  <td style="font-weight:500;">OCO</td>
+                  <td>15 Jan 2021</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-company="bravo" data-search="ahmad wafi safeguarding bravo">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm">AW</div><div style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</div></div></td>
+                  <td style="color:var(--muted-fg);">Bravo</td>
+                  <td style="font-weight:500;">Safeguarding Children &amp; Youth</td>
+                  <td>7 Jun 2025</td>
+                  <td style="color:var(--muted-fg);">7 Jun 2028</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-company="alpha" data-search="priya raj botc aotc alpha">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div></div></td>
+                  <td style="color:var(--muted-fg);">Alpha</td>
+                  <td style="font-weight:500;">AOTC</td>
+                  <td>18 Jun 2023</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-company="alpha" data-search="lena yeo aotc alpha outdoor adventure">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fce7f3;color:#9d174d;">LY</div><div style="font-weight:500;font-size:0.875rem;">Lena Yeo</div></div></td>
+                  <td style="color:var(--muted-fg);">Alpha</td>
+                  <td style="font-weight:500;">Outdoor Adventure Leadership</td>
+                  <td>2 Jul 2021</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /section-records -->
+
+    </main>
+  </div>
+</div>
+
+
+<!-- ── Detail Modal ──────────────────────────────────────────── -->
+<div class="dialog-overlay" id="detail-overlay" onclick="closeDetailDialog(event)">
+  <div class="dialog" style="max-width:36rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
+      <div>
+        <div class="dialog-title" id="detail-title"></div>
+        <div class="dialog-description" id="detail-ref"></div>
+      </div>
+      <button class="dialog-close" onclick="closeDetailDialog()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-content" id="detail-content"></div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeDetailDialog()">Close</button>
+      <button class="btn btn-outline" style="color:var(--destructive);border-color:var(--destructive);" id="detail-return-btn">Return</button>
+      <button class="btn btn-default" id="detail-endorse-btn">Endorse</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Endorse Dialog ────────────────────────────────────────── -->
+<div class="dialog-overlay" id="endorse-overlay" onclick="event.target===this&&closeEndorseDialog()">
+  <div class="dialog" style="max-width:26rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="dialog-title">Endorse submission?</div>
+      <div class="dialog-description" id="endorse-desc"></div>
+    </div>
+    <div class="dialog-content">
+      <div class="form-group">
+        <label class="label">Note <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
+        <textarea class="input" id="endorse-note" rows="2" placeholder="Add any pastoral remarks or encouragement…"></textarea>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeEndorseDialog()">Cancel</button>
+      <button class="btn btn-default" onclick="confirmEndorse()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Confirm Endorsement
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Return Dialog ─────────────────────────────────────────── -->
+<div class="dialog-overlay" id="return-overlay" onclick="event.target===this&&closeReturnDialog()">
+  <div class="dialog" style="max-width:26rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="dialog-title">Return submission?</div>
+      <div class="dialog-description" id="return-desc"></div>
+    </div>
+    <div class="dialog-content">
+      <div class="form-group">
+        <label class="label label-required">Reason for returning</label>
+        <textarea class="input" id="return-reason" rows="3" placeholder="Explain what needs to be revised before you can endorse this request…"></textarea>
+        <span class="helper-text">This message will be forwarded to the officer.</span>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeReturnDialog()">Cancel</button>
+      <button class="btn btn-outline" style="color:var(--destructive);border-color:var(--destructive);" onclick="confirmReturn()">Return to Officer</button>
+    </div>
+  </div>
+</div>
+
+
+<script src="../components/components.js"></script>
+<script src="../data/data.js"></script>
+<script>
+// ── Section navigation ────────────────────────────────────────────
+const sections = ['dashboard','approvals','history','records'];
+const labels   = { dashboard:'Dashboard', approvals:'Pending Endorsements', history:'Endorsement History', records:'Training Records' };
+
+function showSection(id) {
+  sections.forEach(s => {
+    const el = document.getElementById('section-' + s);
+    el.style.display = (s === id) ? (el.dataset.display || 'block') : 'none';
+    const nav = document.getElementById('nav-' + s);
+    if (nav) nav.classList.toggle('active', s === id);
+  });
+  document.getElementById('breadcrumb-current').textContent = labels[id] || id;
+  document.querySelector('.page-content').scrollTop = 0;
+}
+
+// ── Filters ───────────────────────────────────────────────────────
+function filterEndorsements(q) {
+  document.querySelectorAll('#endorsements-table tbody tr').forEach(r => {
+    r.style.display = r.dataset.search.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filterEndorsementCompany(c) {
+  document.querySelectorAll('#endorsements-table tbody tr').forEach(r => {
+    r.style.display = !c || r.dataset.company === c ? '' : 'none';
+  });
+}
+
+
+let _ref = '', _name = '', _course = '';
+
+function openDetailDialog(ref) {
+  const sub = BB.submissions[ref];
+  if (!sub) return;
+  const o = BB.officers[sub.officerId] || {};
+  document.getElementById('detail-title').textContent = BB.courseName(sub);
+  document.getElementById('detail-ref').textContent   = '#' + ref + ' · ' + o.name + ' · ' + (o.company||'') + ' Company';
+  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'chaplain');
+  document.getElementById('detail-return-btn').style.display  = '';
+  document.getElementById('detail-endorse-btn').style.display = '';
+  document.getElementById('detail-return-btn').onclick  = () => { closeDetailDialog(); openReturnDialog(ref, '', BB.courseName(sub)); };
+  document.getElementById('detail-endorse-btn').onclick = () => { closeDetailDialog(); openEndorseDialog(ref, '', BB.courseName(sub)); };
+  document.getElementById('detail-overlay').classList.add('open');
+}
+function closeDetailDialog() { document.getElementById('detail-overlay').classList.remove('open'); }
+
+
+
+function openEndorseDialog(ref, name, course) {
+  _ref = ref; _name = name; _course = course;
+  document.getElementById('endorse-desc').innerHTML = `Endorsing <strong>"${course}"</strong> — this will forward the request to Training Comm (if required) or mark it as approved.`;
+  document.getElementById('endorse-note').value = '';
+  document.getElementById('endorse-overlay').classList.add('open');
+}
+function closeEndorseDialog() { document.getElementById('endorse-overlay').classList.remove('open'); }
+function confirmEndorse() {
+  closeEndorseDialog();
+  showToast('success', 'Endorsed', `"${_course}" has been endorsed and forwarded.`);
+  document.querySelectorAll('#endorsements-table tbody tr').forEach(r => {
+    if (r.dataset.search && r.dataset.search.includes(_ref.toLowerCase())) {
+      r.style.opacity = '0.4'; r.style.pointerEvents = 'none';
+    }
+  });
+}
+
+// ── Records sub-tabs ─────────────────────────────────────────────
+function switchChapRecordsTab(tab) {
+  document.getElementById('chap-records-mine').style.display     = tab === 'mine'    ? '' : 'none';
+  document.getElementById('chap-records-officers').style.display = tab === 'officers' ? '' : 'none';
+  const mine = document.getElementById('chaptab-mine');
+  const off  = document.getElementById('chaptab-officers');
+  if (tab === 'mine') {
+    mine.style.cssText += 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);';
+    off.style.cssText  += 'background:transparent;color:var(--muted-fg);box-shadow:none;';
+  } else {
+    off.style.cssText  += 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);';
+    mine.style.cssText += 'background:transparent;color:var(--muted-fg);box-shadow:none;';
+  }
+}
+function filterChapOfficerRecords(q) {
+  document.querySelectorAll('#chap-officer-records-table tbody tr').forEach(r => {
+    r.style.display = r.dataset.search.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filterChapOfficerRecordsByCompany(c) {
+  document.querySelectorAll('#chap-officer-records-table tbody tr').forEach(r => {
+    r.style.display = !c || r.dataset.company === c ? '' : 'none';
+  });
+}
+
+// ── Chaplain record detail modal ────────────────────────────────
+function openChapRecordDetail(id) {
+  const rec = BB.records.find(r => r.id === id);
+  if (!rec) return;
+  const cName = BB.recordCourseName(rec);
+  const catLabel = rec.category.charAt(0).toUpperCase() + rec.category.slice(1);
+  document.getElementById('detail-title').textContent = cName;
+  document.getElementById('detail-ref').textContent   = catLabel + ' · ' + (rec.expiry ? 'Expires ' + rec.expiry : 'No expiry');
+  document.getElementById('detail-content').innerHTML = BB.recordDetailHTML(id);
+  document.getElementById('detail-return-btn').style.display  = 'none';
+  document.getElementById('detail-endorse-btn').style.display = 'none';
+  document.getElementById('detail-overlay').classList.add('open');
+}
+
+
+
+function openReturnDialog(ref, name, course) {
+  _ref = ref; _name = name; _course = course;
+  document.getElementById('return-desc').innerHTML = `Returning <strong>"${course}"</strong> — the officer will be notified to revise and resubmit.`;
+  document.getElementById('return-reason').value = '';
+  document.getElementById('return-overlay').classList.add('open');
+}
+function closeReturnDialog() { document.getElementById('return-overlay').classList.remove('open'); }
+function confirmReturn() {
+  if (!document.getElementById('return-reason').value.trim()) {
+    showToast('warning', 'Reason required', 'Please provide a reason before returning the submission.');
+    return;
+  }
+  closeReturnDialog();
+  showToast('info', 'Returned', `"${_course}" returned to the officer for revision.`);
+  document.querySelectorAll('#endorsements-table tbody tr').forEach(r => {
+    if (r.dataset.search && r.dataset.search.includes(_ref.toLowerCase())) {
+      r.style.opacity = '0.4'; r.style.pointerEvents = 'none';
+    }
+  });
+}
+
+// ── Render tables from shared data ───────────────────────────────
+BB.renderChaplainEndorsementsTable(document.getElementById('tbody-endorsements'));
+BB.renderChaplainEndorsementHistory(document.getElementById('tbody-endorsement-history'));
+BB.renderChaplainMyRecordsTable('jg', document.getElementById('tbody-chap-my-records'));
+BB.renderChaplainOfficersOverviewTable(document.getElementById('tbody-chap-officers'));
+</script>
+</body>
+</html>

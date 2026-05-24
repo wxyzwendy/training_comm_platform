@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Captain — BB Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../components/styles.css" />
+</head>
+<body style="height:100%;overflow:hidden;">
+
+<div class="layout" style="height:100%;">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">BB</div>
+        <span class="sidebar-brand-name">Training Portal</span>
+      </div>
+      <button class="sidebar-toggle" title="Collapse sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Menu</div>
+        <a href="#" id="nav-dashboard" class="nav-item active" onclick="showSection('dashboard');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+          <span class="nav-item-label">Dashboard</span>
+        </a>
+        <a href="#" id="nav-approvals" class="nav-item" onclick="showSection('approvals');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span class="nav-item-label">Pending Approvals</span>
+          <span class="nav-item-badge"><span class="badge badge-info" style="font-size:.65rem;padding:.125rem .4rem;">3</span></span>
+        </a>
+        <a href="#" id="nav-officers" class="nav-item" onclick="showSection('officers');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="nav-item-label">Company Officers</span>
+        </a>
+        <a href="#" id="nav-records" class="nav-item" onclick="showSection('records');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span class="nav-item-label">Training Records</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <div class="page-wrapper">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <nav class="breadcrumb">
+          <div class="breadcrumb-item"><a href="#">Home</a></div>
+          <div class="breadcrumb-separator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="breadcrumb-item" id="breadcrumb-current">Dashboard</div>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">
+          <button class="btn btn-ghost btn-icon" title="Notifications" data-dropdown="notif-menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </button>
+          <span class="notif-dot"></span>
+        </div>
+        <div class="dropdown-menu align-right" id="notif-menu" style="width:18rem;">
+          <div class="dropdown-label">Notifications</div>
+          <div class="dropdown-separator"></div>
+          <div style="padding:0.5rem;display:flex;flex-direction:column;gap:0.375rem;">
+            <div style="padding:0.5rem;border-radius:var(--radius);background:var(--muted);font-size:0.8125rem;">
+              <div style="font-weight:500;color:var(--fg);">New submission pending review</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.125rem;">Theodor Gunawan · Leadership Workshop · just now</div>
+            </div>
+            <div style="padding:0.5rem;border-radius:var(--radius);font-size:0.8125rem;">
+              <div style="font-weight:500;color:var(--fg);">New submission pending review</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.125rem;">Priya Raj · Youth Work Certificate · 1 hour ago</div>
+            </div>
+            <div style="padding:0.5rem;border-radius:var(--radius);font-size:0.8125rem;">
+              <div style="font-weight:500;color:var(--fg);">2 officers have expiring certs</div>
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-top:0.125rem;">Alpha Company · within 90 days</div>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <button class="avatar avatar-sm" style="background:#dcfce7;color:#166534;cursor:pointer;border:none;" data-dropdown="topbar-user-menu">JS</button>
+          <div class="dropdown-menu align-right" id="topbar-user-menu" style="width:14rem;top:2.5rem;">
+            <div class="dropdown-label">John Seet · Alpha Company</div>
+            <div style="padding:0.25rem 0.75rem 0.5rem;font-size:0.75rem;color:var(--muted-fg);">Captain</div>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</button>
+            <div class="dropdown-separator"></div>
+            <a href="login.html" class="dropdown-item destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="page-content">
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Dashboard
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Good morning, John 👋</h1>
+            <p class="page-subtitle">Saturday, 24 May 2025 · Alpha Company · Captain</p>
+          </div>
+        </div>
+
+        <!-- Stat cards -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.5rem;">
+          <div class="stat-card" style="cursor:pointer;" onclick="showSection('approvals')">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Pending Review</span>
+              <div class="stat-card-icon" style="background:#fffbeb;color:var(--warning);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">3</div>
+            <div class="stat-card-trend">awaiting your action</div>
+          </div>
+          <div class="stat-card" style="cursor:pointer;" onclick="showSection('officers')">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Officers</span>
+              <div class="stat-card-icon" style="background:#eff6ff;color:var(--info);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">8</div>
+            <div class="stat-card-trend">in Alpha Company</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Compliance Rate</span>
+              <div class="stat-card-icon" style="background:#f0fdf4;color:var(--success);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">85%</div>
+            <div class="stat-card-trend" style="color:var(--success);">↑ 3% this quarter</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Expiring Soon</span>
+              <div class="stat-card-icon" style="background:#fef2f2;color:var(--destructive);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+            </div>
+            <div class="stat-card-value">2</div>
+            <div class="stat-card-trend">certifications expiring</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 22rem;gap:1.25rem;align-items:start;">
+          <!-- Left: pending submissions -->
+          <div class="section">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Submissions Awaiting Your Review</div>
+                <div class="section-subtitle">These requests need your approval before proceeding</div>
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="showSection('approvals')">View All</button>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+
+              <div class="submission-card">
+                <div class="submission-card-header">
+                  <div>
+                    <div class="submission-card-title">Leadership &amp; Management Workshop</div>
+                    <div class="submission-card-meta">New Course · Theodor Gunawan · 15–16 Jul 2025 · $120/pax</div>
+                  </div>
+                  <span class="status-pill pending">Pending</span>
+                </div>
+                <div style="font-size:0.8125rem;color:var(--muted-fg);margin:0.5rem 0 0.625rem;">
+                  <strong style="color:var(--fg);">Purpose:</strong> Relevant to leadership development required for LTA progression. Course covers conflict resolution and team management.
+                </div>
+                <div class="submission-card-footer">
+                  <div style="font-size:0.75rem;color:var(--muted-fg);">Submitted 23 May · #SUB-00127</div>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00127')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Approve</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="submission-card">
+                <div class="submission-card-header">
+                  <div>
+                    <div class="submission-card-title">Youth Work Certificate</div>
+                    <div class="submission-card-meta">Pre-approved · Priya Raj · 2–4 Jun 2025 · Nil</div>
+                  </div>
+                  <span class="status-pill pending">Pending</span>
+                </div>
+                <div style="font-size:0.8125rem;color:var(--muted-fg);margin:0.5rem 0 0.625rem;">
+                  <strong style="color:var(--fg);">Purpose:</strong> To better support our Boys through structured youth development frameworks in weekly meetings.
+                </div>
+                <div class="submission-card-footer">
+                  <div style="font-size:0.75rem;color:var(--muted-fg);">Submitted 22 May · #SUB-00131</div>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00131')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Approve</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="submission-card">
+                <div class="submission-card-header">
+                  <div>
+                    <div class="submission-card-title">CPR + AED Certification (Renewal)</div>
+                    <div class="submission-card-meta">Pre-approved · Samuel Lim · 5 Jun 2025 · Nil</div>
+                  </div>
+                  <span class="status-pill pending">Pending</span>
+                </div>
+                <div style="font-size:0.8125rem;color:var(--muted-fg);margin:0.5rem 0 0.625rem;">
+                  <strong style="color:var(--fg);">Purpose:</strong> Renewal — current certification expires 30 Jun 2025. Mandatory for camp leadership roles.
+                </div>
+                <div class="submission-card-footer">
+                  <div style="font-size:0.75rem;color:var(--muted-fg);">Submitted 21 May · #SUB-00133</div>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00133')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Approve</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: company compliance -->
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Alpha Company Compliance</h3>
+                <p class="card-description">Mandatory training fulfilment by officer</p>
+              </div>
+              <div class="card-content" style="padding-top:0.5rem;display:flex;flex-direction:column;gap:0.75rem;">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
+                    <span style="font-weight:500;">Theodor Gunawan <span style="color:var(--muted-fg);font-weight:400;">2LT</span></span>
+                    <span style="color:var(--muted-fg);">2 / 3</span>
+                  </div>
+                  <div class="progress"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
+                    <span style="font-weight:500;">Priya Raj <span style="color:var(--muted-fg);font-weight:400;">2LT</span></span>
+                    <span style="color:var(--muted-fg);">3 / 3</span>
+                  </div>
+                  <div class="progress"><div class="progress-bar" data-value="100"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
+                    <span style="font-weight:500;">Samuel Lim <span style="color:var(--muted-fg);font-weight:400;">2LT</span></span>
+                    <span style="color:var(--muted-fg);">2 / 3</span>
+                  </div>
+                  <div class="progress"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
+                    <span style="font-weight:500;">Ahmad Wafi <span style="color:var(--muted-fg);font-weight:400;">OCT</span></span>
+                    <span style="color:var(--muted-fg);">1 / 3</span>
+                  </div>
+                  <div class="progress"><div class="progress-bar" data-value="33" style="background:var(--destructive);"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Expiring Certifications</h3>
+              </div>
+              <div class="card-content" style="padding-top:0.5rem;display:flex;flex-direction:column;gap:0.5rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem;background:var(--muted);border-radius:var(--radius);font-size:0.8125rem;">
+                  <div>
+                    <div style="font-weight:500;">Theodor Gunawan — CPR + AED</div>
+                    <div style="color:var(--destructive);font-size:0.75rem;font-weight:600;">Expires 21 Jun · 28 days</div>
+                  </div>
+                  <span class="badge" style="background:#fef2f2;color:var(--destructive);border-color:#fecaca;">Urgent</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem;background:var(--muted);border-radius:var(--radius);font-size:0.8125rem;">
+                  <div>
+                    <div style="font-weight:500;">Samuel Lim — CPR + AED</div>
+                    <div style="color:var(--warning);font-size:0.75rem;font-weight:600;">Expires 30 Jun · 37 days</div>
+                  </div>
+                  <span class="badge badge-warning">Soon</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- /section-dashboard -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Pending Approvals
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-approvals" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Pending Approvals</h1>
+            <p class="page-subtitle">Training requests from Alpha Company officers awaiting your review</p>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+          <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+            <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+            <input class="input has-icon-left" type="text" placeholder="Search by officer or course…" oninput="filterApprovals(this.value)" />
+          </div>
+          <select class="input" style="width:auto;" onchange="filterApprovalType(this.value)">
+            <option value="">All Types</option>
+            <option value="preapproved">Pre-approved</option>
+            <option value="new">New Course</option>
+          </select>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table" id="approvals-table">
+            <thead>
+              <tr>
+                <th>Ref #</th>
+                <th>Officer</th>
+                <th>Course</th>
+                <th>Type</th>
+                <th>Submitted</th>
+                <th>Dates</th>
+                <th style="width:11rem;"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-approvals">
+              <tr data-type="new" data-search="john tan leadership management workshop sub-00127">
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00127</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div>
+                    <div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div>
+                  </div>
+                </td>
+                <td style="font-weight:500;">Leadership &amp; Management Workshop</td>
+                <td><span class="chip">New Course</span></td>
+                <td>23 May 2025</td>
+                <td style="color:var(--muted-fg);">15–16 Jul 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00127')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Approve</button>
+                  </div>
+                </td>
+              </tr>
+              <tr data-type="preapproved" data-search="priya raj youth work certificate sub-00131">
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00131</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div>
+                    <div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div>
+                  </div>
+                </td>
+                <td style="font-weight:500;">Youth Work Certificate</td>
+                <td><span class="chip">Pre-approved</span></td>
+                <td>22 May 2025</td>
+                <td style="color:var(--muted-fg);">2–4 Jun 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00131')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Approve</button>
+                  </div>
+                </td>
+              </tr>
+              <tr data-type="preapproved" data-search="samuel lim cpr aed certification sub-00133">
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00133</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div>
+                    <div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div>
+                  </div>
+                </td>
+                <td style="font-weight:500;">CPR + AED Certification (Renewal)</td>
+                <td><span class="chip">Pre-approved</span></td>
+                <td>21 May 2025</td>
+                <td style="color:var(--muted-fg);">5 Jun 2025</td>
+                <td>
+                  <div style="display:flex;gap:0.375rem;">
+                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00133')">View</button>
+                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Return</button>
+                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Approve</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /section-approvals -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Company Officers
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-officers" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Company Officers</h1>
+            <p class="page-subtitle">Alpha Company · 8 officers</p>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Officer</th>
+                <th>Rank</th>
+                <th>OCO</th>
+                <th>BOTC</th>
+                <th>AOTC</th>
+                <th>CPR/AED</th>
+                <th>Safeguarding</th>
+                <th>Overall</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div>
+                    <span style="font-weight:500;">Theodor Gunawan</span>
+                  </div>
+                </td>
+                <td>2LT</td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
+                <td><span class="status-pill" style="background:#fef3c7;color:#92400e;font-size:0.7rem;">Expiring</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">67%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div>
+                    <span style="font-weight:500;">Priya Raj</span>
+                  </div>
+                </td>
+                <td>2LT</td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="100"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">100%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div>
+                    <span style="font-weight:500;">Samuel Lim</span>
+                  </div>
+                </td>
+                <td>2LT</td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
+                <td><span class="status-pill" style="background:#fef3c7;color:#92400e;font-size:0.7rem;">Expiring</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">67%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm">AW</div>
+                    <span style="font-weight:500;">Ahmad Wafi</span>
+                  </div>
+                </td>
+                <td>OCT</td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
+                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="33" style="background:var(--destructive);"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">33%</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="avatar avatar-sm" style="background:#fce7f3;color:#9d174d;">LY</div>
+                    <span style="font-weight:500;">Lena Yeo</span>
+                  </div>
+                </td>
+                <td>LT</td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="100"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">100%</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /section-officers -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Training Records
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-records" style="display:none;">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Training Records</h1>
+            <p class="page-subtitle">Your personal certifications and company officer records</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline" onclick="showToast('success','Export','Training records exported as CSV')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-tab switcher -->
+        <div style="display:flex;gap:0.25rem;padding:0.25rem;background:var(--muted);border-radius:var(--radius);width:fit-content;margin-bottom:1.5rem;">
+          <button id="rectab-mine" onclick="switchRecordsTab('mine')" style="padding:0.4rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);">My Records</button>
+          <button id="rectab-company" onclick="switchRecordsTab('company')" style="padding:0.4rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:transparent;color:var(--muted-fg);">Company Records</button>
+        </div>
+
+        <!-- ── My Records ── -->
+        <div id="records-mine">
+          <div style="display:flex;gap:0.625rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius);font-size:0.8125rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span style="font-weight:600;color:#166534;">7</span><span style="color:#166534;">Completed</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius);font-size:0.8125rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--destructive)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span style="font-weight:600;color:var(--destructive);">1</span><span style="color:var(--destructive);">Expired</span>
+            </div>
+          </div>
+
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table class="table" id="my-records-table">
+              <thead>
+                <tr>
+                  <th>Course / Training</th>
+                  <th>Category</th>
+                  <th>Completed</th>
+                  <th>Expiry</th>
+                  <th>Status</th>
+                  <th>Curriculum</th>
+                  <th style="width:7rem;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:500;">OCO</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>12 Jan 2019</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><span class="badge badge-secondary">OCO Track</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('oco')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">BOTC</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>8 Mar 2020</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><span class="badge badge-secondary">BOTC Track</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('botc')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">AOTC</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>5 Jun 2021</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><span class="badge badge-secondary">AOTC Track</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('aotc')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">First Aid Level 2</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>20 May 2021</td>
+                  <td>20 May 2023</td>
+                  <td><span class="status-pill" style="background:#fef2f2;color:var(--destructive);">Expired</span></td>
+                  <td><span class="badge">General</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('fa2')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">Safeguarding Children &amp; Youth</td>
+                  <td><span class="chip">Mandatory</span></td>
+                  <td>14 Mar 2022</td>
+                  <td style="color:var(--muted-fg);">14 Mar 2025</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><span class="badge">General</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('safeguard')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">CPR + AED Certification</td>
+                  <td><span class="chip">Recurring</span></td>
+                  <td>9 Feb 2023</td>
+                  <td style="color:var(--muted-fg);">9 Feb 2025</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><span class="badge">General</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('cpr')">View details</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">Youth Mental Health Awareness</td>
+                  <td><span class="chip">Elective</span></td>
+                  <td>3 Aug 2022</td>
+                  <td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                  <td><span class="badge">General</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('mentalhealth')">View details</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── Company Records ── -->
+        <div id="records-company" style="display:none;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+            <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+              <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+              <input class="input has-icon-left" type="text" placeholder="Search officer or course…" oninput="filterCompanyRecords(this.value)" />
+            </div>
+            <select class="input" style="width:auto;" onchange="filterCompanyRecordsOfficer(this.value)">
+              <option value="">All Officers</option>
+              <option value="jt">Theodor Gunawan</option>
+              <option value="pr">Priya Raj</option>
+              <option value="sl">Samuel Lim</option>
+              <option value="aw">Ahmad Wafi</option>
+              <option value="ly">Lena Yeo</option>
+            </select>
+          </div>
+
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table class="table" id="company-records-table">
+              <thead>
+                <tr>
+                  <th>Officer</th>
+                  <th>Course / Training</th>
+                  <th>Category</th>
+                  <th>Completed</th>
+                  <th>Expiry</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-company-records">
+                <tr data-officer="jt" data-search="john tan oco officer cadet">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
+                  <td>15 Jan 2021</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="jt" data-search="john tan botc basic officer">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">BOTC</td><td><span class="chip">Mandatory</span></td>
+                  <td>5 Mar 2022</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="jt" data-search="john tan cpr aed certification">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">CPR + AED</td><td><span class="chip">Recurring</span></td>
+                  <td>22 Jan 2023</td><td style="color:var(--destructive);font-weight:600;">21 Jun 2025 · 28 days</td>
+                  <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Expiring</span></td>
+                </tr>
+                <tr data-officer="pr" data-search="priya raj oco botc aotc">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
+                  <td>12 Jan 2021</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="pr" data-search="priya raj botc">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">BOTC</td><td><span class="chip">Mandatory</span></td>
+                  <td>4 Mar 2022</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="pr" data-search="priya raj aotc advanced">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">AOTC</td><td><span class="chip">Mandatory</span></td>
+                  <td>18 Jun 2023</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="sl" data-search="samuel lim oco">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div><div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
+                  <td>14 Jan 2021</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="sl" data-search="samuel lim botc">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div><div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">BOTC</td><td><span class="chip">Mandatory</span></td>
+                  <td>6 Mar 2022</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="sl" data-search="samuel lim cpr aed">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div><div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
+                  <td style="font-weight:500;">CPR + AED</td><td><span class="chip">Recurring</span></td>
+                  <td>10 Jan 2023</td><td style="color:var(--warning);font-weight:600;">30 Jun 2025 · 37 days</td>
+                  <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Expiring</span></td>
+                </tr>
+                <tr data-officer="aw" data-search="ahmad wafi oco">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm">AW</div><div><div style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</div><div style="font-size:0.75rem;color:var(--muted-fg);">OCT</div></div></div></td>
+                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
+                  <td>16 Jan 2023</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="aw" data-search="ahmad wafi cpr aed">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm">AW</div><div><div style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</div><div style="font-size:0.75rem;color:var(--muted-fg);">OCT</div></div></div></td>
+                  <td style="font-weight:500;">CPR + AED</td><td><span class="chip">Recurring</span></td>
+                  <td>5 Mar 2023</td><td style="color:var(--muted-fg);">5 Mar 2025</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+                <tr data-officer="ly" data-search="lena yeo oco botc aotc">
+                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fce7f3;color:#9d174d;">LY</div><div><div style="font-weight:500;font-size:0.875rem;">Lena Yeo</div><div style="font-size:0.75rem;color:var(--muted-fg);">LT</div></div></div></td>
+                  <td style="font-weight:500;">AOTC</td><td><span class="chip">Mandatory</span></td>
+                  <td>2 Jul 2022</td><td style="color:var(--muted-fg);">No expiry</td>
+                  <td><span class="status-pill approved">Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /section-records -->
+
+    </main>
+  </div>
+</div>
+
+
+<!-- ── Submission Detail Modal ───────────────────────────────── -->
+<div class="dialog-overlay" id="detail-overlay" onclick="closeDetailDialog(event)">
+  <div class="dialog" style="max-width:36rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
+      <div>
+        <div class="dialog-title" id="detail-title"></div>
+        <div class="dialog-description" id="detail-ref"></div>
+      </div>
+      <button class="dialog-close" onclick="closeDetailDialog()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-content" id="detail-content"></div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeDetailDialog()">Close</button>
+      <button class="btn btn-outline" style="color:var(--destructive);border-color:var(--destructive);" id="detail-return-btn">Return</button>
+      <button class="btn btn-default" id="detail-approve-btn">Approve</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Approve Dialog ────────────────────────────────────────── -->
+<div class="dialog-overlay" id="approve-overlay" onclick="event.target===this&&closeApproveDialog()">
+  <div class="dialog" style="max-width:26rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="dialog-title">Approve submission?</div>
+      <div class="dialog-description" id="approve-desc">This will forward the request to the Chaplain for endorsement.</div>
+    </div>
+    <div class="dialog-content">
+      <div class="form-group">
+        <label class="label">Note to officer <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
+        <textarea class="input" id="approve-note" rows="2" placeholder="Add an encouraging note or any relevant instructions…"></textarea>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeApproveDialog()">Cancel</button>
+      <button class="btn btn-default" onclick="confirmApprove()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Confirm Approval
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Return Dialog ─────────────────────────────────────────── -->
+<div class="dialog-overlay" id="return-overlay" onclick="event.target===this&&closeReturnDialog()">
+  <div class="dialog" style="max-width:26rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="dialog-title">Return submission?</div>
+      <div class="dialog-description" id="return-desc">The officer will be notified to revise and resubmit.</div>
+    </div>
+    <div class="dialog-content">
+      <div class="form-group">
+        <label class="label label-required">Reason for returning</label>
+        <textarea class="input" id="return-reason" rows="3" placeholder="Explain what the officer needs to amend or provide…"></textarea>
+        <span class="helper-text">This message will be sent directly to the officer.</span>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeReturnDialog()">Cancel</button>
+      <button class="btn btn-outline" style="color:var(--destructive);border-color:var(--destructive);" onclick="confirmReturn()">
+        Return to Officer
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script src="../components/components.js"></script>
+<script src="../data/data.js"></script>
+<script>
+// ── Section navigation ────────────────────────────────────────────
+const sections = ['dashboard','approvals','officers','records'];
+const labels   = { dashboard:'Dashboard', approvals:'Pending Approvals', officers:'Company Officers', records:'Training Records' };
+
+function showSection(id) {
+  sections.forEach(s => {
+    const el = document.getElementById('section-' + s);
+    el.style.display = (s === id) ? (el.dataset.display || 'block') : 'none';
+    const nav = document.getElementById('nav-' + s);
+    if (nav) nav.classList.toggle('active', s === id);
+  });
+  document.getElementById('breadcrumb-current').textContent = labels[id] || id;
+  document.querySelector('.page-content').scrollTop = 0;
+}
+
+// ── Filter approvals ──────────────────────────────────────────────
+function filterApprovals(q) {
+  document.querySelectorAll('#approvals-table tbody tr').forEach(r => {
+    r.style.display = r.dataset.search.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filterApprovalType(t) {
+  document.querySelectorAll('#approvals-table tbody tr').forEach(r => {
+    r.style.display = !t || r.dataset.type === t ? '' : 'none';
+  });
+}
+
+
+let _activeRef = '', _activeName = '', _activeCourse = '';
+
+function openDetailDialog(ref) {
+  const sub = BB.submissions[ref];
+  if (!sub) return;
+  const o = BB.officers[sub.officerId] || {};
+  document.getElementById('detail-title').textContent = BB.courseName(sub);
+  document.getElementById('detail-ref').textContent   = '#' + ref + ' · ' + o.name + ' · Submitted ' + sub.submitted;
+  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'captain');
+  document.getElementById('detail-return-btn').style.display  = '';
+  document.getElementById('detail-approve-btn').style.display = '';
+  document.getElementById('detail-return-btn').onclick  = () => { closeDetailDialog(); openReturnDialog(ref, '', BB.courseName(sub)); };
+  document.getElementById('detail-approve-btn').onclick = () => { closeDetailDialog(); openApproveDialog(ref, '', BB.courseName(sub)); };
+  document.getElementById('detail-overlay').classList.add('open');
+}
+function closeDetailDialog(e) { document.getElementById('detail-overlay').classList.remove('open'); }
+
+
+
+function openApproveDialog(ref, name, course) {
+  _activeRef = ref; _activeName = name; _activeCourse = course;
+  document.getElementById('approve-desc').textContent = `Approving "${course}" — this will forward the request to Rev Goh for endorsement.`;
+  document.getElementById('approve-note').value = '';
+  document.getElementById('approve-overlay').classList.add('open');
+}
+function closeApproveDialog() { document.getElementById('approve-overlay').classList.remove('open'); }
+function confirmApprove() {
+  closeApproveDialog();
+  showToast('success', 'Submission approved', `"${_activeCourse}" forwarded to Rev Goh.`);
+  removeApprovalRow(_activeRef);
+}
+
+function openReturnDialog(ref, name, course) {
+  _activeRef = ref; _activeName = name; _activeCourse = course;
+  document.getElementById('return-desc').textContent = `Returning "${course}" — the officer will be notified to revise and resubmit.`;
+  document.getElementById('return-reason').value = '';
+  document.getElementById('return-overlay').classList.add('open');
+}
+function closeReturnDialog() { document.getElementById('return-overlay').classList.remove('open'); }
+function confirmReturn() {
+  if (!document.getElementById('return-reason').value.trim()) {
+    showToast('warning', 'Reason required', 'Please provide a reason before returning the submission.');
+    return;
+  }
+  closeReturnDialog();
+  showToast('info', 'Submission returned', `"${_activeCourse}" returned to the officer for revision.`);
+  removeApprovalRow(_activeRef);
+}
+
+// ── Records sub-tabs ─────────────────────────────────────────────
+function switchRecordsTab(tab) {
+  document.getElementById('records-mine').style.display    = tab === 'mine'    ? '' : 'none';
+  document.getElementById('records-company').style.display = tab === 'company' ? '' : 'none';
+  const mine = document.getElementById('rectab-mine');
+  const comp = document.getElementById('rectab-company');
+  if (tab === 'mine') {
+    mine.style.cssText += 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);';
+    comp.style.cssText += 'background:transparent;color:var(--muted-fg);box-shadow:none;';
+  } else {
+    comp.style.cssText += 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);';
+    mine.style.cssText += 'background:transparent;color:var(--muted-fg);box-shadow:none;';
+  }
+}
+
+function filterCompanyRecords(q) {
+  document.querySelectorAll('#company-records-table tbody tr').forEach(r => {
+    r.style.display = r.dataset.search.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filterCompanyRecordsOfficer(v) {
+  document.querySelectorAll('#company-records-table tbody tr').forEach(r => {
+    r.style.display = !v || r.dataset.officer === v ? '' : 'none';
+  });
+}
+
+// ── Record detail modal ─────────────────────────────────────────
+function openCapRecordDetail(id) {
+  const rec = BB.records.find(r => r.id === id);
+  if (!rec) return;
+  const cName = BB.recordCourseName(rec);
+  const catLabel = rec.category.charAt(0).toUpperCase() + rec.category.slice(1);
+  document.getElementById('detail-title').textContent = cName;
+  document.getElementById('detail-ref').textContent   = catLabel + ' · ' + (rec.expiry ? 'Expires ' + rec.expiry : 'No expiry');
+  document.getElementById('detail-content').innerHTML = BB.recordDetailHTML(id);
+  document.getElementById('detail-return-btn').style.display  = 'none';
+  document.getElementById('detail-approve-btn').style.display = 'none';
+  document.getElementById('detail-overlay').classList.add('open');
+}
+
+
+
+function removeApprovalRow(ref) {
+  // Remove from table
+  document.querySelectorAll('#approvals-table tbody tr').forEach(r => {
+    if (r.dataset.search && r.dataset.search.includes(ref.toLowerCase().replace('-','-00').toLowerCase())) {
+      r.style.opacity = '0.4'; r.style.pointerEvents = 'none';
+    }
+  });
+}
+
+// ── Render tables from shared data ───────────────────────────────
+BB.renderCaptainApprovalsTable('Alpha', document.getElementById('tbody-approvals'));
+BB.renderCaptainMyRecordsTable('js', document.getElementById('tbody-my-records'));
+BB.renderCaptainCompanyRecordsTable('Alpha', document.getElementById('tbody-company-records'));
+</script>
+</body>
+</html>

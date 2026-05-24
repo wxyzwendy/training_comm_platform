@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Training Request — BB Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../components/styles.css" />
+  <style>
+
+    /* ── Trainee rows ───────────────────────────────────────── */
+    .trainee-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.625rem 0.875rem;
+      background: var(--muted);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+    }
+    .trainee-row .remove-btn {
+      margin-left: auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted-fg);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .trainee-row .remove-btn:hover { background: var(--accent); color: var(--destructive); }
+
+    /* ── Course info card ───────────────────────────────────── */
+    .course-info-card {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+    }
+    .course-info-card .course-info-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+    }
+    .course-info-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem 1.5rem;
+      font-size: 0.8125rem;
+      color: #1e40af;
+    }
+    .course-info-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    /* ── Review table ───────────────────────────────────────── */
+    .review-table { width: 100%; font-size: 0.875rem; border-collapse: collapse; }
+    .review-table td { padding: 0.5rem 0; vertical-align: top; }
+    .review-table td:first-child { width: 11rem; color: var(--muted-fg); font-weight: 500; }
+    .review-table td + td { font-weight: 400; }
+
+  </style>
+</head>
+<body style="height:100%;overflow:hidden;">
+
+<div class="layout" style="height:100%;">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">BB</div>
+        <span class="sidebar-brand-name">Training Portal</span>
+      </div>
+      <button class="sidebar-toggle" title="Collapse sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Menu</div>
+        <a href="officer.html" class="nav-item">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+          <span class="nav-item-label">Dashboard</span>
+        </a>
+        <a href="officer.html?section=submissions" class="nav-item">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          <span class="nav-item-label">My Submissions</span>
+        </a>
+        <a href="officer.html?section=records" class="nav-item">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span class="nav-item-label">Training Records</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <div class="page-wrapper">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <nav class="breadcrumb">
+          <div class="breadcrumb-item"><a href="officer.html">Dashboard</a></div>
+          <div class="breadcrumb-separator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="breadcrumb-item">Submit Training Request</div>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <a href="officer.html" class="btn btn-ghost btn-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Cancel
+        </a>
+        <div style="position:relative;">
+          <button class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;cursor:pointer;border:none;" data-dropdown="topbar-user-menu">TG</button>
+          <div class="dropdown-menu align-right" id="topbar-user-menu" style="width:14rem;top:2.5rem;">
+            <div class="dropdown-label">Theodor Gunawan · Alpha Company</div>
+            <div style="padding:0.25rem 0.75rem 0.5rem;font-size:0.75rem;color:var(--muted-fg);">Officer · LTA</div>
+            <div class="dropdown-separator"></div>
+            <button class="dropdown-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</button>
+            <div class="dropdown-separator"></div>
+            <a href="login.html" class="dropdown-item destructive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <main class="page-content" style="padding:2rem 2.5rem;">
+
+        <!-- Header -->
+        <div class="page-header" style="margin-bottom:1.5rem;">
+          <div>
+            <h1 class="page-title">Submit Training Request</h1>
+            <p class="page-subtitle">Complete each section to send your request for approval.</p>
+          </div>
+        </div>
+
+        <!-- ── Approval workflow stepper ────────────────────────── -->
+        <div class="form-steps form-steps-left" style="margin-bottom:2rem;">
+          <div class="form-step active">
+            <div class="form-step-num">1</div>
+            <div class="form-step-label">Initiation</div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num">2</div>
+            <div class="form-step-label">Captain's Approval</div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num">3</div>
+            <div class="form-step-label">Chaplain's Approval</div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num">4</div>
+            <div class="form-step-label">Training Comm's Approval</div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num">5</div>
+            <div class="form-step-label">Closure</div>
+          </div>
+        </div>
+
+        <!-- ── Tab navigation ─────────────────────────────────── -->
+        <div class="tabs-lift-list">
+          <button class="tabs-lift-trigger active" id="tab-btn-1" onclick="goToTab(1)">
+            <span class="tab-lift-num">1</span>
+            <span class="tab-lift-label">List of Trainees</span>
+          </button>
+          <button class="tabs-lift-trigger locked" id="tab-btn-2" onclick="goToTab(2)">
+            <span class="tab-lift-num">2</span>
+            <span class="tab-lift-label">Course Information</span>
+          </button>
+        </div>
+
+        <!-- ── Card wrapping all panels ──────────────────────── -->
+        <div class="tabs-lift-content">
+
+          <!-- ════════════════════════════════════════════════════
+               TAB 1 — List of Trainees
+               ════════════════════════════════════════════════════ -->
+          <div id="panel-1">
+
+            <!-- Who is this for? -->
+            <div style="margin-bottom:1.75rem;">
+              <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Who is this request for?</div>
+              <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Select whether you are submitting for yourself or on behalf of other officers.</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;max-width:36rem;">
+                <label class="option-card selected" id="for-self-card" style="cursor:pointer;" onclick="selectFor('self')">
+                  <input type="radio" name="for-whom" value="self" checked style="display:none;">
+                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
+                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:600;font-size:0.9375rem;">For Myself</div>
+                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Submit under your own name.</div>
+                    </div>
+                  </div>
+                </label>
+                <label class="option-card" id="for-others-card" style="cursor:pointer;" onclick="selectFor('others')">
+                  <input type="radio" name="for-whom" value="others" style="display:none;">
+                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
+                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:600;font-size:0.9375rem;">On Behalf of Others</div>
+                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Submit for one or more other officers.</div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Self: nothing extra to show — the option card is self-explanatory -->
+            <div id="self-trainee-section"></div>
+
+            <!-- Others: toolbar + data table (hidden until "for others" selected) -->
+            <div id="others-trainee-section" style="display:none;">
+
+              <!-- Toolbar: custom roster picker -->
+              <div style="margin-bottom:0.875rem;position:relative;display:inline-block;" id="roster-dropdown-wrap">
+                <button class="btn btn-outline" id="roster-trigger" onclick="toggleRosterDropdown(event)" type="button"
+                  style="min-width:16rem;justify-content:space-between;gap:0.75rem;">
+                  <span id="roster-trigger-label">Add officer from roster…</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;flex-shrink:0;">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu" id="roster-menu" onclick="event.stopPropagation()"
+                  style="min-width:22rem;width:22rem;flex-direction:column;max-height:24rem;">
+                  <!-- search -->
+                  <div style="padding:0.5rem;flex-shrink:0;border-bottom:1px solid var(--border);">
+                    <input class="input" id="roster-search" type="text" placeholder="Search officers…"
+                      oninput="renderRosterItems()" style="width:100%;height:2rem;font-size:0.8125rem;" />
+                  </div>
+                  <div style="padding:0.25rem 0.5rem;font-size:0.75rem;font-weight:600;color:var(--muted-fg);flex-shrink:0;"
+                    id="roster-company-label">Alpha Company</div>
+                  <div id="roster-items" style="overflow-y:auto;flex:1;"><!-- populated by JS --></div>
+                  <!-- sticky footer -->
+                  <div style="border-top:1px solid var(--border);padding:0.5rem;flex-shrink:0;">
+                    <button class="btn btn-default btn-sm" id="roster-add-btn" onclick="confirmRosterSelection(event)"
+                      style="width:100%;" disabled>
+                      Add selected
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Trainee data table -->
+              <div class="table-wrapper">
+                <table class="table" id="trainee-table">
+                  <thead>
+                    <tr>
+                      <th style="width:2.5rem;"></th>
+                      <th>Name</th>
+                      <th>Rank</th>
+                      <th>Company / Unit</th>
+                      <th style="width:3rem;"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="trainee-tbody">
+                    <tr id="trainee-empty-row">
+                      <td colspan="5" style="text-align:center;color:var(--muted-fg);padding:2rem 1rem;font-size:0.875rem;">
+                        No trainees added yet — select from the roster above or add manually.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;margin-top:1.75rem;">
+              <button class="btn btn-default" onclick="validateTab1AndNext()">
+                Next — Course Information
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div><!-- /panel-1 -->
+
+
+          <!-- ════════════════════════════════════════════════════
+               TAB 2 — Course Information
+               ════════════════════════════════════════════════════ -->
+          <div id="panel-2" style="display:none;">
+
+            <!-- Course type -->
+            <div style="margin-bottom:1.75rem;">
+              <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Type of Request</div>
+              <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Is this a pre-approved course from our catalogue, or a new external course?</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;max-width:36rem;">
+                <label class="option-card selected" id="type-preapproved-card" style="cursor:pointer;" onclick="selectType('preapproved')">
+                  <input type="radio" name="course-type" value="preapproved" checked style="display:none;">
+                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
+                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:600;font-size:0.9375rem;">Pre-approved Course</div>
+                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Select from our catalogue — faster approval.</div>
+                    </div>
+                  </div>
+                </label>
+                <label class="option-card" id="type-new-card" style="cursor:pointer;" onclick="selectType('new')">
+                  <input type="radio" name="course-type" value="new" style="display:none;">
+                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
+                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#fffbeb;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-weight:600;font-size:0.9375rem;">New / External Course</div>
+                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Not in our catalogue — requires extra review.</div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--border);margin-bottom:1.75rem;"></div>
+
+            <!-- Pre-approved flow -->
+            <div id="form-preapproved">
+              <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Select Course</div>
+              <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Choose a course from the pre-approved catalogue. Details will be auto-filled.</div>
+
+              <div class="form-group" style="margin-bottom:1.25rem;max-width:28rem;">
+                <label class="label label-required">Course</label>
+                <select class="input" id="pa-course" onchange="prefillCourse(this.value)">
+                  <option value="">Select a course…</option>
+                  <option value="fa1">First Aid Level 1</option>
+                  <option value="fa2">First Aid Level 2</option>
+                  <option value="cpr">CPR + AED Certification</option>
+                  <option value="oco">OCO — Officer Cadet Officers Course</option>
+                  <option value="botc">BOTC — Basic Officer Training Course</option>
+                  <option value="aotc">AOTC — Advanced Officer Training Course</option>
+                  <option value="safeguard">Safeguarding Children &amp; Youth</option>
+                  <option value="mentalhealth">Youth Mental Health Awareness</option>
+                  <option value="youthwork">Youth Work Certificate</option>
+                  <option value="rifle">Rifle Range Safety</option>
+                  <option value="outdoor">Outdoor Adventure Leadership</option>
+                  <option value="drill">Drill Instruction Course</option>
+                </select>
+              </div>
+
+              <!-- Course info preview card -->
+              <div id="course-info-card" class="course-info-card" style="display:none;margin-bottom:1.5rem;">
+                <div class="course-info-name" id="ci-name"></div>
+                <div class="course-info-meta">
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span id="ci-duration"></span></span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span id="ci-provider"></span></span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="ci-cert"></span></span>
+                </div>
+                <div id="ci-description" style="margin-top:0.75rem;font-size:0.8125rem;color:var(--muted-fg);"></div>
+              </div>
+
+              <!-- Dates + purpose shown after course selected -->
+              <div id="pa-details" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                  <div class="form-group">
+                    <label class="label label-required">Start Date</label>
+                    <input class="input" type="date" id="pa-start" />
+                  </div>
+                  <div class="form-group">
+                    <label class="label label-required">End Date</label>
+                    <input class="input" type="date" id="pa-end" />
+                  </div>
+                  <div class="form-group">
+                    <label class="label">Venue <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
+                    <input class="input" type="text" id="pa-venue" placeholder="e.g. Red Cross HQ" />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom:1.25rem;">
+                  <label class="label label-required">Purpose / Justification</label>
+                  <textarea class="input" id="pa-purpose" rows="3" placeholder="Briefly explain why you or your team needs this training and how it benefits your BB work…"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- New course flow -->
+            <div id="form-newcourse" style="display:none;">
+              <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Course Details</div>
+              <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Provide details of the external course. The Training Comm will review whether to add it to the catalogue.</div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div class="form-group" style="grid-column:1/3;">
+                  <label class="label label-required">Course Name</label>
+                  <input class="input" type="text" id="nc-name" placeholder="e.g. Leadership &amp; Management Workshop" />
+                </div>
+                <div class="form-group">
+                  <label class="label">Cost per Pax</label>
+                  <input class="input" type="text" id="nc-cost" placeholder="e.g. $120 or Nil" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div class="form-group">
+                  <label class="label label-required">Training Provider</label>
+                  <input class="input" type="text" id="nc-provider" placeholder="Organisation name" />
+                </div>
+                <div class="form-group">
+                  <label class="label label-required">Start Date</label>
+                  <input class="input" type="date" id="nc-start" />
+                </div>
+                <div class="form-group">
+                  <label class="label label-required">End Date</label>
+                  <input class="input" type="date" id="nc-end" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div class="form-group">
+                  <label class="label">Venue <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
+                  <input class="input" type="text" id="nc-venue" placeholder="e.g. NTUC LearningHub" />
+                </div>
+                <div class="form-group">
+                  <label class="label">Website / Brochure URL <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
+                  <input class="input" type="url" id="nc-url" placeholder="https://…" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="label label-required">Purpose / Justification</label>
+                <textarea class="input" id="nc-purpose" rows="3" placeholder="Explain why this training is relevant and what benefit it brings to your BB work…"></textarea>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-top:0.5rem;">
+              <button class="btn btn-outline" onclick="goToTab(1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="15 18 9 12 15 6"/></svg>
+                Back
+              </button>
+              <button class="btn btn-default" onclick="openConfirmDialog()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="20 6 9 17 4 12"/></svg>
+                Review &amp; Submit
+              </button>
+            </div>
+          </div><!-- /panel-2 -->
+
+        </div><!-- /tabs-lift-content -->
+    </main>
+  </div><!-- /page-wrapper -->
+</div><!-- /layout -->
+
+
+<!-- ── Confirm Submit Dialog ─────────────────────────────────────── -->
+<div class="dialog-overlay" id="confirm-dialog" onclick="closeConfirmDialog(event)">
+  <div class="dialog" style="max-width:30rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="dialog-title">Send for approval?</div>
+      <div class="dialog-description">This will notify <strong id="confirm-captain">LTA Seet</strong> to review your request. You can track the status under My Submissions.</div>
+    </div>
+    <div class="dialog-content">
+      <div style="background:var(--muted);border-radius:var(--radius);padding:0.875rem 1rem;font-size:0.875rem;display:flex;flex-direction:column;gap:0.5rem;">
+        <div style="display:flex;justify-content:space-between;gap:1rem;">
+          <span style="color:var(--muted-fg);">Course</span>
+          <span style="font-weight:500;text-align:right;" id="confirm-course">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:1rem;">
+          <span style="color:var(--muted-fg);">Dates</span>
+          <span id="confirm-dates">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:1rem;">
+          <span style="color:var(--muted-fg);">Trainees</span>
+          <span id="confirm-trainees">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:1rem;">
+          <span style="color:var(--muted-fg);">Type</span>
+          <span id="confirm-type">—</span>
+        </div>
+      </div>
+    </div>
+    <div class="dialog-footer" style="justify-content:flex-end;">
+      <button class="btn btn-outline" onclick="closeConfirmDialog()">Cancel</button>
+      <button class="btn btn-default" onclick="handleSubmit()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Submit Request
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script src="../components/components.js"></script>
+<script src="../data/data.js"></script>
+<script>
+'use strict';
+
+// ── State ────────────────────────────────────────────────────────
+let currentFor   = 'self';        // 'self' | 'others'
+let currentType  = 'preapproved'; // 'preapproved' | 'new'
+let trainees     = [];            // { id?, name, rank, unit }
+let currentTab   = 1;
+let maxUnlocked  = 1;             // highest tab the user has earned access to
+const TABS       = 2;
+
+// ── Tab navigation ───────────────────────────────────────────────
+function goToTab(n) {
+  if (n < 1 || n > TABS) return;
+  if (n > maxUnlocked) return; // locked — can't jump ahead
+
+  currentTab = n;
+
+  for (let i = 1; i <= TABS; i++) {
+    document.getElementById('panel-' + i).style.display = (i === n) ? '' : 'none';
+  }
+
+  for (let i = 1; i <= TABS; i++) {
+    const btn = document.getElementById('tab-btn-' + i);
+    btn.classList.remove('active', 'done', 'locked');
+    if (i === n)              btn.classList.add('active');
+    else if (i < n)           btn.classList.add('done');
+    else if (i > maxUnlocked) btn.classList.add('locked');
+  }
+
+  if (n === 2) syncCourseView(); // ensure correct course sub-form shows
+  document.querySelector('.page-content').scrollTop = 0;
+}
+
+function unlockAndAdvance() {
+  maxUnlocked = Math.max(maxUnlocked, currentTab + 1);
+  goToTab(currentTab + 1);
+}
+
+// ── Custom roster multi-select dropdown ──────────────────────────
+const ME         = 'tg';
+const myOfficer  = BB.officers[ME];
+const myCompany  = myOfficer?.company || 'Alpha';
+const rosterOfficers = Object.values(BB.officers)
+  .filter(o => o.company === myCompany)
+  .sort((a, b) => {
+    if (a.id === ME) return -1;
+    if (b.id === ME) return 1;
+    return a.name.localeCompare(b.name);
+  });
+
+document.getElementById('roster-company-label').textContent = myCompany + ' Company';
+
+let pendingIds = new Set(); // officers selected but not yet confirmed
+
+function renderRosterItems() {
+  const q = (document.getElementById('roster-search')?.value || '').toLowerCase();
+  const container = document.getElementById('roster-items');
+  container.innerHTML = '';
+
+  const filtered = q
+    ? rosterOfficers.filter(o => o.name.toLowerCase().includes(q) || o.rank.toLowerCase().includes(q))
+    : rosterOfficers;
+
+  if (!filtered.length) {
+    container.innerHTML = `<div style="padding:1rem;text-align:center;font-size:0.8125rem;color:var(--muted-fg);">No officers found</div>`;
+    return;
+  }
+
+  filtered.forEach(o => {
+    const alreadyAdded = trainees.some(t => t.id === o.id);
+    const isInactive   = o.status === 'inactive';
+    const isDisabled   = alreadyAdded || isInactive;
+    const isPending    = pendingIds.has(o.id);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'dropdown-item';
+    if (isDisabled) btn.style.cssText = 'opacity:0.45;cursor:default;';
+
+    btn.onclick = () => {
+      if (isDisabled) return;
+      if (pendingIds.has(o.id)) pendingIds.delete(o.id);
+      else pendingIds.add(o.id);
+      renderRosterItems();
+      updateRosterAddBtn();
+    };
+
+    // Left indicator: checkbox / already-added check / inactive lock
+    let leftHTML;
+    if (alreadyAdded) {
+      leftHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+        style="width:1rem;height:1rem;color:var(--success);flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>`;
+    } else if (isInactive) {
+      leftHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        style="width:1rem;height:1rem;color:var(--muted-fg);flex-shrink:0;">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
+    } else if (isPending) {
+      leftHTML = `<div style="width:1rem;height:1rem;border-radius:3px;background:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          style="width:0.6875rem;height:0.6875rem;"><polyline points="20 6 9 17 4 12"/></svg></div>`;
+    } else {
+      leftHTML = `<div style="width:1rem;height:1rem;border-radius:3px;border:1.5px solid var(--border);flex-shrink:0;"></div>`;
+    }
+
+    // Right tag
+    const rightHTML = isInactive
+      ? `<span style="font-size:0.6875rem;font-weight:500;color:var(--muted-fg);background:var(--muted);border-radius:var(--radius-sm);padding:0.125rem 0.375rem;flex-shrink:0;">Inactive</span>`
+      : '';
+
+    btn.innerHTML = `
+      ${leftHTML}
+      <div class="avatar avatar-sm" style="background:${o.bg};color:${o.fg};flex-shrink:0;">${o.initials}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-weight:500;font-size:0.875rem;">${o.name}${o.id === ME ? ' <span style="font-size:0.7rem;color:var(--muted-fg);font-weight:400;">(you)</span>' : ''}</div>
+        <div style="font-size:0.75rem;color:var(--muted-fg);">${o.rank}</div>
+      </div>
+      ${rightHTML}`;
+    container.appendChild(btn);
+  });
+}
+
+function updateRosterAddBtn() {
+  const btn = document.getElementById('roster-add-btn');
+  const n = pendingIds.size;
+  btn.disabled = n === 0;
+  btn.textContent = n === 0 ? 'Add selected' : `Add ${n} officer${n > 1 ? 's' : ''}`;
+}
+
+function confirmRosterSelection(e) {
+  if (e) e.stopPropagation();
+  pendingIds.forEach(id => {
+    if (!trainees.find(t => t.id === id)) {
+      const o = BB.officers[id];
+      if (o) trainees.push({ id, name: o.name, rank: o.rank, unit: o.company || '' });
+    }
+  });
+  pendingIds.clear();
+  renderTrainees();
+  document.getElementById('roster-menu').classList.remove('open');
+}
+
+function toggleRosterDropdown(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('roster-menu');
+  const isOpen = menu.classList.contains('open');
+  document.querySelectorAll('.dropdown-menu.open').forEach(m => { if (m !== menu) m.classList.remove('open'); });
+  if (isOpen) { menu.classList.remove('open'); return; }
+  // Reset search + pending on open
+  const search = document.getElementById('roster-search');
+  if (search) search.value = '';
+  pendingIds.clear();
+  updateRosterAddBtn();
+  renderRosterItems();
+  menu.classList.add('open');
+  search?.focus();
+}
+
+function closeRosterDropdown() {
+  pendingIds.clear();
+  document.getElementById('roster-menu').classList.remove('open');
+}
+
+// ── Tab 1: for-whom selection ─────────────────────────────────────
+function selectFor(val) {
+  currentFor = val;
+  document.getElementById('for-self-card').classList.toggle('selected',   val === 'self');
+  document.getElementById('for-others-card').classList.toggle('selected', val === 'others');
+  // Show/hide trainee sections immediately
+  document.getElementById('self-trainee-section').style.display   = val === 'self'   ? '' : 'none';
+  document.getElementById('others-trainee-section').style.display = val === 'others' ? '' : 'none';
+}
+
+function validateTab1AndNext() {
+  if (currentFor === 'others' && trainees.length === 0) {
+    showToast('warning', 'No trainees added', 'Please add at least one trainee before continuing.');
+    return;
+  }
+  unlockAndAdvance();
+}
+
+// ── Trainee table ─────────────────────────────────────────────────
+function renderTrainees() {
+  const tbody = document.getElementById('trainee-tbody');
+  const emptyRow = document.getElementById('trainee-empty-row');
+  // Remove all rows except the empty-state row
+  tbody.querySelectorAll('tr:not(#trainee-empty-row)').forEach(r => r.remove());
+
+  if (!trainees.length) {
+    emptyRow.style.display = '';
+    return;
+  }
+  emptyRow.style.display = 'none';
+
+  trainees.forEach((t, idx) => {
+    const o = t.id ? BB.officers[t.id] : null;
+    const avatarHTML = o
+      ? `<div class="avatar avatar-sm" style="background:${o.bg};color:${o.fg};">${o.initials}</div>`
+      : `<div class="avatar avatar-sm" style="background:var(--muted);color:var(--muted-fg);">${(t.name||'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>`;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${avatarHTML}</td>
+      <td style="font-weight:500;">${t.name}</td>
+      <td style="color:var(--muted-fg);">${t.rank || '—'}</td>
+      <td style="color:var(--muted-fg);">${t.unit || '—'}</td>
+      <td style="text-align:right;">
+        <button class="btn btn-ghost btn-sm" style="color:var(--muted-fg);" onclick="removeTrainee(${idx})" title="Remove">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function removeTrainee(idx) {
+  trainees.splice(idx, 1);
+  renderTrainees();
+  // Refresh roster if it's open so the removed officer becomes selectable again
+  if (document.getElementById('roster-menu').classList.contains('open')) renderRosterItems();
+}
+
+// ── Tab 2: course type ────────────────────────────────────────────
+function selectType(val) {
+  currentType = val;
+  document.getElementById('type-preapproved-card').classList.toggle('selected', val === 'preapproved');
+  document.getElementById('type-new-card').classList.toggle('selected',          val === 'new');
+  syncCourseView();
+}
+
+function syncCourseView() {
+  document.getElementById('form-preapproved').style.display = currentType === 'preapproved' ? '' : 'none';
+  document.getElementById('form-newcourse').style.display   = currentType === 'new'         ? '' : 'none';
+}
+
+const courses = BB.courses;
+
+function prefillCourse(key) {
+  const infoCard     = document.getElementById('course-info-card');
+  const detailsSection = document.getElementById('pa-details');
+  if (!key) { infoCard.style.display = 'none'; detailsSection.style.display = 'none'; return; }
+  const c = courses[key];
+  document.getElementById('ci-name').textContent     = c.name;
+  document.getElementById('ci-provider').textContent = c.provider;
+  document.getElementById('ci-duration').textContent = c.duration;
+  document.getElementById('ci-cert').textContent     = c.cert;
+  document.getElementById('ci-description').textContent = c.description;
+  infoCard.style.display     = '';
+  detailsSection.style.display = '';
+}
+
+// ── Confirm dialog ────────────────────────────────────────────────
+function openConfirmDialog() {
+  // Validate required fields
+  if (currentType === 'preapproved') {
+    const key = document.getElementById('pa-course').value;
+    if (!key) { showToast('warning', 'Select a course', 'Please select a course from the catalogue.'); return; }
+    const start = document.getElementById('pa-start').value;
+    const end   = document.getElementById('pa-end').value;
+    if (!start || !end) { showToast('warning', 'Dates required', 'Please enter the start and end dates.'); return; }
+    const purpose = document.getElementById('pa-purpose').value.trim();
+    if (!purpose) { showToast('warning', 'Purpose required', 'Please fill in the purpose / justification field.'); return; }
+    const c = courses[key];
+    document.getElementById('confirm-course').textContent = c.name;
+    document.getElementById('confirm-dates').textContent  = fmtDate(start) + ' – ' + fmtDate(end);
+  } else {
+    const name = document.getElementById('nc-name').value.trim();
+    if (!name) { showToast('warning', 'Course name required', 'Please enter the course name.'); return; }
+    const start = document.getElementById('nc-start').value;
+    const end   = document.getElementById('nc-end').value;
+    if (!start || !end) { showToast('warning', 'Dates required', 'Please enter the start and end dates.'); return; }
+    const purpose = document.getElementById('nc-purpose').value.trim();
+    if (!purpose) { showToast('warning', 'Purpose required', 'Please fill in the purpose / justification field.'); return; }
+    document.getElementById('confirm-course').textContent = name;
+    document.getElementById('confirm-dates').textContent  = fmtDate(start) + ' – ' + fmtDate(end);
+  }
+
+  const traineeNames = currentFor === 'self'
+    ? 'Theodor Gunawan (yourself)'
+    : trainees.map(t => t.name).join(', ');
+  document.getElementById('confirm-trainees').textContent = traineeNames;
+  document.getElementById('confirm-type').textContent     = currentType === 'preapproved' ? 'Pre-approved Course' : 'New / External Course';
+
+  document.getElementById('confirm-dialog').classList.add('open');
+}
+
+function closeConfirmDialog(e) {
+  if (e && e.target !== document.getElementById('confirm-dialog')) return;
+  document.getElementById('confirm-dialog').classList.remove('open');
+}
+
+// ── Submit → localStorage ─────────────────────────────────────────
+function handleSubmit() {
+  document.getElementById('confirm-dialog').classList.remove('open');
+
+  const now = new Date();
+  const submittedDate = now.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+
+  // Generate next ref
+  const existing = Object.keys(BB.submissions).map(r => parseInt(r.replace('SUB-','')));
+  const nextNum  = Math.max(...existing, 0) + 1;
+  const ref      = 'SUB-' + String(nextNum).padStart(5,'0');
+
+  let sub = {
+    ref,
+    officerId: 'tg',
+    type: currentType,
+    submitted: submittedDate,
+    status: 'pending',
+    stage: 'captain',
+  };
+
+  if (currentType === 'preapproved') {
+    const key = document.getElementById('pa-course').value;
+    const start = document.getElementById('pa-start').value;
+    const end   = document.getElementById('pa-end').value;
+    sub.courseKey = key;
+    sub.dates    = fmtDate(start) + '–' + fmtDate(end);
+    sub.venue    = document.getElementById('pa-venue').value.trim();
+    sub.purpose  = document.getElementById('pa-purpose').value.trim();
+    sub.cost     = 'Nil (company-sponsored)';
+  } else {
+    sub.courseName = document.getElementById('nc-name').value.trim();
+    sub.provider   = document.getElementById('nc-provider').value.trim();
+    const start    = document.getElementById('nc-start').value;
+    const end      = document.getElementById('nc-end').value;
+    sub.dates      = fmtDate(start) + '–' + fmtDate(end);
+    sub.venue      = document.getElementById('nc-venue').value.trim();
+    sub.cost       = document.getElementById('nc-cost').value.trim() || 'TBC';
+    sub.url        = document.getElementById('nc-url').value.trim();
+    sub.purpose    = document.getElementById('nc-purpose').value.trim();
+  }
+
+  // If on behalf of others, attach trainee list
+  if (currentFor === 'others') {
+    sub.trainees = trainees.map(t => t.name).join(', ');
+  }
+
+  // 1. Add to in-memory BB store
+  BB.submissions[ref] = sub;
+
+  // 2. Persist to localStorage for cross-page sync
+  try {
+    const stored = JSON.parse(localStorage.getItem('bb_user_submissions') || '[]');
+    stored.push(sub);
+    localStorage.setItem('bb_user_submissions', JSON.stringify(stored));
+  } catch(e) { console.warn('localStorage write failed', e); }
+
+  showToast('success', 'Request submitted!', 'LTA Seet has been notified and will review your request shortly.');
+  setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1800);
+}
+
+// ── Date formatter ────────────────────────────────────────────────
+function fmtDate(val) {
+  if (!val) return '—';
+  const d = new Date(val + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+</script>
+</body>
+</html>
