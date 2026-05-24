@@ -183,7 +183,7 @@
                 <a href="submit.html" class="btn btn-outline btn-sm">New Request</a>
               </div>
               <div class="card-content" style="padding:0;border-top:1px solid var(--border);">
-                <table class="table">
+                <table class="table table-card-mobile">
                   <thead>
                     <tr>
                       <th>Course / Training</th>
@@ -196,38 +196,38 @@
                   </thead>
                   <tbody id="tbody-active-subs">
                     <tr>
-                      <td>
+                      <td data-label="Course / Training">
                         <div style="font-weight:500;font-size:0.875rem;">First Aid Level 1</div>
                         <div style="font-size:0.75rem;color:var(--muted-fg);">#SUB-00124 · Red Cross</div>
                       </td>
-                      <td><span style="font-size:0.8125rem;">Pre-approved</span></td>
-                      <td><span style="font-size:0.8125rem;">10–12 Jun 2025</span></td>
-                      <td>
+                      <td data-label="Type"><span style="font-size:0.8125rem;">Pre-approved</span></td>
+                      <td data-label="Dates"><span style="font-size:0.8125rem;">10–12 Jun 2025</span></td>
+                      <td data-label="Current Stage">
                         <div style="display:flex;align-items:center;gap:0.375rem;font-size:0.8125rem;">
                           <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#f59e0b;flex-shrink:0;display:inline-block;"></span>
                           Rev Goh
                         </div>
                       </td>
-                      <td><span class="status-pill pending">Pending</span></td>
-                      <td style="text-align:right;">
+                      <td data-label="Status"><span class="status-pill pending">Pending</span></td>
+                      <td data-label="Action" style="text-align:right;">
                         <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00124')">View</button>
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td data-label="Course / Training">
                         <div style="font-weight:500;font-size:0.875rem;">Leadership &amp; Management Workshop</div>
                         <div style="font-size:0.75rem;color:var(--muted-fg);">#SUB-00127 · NTUC Learning Hub</div>
                       </td>
-                      <td><span style="font-size:0.8125rem;">New Course</span></td>
-                      <td><span style="font-size:0.8125rem;">15–16 Jul 2025</span></td>
-                      <td>
+                      <td data-label="Type"><span style="font-size:0.8125rem;">New Course</span></td>
+                      <td data-label="Dates"><span style="font-size:0.8125rem;">15–16 Jul 2025</span></td>
+                      <td data-label="Current Stage">
                         <div style="display:flex;align-items:center;gap:0.375rem;font-size:0.8125rem;">
                           <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#f59e0b;flex-shrink:0;display:inline-block;"></span>
                           LTA Seet
                         </div>
                       </td>
-                      <td><span class="status-pill pending">Pending</span></td>
-                      <td style="text-align:right;">
+                      <td data-label="Status"><span class="status-pill pending">Pending</span></td>
+                      <td data-label="Action" style="text-align:right;">
                         <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00127')">View</button>
                       </td>
                     </tr>
