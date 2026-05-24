@@ -111,6 +111,7 @@
           <div class="breadcrumb-separator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
           <div class="breadcrumb-item">Submit Training Request</div>
         </nav>
+        <div class="mobile-topbar-title">BB Training Portal</div>
       </div>
       <div class="topbar-right">
         <a href="officer.html" class="btn btn-ghost btn-sm">
@@ -226,7 +227,7 @@
 
               <!-- Toolbar: custom roster picker -->
               <div style="margin-bottom:0.875rem;position:relative;display:inline-block;" id="roster-dropdown-wrap">
-                <button class="btn btn-outline" id="roster-trigger" type="button"
+                <button class="btn btn-outline" id="roster-trigger" type="button" aria-expanded="false" onclick="toggleRosterDropdown(event)"
                   style="min-width:16rem;justify-content:space-between;gap:0.75rem;">
                   <span id="roster-trigger-label">Add officer from roster…</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -234,7 +235,7 @@
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
                 </button>
-                <div class="roster-menu" id="roster-menu" onclick="event.stopPropagation()"
+                <div class="roster-menu" id="roster-menu" hidden
                   style="min-width:22rem;width:22rem;flex-direction:column;max-height:24rem;">
                   <!-- search -->
                   <div style="padding:0.5rem;flex-shrink:0;border-bottom:1px solid var(--border);">
@@ -617,7 +618,10 @@ function updateRosterAddBtn() {
 }
 
 function confirmRosterSelection(e) {
-  if (e) e.stopPropagation();
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   pendingIds.forEach(id => {
     if (!trainees.find(t => t.id === id)) {
       const o = BB.officers[id];
@@ -626,7 +630,7 @@ function confirmRosterSelection(e) {
   });
   pendingIds.clear();
   renderTrainees();
-  document.getElementById('roster-menu').classList.remove('open');
+  closeRosterDropdown();
 }
 
 function toggleRosterDropdown(e) {
@@ -635,22 +639,29 @@ function toggleRosterDropdown(e) {
     e.stopPropagation();
   }
   const menu = document.getElementById('roster-menu');
-  const isOpen = menu.classList.contains('open');
+  if (!menu.hidden) {
+    closeRosterDropdown();
+    return;
+  }
   document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
-  if (isOpen) { menu.classList.remove('open'); return; }
   // Reset search + pending on open
   const search = document.getElementById('roster-search');
   if (search) search.value = '';
   pendingIds.clear();
   updateRosterAddBtn();
   renderRosterItems();
+  menu.hidden = false;
   menu.classList.add('open');
+  document.getElementById('roster-trigger')?.setAttribute('aria-expanded', 'true');
   if (window.innerWidth > 700) search?.focus();
 }
 
 function closeRosterDropdown() {
   pendingIds.clear();
-  document.getElementById('roster-menu').classList.remove('open');
+  const menu = document.getElementById('roster-menu');
+  menu.classList.remove('open');
+  menu.hidden = true;
+  document.getElementById('roster-trigger')?.setAttribute('aria-expanded', 'false');
 }
 
 document.addEventListener('click', (event) => {
@@ -662,21 +673,14 @@ document.addEventListener('click', (event) => {
 });
 
 const rosterTrigger = document.getElementById('roster-trigger');
-let rosterTouchHandled = false;
+const rosterMenu = document.getElementById('roster-menu');
 
-rosterTrigger.addEventListener('touchend', (event) => {
-  rosterTouchHandled = true;
-  toggleRosterDropdown(event);
-  setTimeout(() => { rosterTouchHandled = false; }, 350);
-}, { passive: false });
-
-rosterTrigger.addEventListener('click', (event) => {
-  if (rosterTouchHandled) {
-    event.preventDefault();
-    event.stopPropagation();
-    return;
+rosterMenu.addEventListener('click', event => event.stopPropagation());
+rosterMenu.addEventListener('pointerdown', event => event.stopPropagation());
+rosterTrigger.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeRosterDropdown();
   }
-  toggleRosterDropdown(event);
 });
 
 // ── Tab 1: for-whom selection ─────────────────────────────────────

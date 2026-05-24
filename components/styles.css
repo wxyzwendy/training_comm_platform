@@ -1072,6 +1072,7 @@ select.input {
   display: none;
   animation: fadeIn 0.1s ease;
 }
+.roster-menu[hidden] { display: none !important; }
 .roster-menu.open { display: flex; }
 .dropdown-menu.align-right { left: auto; right: 0; }
 
@@ -1564,6 +1565,7 @@ select.input {
 }
 .topbar-left  { display: flex; align-items: center; gap: 0.75rem; }
 .topbar-right { display: flex; align-items: center; gap: 0.375rem; }
+.mobile-topbar-title { display: none; }
 .page-content {
   flex: 1;
   overflow-y: auto;
@@ -1575,6 +1577,7 @@ select.input {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+  padding: 0.5rem 0.5rem;
   margin-bottom: 1.5rem;
 }
 .page-title    { font-size: 1.25rem; font-weight: 700; color: var(--fg); line-height: 1.25; }
@@ -1846,7 +1849,12 @@ select.input {
     min-width: 0;
   }
 
+  .topbar-left {
+    flex: 1;
+  }
+
   .topbar-right {
+    flex-shrink: 0;
     margin-left: auto;
   }
 
@@ -1854,10 +1862,22 @@ select.input {
     display: none;
   }
 
+  .mobile-topbar-title {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--fg);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .page-content {
     width: 100%;
     min-width: 0;
-    padding: 1rem !important;
+    padding: 1rem 1.5rem !important;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
@@ -1876,7 +1896,8 @@ select.input {
 
   .page-header {
     gap: 0.875rem;
-    margin-bottom: 1rem;
+    padding: 0.75rem 0 0.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .page-title {
@@ -2030,8 +2051,20 @@ select.input {
   .tabs-list,
   .tabs-lift-list {
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
+  }
+
+  .tabs-list {
+    display: flex;
+  }
+
+  .tab-trigger,
+  .tabs-lift-trigger {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
   }
 
   .tabs-lift-content {
@@ -2175,7 +2208,7 @@ select.input {
 
 @media (max-width: 520px) {
   .page-content {
-    padding: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
   }
 
   .card-header,
@@ -2213,16 +2246,19 @@ select.input {
   }
 
   #roster-trigger {
-    display: none;
+    display: inline-flex;
+    width: 100%;
+    min-width: 0 !important;
+    touch-action: manipulation;
   }
 
   #roster-menu {
     position: static !important;
-    display: flex !important;
     width: 100% !important;
     min-width: 0 !important;
     max-width: none !important;
     max-height: none !important;
+    margin-top: 0.5rem;
     box-shadow: var(--shadow-sm);
     pointer-events: auto;
   }
@@ -2266,6 +2302,11 @@ select.input {
     position: relative;
   }
 
+  .table-card-mobile tr.table-empty-row {
+    display: block;
+    cursor: default;
+  }
+
   .table-card-mobile td {
     display: grid;
     grid-template-columns: minmax(6rem, 38%) 1fr;
@@ -2277,11 +2318,19 @@ select.input {
     min-width: 0;
   }
 
+  .table-card-mobile tr.table-empty-row td {
+    display: block;
+    text-align: center !important;
+  }
+
   .table-card-mobile td:first-child {
     grid-template-columns: 1fr;
-    padding-right: 6rem !important;
     padding-bottom: 0.625rem !important;
     border-bottom: 1px solid var(--border);
+  }
+
+  .table-card-mobile tr.has-status-card td:first-child {
+    padding-right: 6rem !important;
   }
 
   .table-card-mobile td:first-child::before {
@@ -2297,8 +2346,18 @@ select.input {
     text-transform: uppercase;
   }
 
-  .table-card-mobile td[data-label="Action"] {
+  .table-card-mobile tr.table-empty-row td::before {
     display: none;
+  }
+
+  .table-card-mobile.hide-mobile-actions td[data-label="Action"],
+  .table-card-mobile.hide-mobile-actions td[data-label="Actions"] {
+    display: none;
+  }
+
+  .table-card-mobile .mobile-hide-view-action,
+  .table-card-mobile td.mobile-view-only-cell {
+    display: none !important;
   }
 
   .table-card-mobile td[data-label="Status"] {
@@ -2314,11 +2373,13 @@ select.input {
     display: none;
   }
 
-  .table-card-mobile td[data-label="Action"]::before {
+  .table-card-mobile td[data-label="Action"]::before,
+  .table-card-mobile td[data-label="Actions"]::before {
     display: none;
   }
 
-  .table-card-mobile td[data-label="Action"] .btn {
+  .table-card-mobile td[data-label="Action"] .btn,
+  .table-card-mobile td[data-label="Actions"] .btn {
     width: 100%;
   }
 }

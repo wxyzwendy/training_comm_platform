@@ -186,6 +186,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  /* ── Mobile table cards ─────────────────────────────────────── */
+  function labelTableCells(table) {
+    table.classList.add('table-card-mobile');
+    const headers = [...table.querySelectorAll('thead th')].map(th => th.textContent.trim());
+
+    table.querySelectorAll('tbody tr').forEach(row => {
+      const cells = [...row.children].filter(cell => cell.tagName === 'TD');
+      const isEmptyRow = cells.length === 1 && Number(cells[0].getAttribute('colspan') || 1) > 1;
+      row.classList.toggle('table-empty-row', isEmptyRow);
+
+      cells.forEach((cell, index) => {
+        if (cell.dataset.label || isEmptyRow) return;
+        const header = headers[index] || '';
+        const hasButton = !!cell.querySelector('button, .btn, a');
+        cell.dataset.label = header || (hasButton ? 'Action' : 'Details');
+      });
+      cells.forEach(cell => {
+        const actions = [...cell.querySelectorAll('button, a.btn, .btn')];
+        const viewActions = actions.filter(action => {
+          const label = (action.textContent || action.getAttribute('title') || '').trim().toLowerCase();
+          return label === 'view' || label.startsWith('view ');
+        });
+
+        viewActions.forEach(action => action.classList.add('mobile-hide-view-action'));
+        cell.classList.toggle('mobile-view-only-cell', actions.length > 0 && actions.length === viewActions.length);
+      });
+      row.classList.toggle('has-status-card', cells.some(cell => cell.dataset.label === 'Status'));
+    });
+  }
+
+  document.querySelectorAll('table.table').forEach(table => {
+    labelTableCells(table);
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    new MutationObserver(() => labelTableCells(table)).observe(tbody, {
+      childList: true,
+      subtree: true,
+    });
+  });
+
+
   /* ── Table Sorting ────────────────────────────────────────── */
   document.querySelectorAll('.table th.sortable').forEach(th => {
     th.addEventListener('click', () => {

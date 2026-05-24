@@ -1,12 +1,12 @@
 /* ================================================================
-   data.js — BB Training Portal shared data store
+   data.js - BB Training Portal shared data store
    Load BEFORE each page's own <script>.
    ================================================================ */
 'use strict';
 
 const BB = {};
 
-// ── 1. Officers ──────────────────────────────────────────────────
+// '" -' 1. Officers '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 // status: 'active' | 'inactive'
 // Inactive officers are excluded from normal course selections;
 // specific curriculum eligibility to be defined separately.
@@ -21,25 +21,25 @@ BB.officers = {
   ly: { id:'ly', name:'Lena Yeo',        initials:'LY', rank:'LT',   company:'Alpha', role:'officer',  status:'inactive', bg:'#fce7f3', fg:'#9d174d' },
 };
 
-// ── 2. Pre-approved course catalogue ─────────────────────────────
+// '" -' 2. Pre-approved course catalogue '" - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 BB.courses = {
-  fa1:         { name:’First Aid Level 1’,                   category:’First Aid & Safety’,    provider:’Red Cross Singapore’,                    duration:’3 days’, cert:’Yes · 2-year validity’,  description:’A comprehensive first aid course covering recognition and management of medical emergencies, wound care, fractures, shock, and basic life support.’,                                                                         objectives:[‘Recognise and respond to a range of medical emergencies’,’Perform basic wound care, bandaging, and fracture management’,’Assist casualties experiencing shock, burns, or sudden illness’] },
-  fa2:         { name:’First Aid Level 2’,                   category:’First Aid & Safety’,    provider:’Red Cross Singapore’,                    duration:’4 days’, cert:’Yes · 2-year validity’,  description:’Advanced first aid course covering all Level 1 content plus rescue breathing, spinal injury management, and triage for mass casualty situations.’,                                                                           objectives:[‘Apply advanced first aid techniques including spinal precautions’,’Perform rescue breathing and manage airway obstructions’,’Conduct basic triage in mass casualty scenarios’] },
-  cpr:         { name:’CPR + AED Certification’,             category:’First Aid & Safety’,    provider:’Singapore Heart Foundation’,             duration:’1 day’,  cert:’Yes · 2-year validity’,  description:’Teaches cardiopulmonary resuscitation (CPR) and the use of automated external defibrillators (AED) for emergency cardiac response for adults, children, and infants.’,                                                       objectives:[‘Perform hands-on CPR on adults, children, and infants’,’Operate an AED device confidently in an emergency’,’Understand the chain of survival and when to call for help’] },
-  rifle:       { name:’Rifle Range Safety’,                  category:’First Aid & Safety’,    provider:"Boys’ Brigade Singapore HQ",             duration:’1 day’,  cert:’Yes · 3-year validity’,  description:’Range Safety Officer certification required to supervise BB rifle shooting activities. Covers range commands, safety protocols, and emergency procedures.’,                                                                   objectives:[‘Conduct safe and compliant rifle range sessions for Boys’,’Issue and enforce range commands according to BB protocols’,’Respond appropriately to range emergencies and incidents’] },
-  oco:         { name:’OCO — Officer Cadet Officers Course’,  category:’Officer Track’,         provider:"Boys’ Brigade Singapore HQ",             duration:’5 days’, cert:’Yes · No expiry’,        description:"Entry-level foundation course for all new BB officers. Covers BB history and philosophy, programme planning, pastoral care, and administrative responsibilities.",                                                            objectives:["Understand the vision, mission, and heritage of the Boys’ Brigade","Plan and execute age-appropriate BB programmes","Fulfil the OCO requirement for formal officer appointment"] },
-  botc:        { name:’BOTC — Basic Officer Training Course’, category:’Officer Track’,         provider:"Boys’ Brigade Singapore HQ",             duration:’5 days’, cert:’Yes · No expiry’,        description:’Intermediate course for practising officers. Deepens programme planning skills, introduces mentoring and leadership principles, and covers company administrative management.’,                                               objectives:[‘Design and evaluate structured BB programmes for different age groups’,’Apply mentoring and coaching techniques with junior officers’,’Manage company administration and records effectively’] },
-  aotc:        { name:’AOTC — Advanced Officer Training Course’, category:’Officer Track’,      provider:"Boys’ Brigade Singapore HQ",             duration:’5 days’, cert:’Yes · No expiry’,        description:’Senior-level course preparing officers for captaincy. Covers strategic programme design, financial management, officer development, and company leadership.’,                                                                objectives:[‘Lead and develop a team of junior officers’,’Formulate long-term company strategy aligned with BB objectives’,’Fulfil the AOTC requirement for LTA to Captain promotion’] },
-  safeguard:   { name:’Safeguarding Children & Youth’,        category:’Safeguarding & Welfare’, provider:’Ministry of Social and Family Development’, duration:’1 day’, cert:’Yes · 3-year validity’, description:’Mandatory certification for all officers working with minors. Covers recognition of abuse and neglect, reporting obligations, and principles for safe programming.’,                                                         objectives:[‘Identify signs of abuse, neglect, and exploitation in youth’,’Understand statutory reporting obligations and procedures’,’Implement safe programming principles in BB activities’] },
-  mentalhealth:{ name:’Youth Mental Health Awareness’,        category:’Safeguarding & Welfare’, provider:’Institute of Mental Health’,             duration:’1 day’,  cert:’Yes · No expiry’,        description:’Workshop equipping officers to recognise and respond to mental health challenges in youth, with strategies for pastoral support and referral.’,                                                                               objectives:[‘Identify signs of stress, anxiety, and depression in youth’,’Apply practical pastoral support strategies in a BB context’,’Know when and how to refer youth to professional help’] },
-  youthwork:   { name:’Youth Work Certificate’,               category:’Youth Development’,     provider:’National Youth Council’,                 duration:’3 days’, cert:’Yes · No expiry’,        description:’Foundational certificate in youth development practice covering theories of adolescent development, facilitation skills, and programme design.’,                                                                              objectives:[‘Apply key theories of adolescent development to programming’,’Facilitate group activities and discussions with youth effectively’,’Design youth development programmes with clear outcomes’] },
-  outdoor:     { name:’Outdoor Adventure Leadership’,         category:’Youth Development’,     provider:’Outward Bound Singapore’,                duration:’5 days’, cert:’Yes · No expiry’,        description:’Leadership development through outdoor challenges, covering expedition planning, campcraft, navigation, risk management, and group dynamics facilitation.’,                                                                   objectives:[‘Plan and lead safe outdoor expeditions and activities’,’Apply risk assessment and management for outdoor environments’,’Facilitate group learning through outdoor challenge experiences’] },
-  drill:       { name:’Drill Instruction Course’,             category:’Drill & Leadership’,    provider:"Boys’ Brigade Singapore HQ",             duration:’2 days’, cert:’Yes · No expiry’,        description:’Covers precision drill commands, marching formations, and instructional techniques for conducting drill sessions with BB Boys and junior officers.’,                                                                           objectives:[‘Issue and correct drill commands to the required standard’,’Lead marching formations and ceremonial parades’,’Teach drill to Boys and junior officers systematically’] },
+  fa1:         { name:'First Aid Level 1',                   category:'First Aid & Safety',    provider:'Red Cross Singapore',                    duration:'3 days', cert:'Yes · 2-year validity',  description:'A comprehensive first aid course covering recognition and management of medical emergencies, wound care, fractures, shock, and basic life support.',                                                                         objectives:['Recognise and respond to a range of medical emergencies','Perform basic wound care, bandaging, and fracture management','Assist casualties experiencing shock, burns, or sudden illness'] },
+  fa2:         { name:'First Aid Level 2',                   category:'First Aid & Safety',    provider:'Red Cross Singapore',                    duration:'4 days', cert:'Yes · 2-year validity',  description:'Advanced first aid course covering all Level 1 content plus rescue breathing, spinal injury management, and triage for mass casualty situations.',                                                                           objectives:['Apply advanced first aid techniques including spinal precautions','Perform rescue breathing and manage airway obstructions','Conduct basic triage in mass casualty scenarios'] },
+  cpr:         { name:'CPR + AED Certification',             category:'First Aid & Safety',    provider:'Singapore Heart Foundation',             duration:'1 day',  cert:'Yes · 2-year validity',  description:'Teaches cardiopulmonary resuscitation (CPR) and the use of automated external defibrillators (AED) for emergency cardiac response for adults, children, and infants.',                                                       objectives:['Perform hands-on CPR on adults, children, and infants','Operate an AED device confidently in an emergency','Understand the chain of survival and when to call for help'] },
+  rifle:       { name:'Rifle Range Safety',                  category:'First Aid & Safety',    provider:"Boys' Brigade Singapore HQ",             duration:'1 day',  cert:'Yes · 3-year validity',  description:'Range Safety Officer certification required to supervise BB rifle shooting activities. Covers range commands, safety protocols, and emergency procedures.',                                                                   objectives:['Conduct safe and compliant rifle range sessions for Boys','Issue and enforce range commands according to BB protocols','Respond appropriately to range emergencies and incidents'] },
+  oco:         { name:'OCO - Officer Cadet Officers Course',  category:'Officer Track',         provider:"Boys' Brigade Singapore HQ",             duration:'5 days', cert:'Yes · No expiry',        description:"Entry-level foundation course for all new BB officers. Covers BB history and philosophy, programme planning, pastoral care, and administrative responsibilities.",                                                            objectives:["Understand the vision, mission, and heritage of the Boys' Brigade","Plan and execute age-appropriate BB programmes","Fulfil the OCO requirement for formal officer appointment"] },
+  botc:        { name:'BOTC - Basic Officer Training Course', category:'Officer Track',         provider:"Boys' Brigade Singapore HQ",             duration:'5 days', cert:'Yes · No expiry',        description:'Intermediate course for practising officers. Deepens programme planning skills, introduces mentoring and leadership principles, and covers company administrative management.',                                               objectives:['Design and evaluate structured BB programmes for different age groups','Apply mentoring and coaching techniques with junior officers','Manage company administration and records effectively'] },
+  aotc:        { name:'AOTC - Advanced Officer Training Course', category:'Officer Track',      provider:"Boys' Brigade Singapore HQ",             duration:'5 days', cert:'Yes · No expiry',        description:'Senior-level course preparing officers for captaincy. Covers strategic programme design, financial management, officer development, and company leadership.',                                                                objectives:['Lead and develop a team of junior officers','Formulate long-term company strategy aligned with BB objectives','Fulfil the AOTC requirement for LTA to Captain promotion'] },
+  safeguard:   { name:'Safeguarding Children & Youth',        category:'Safeguarding & Welfare', provider:'Ministry of Social and Family Development', duration:'1 day', cert:'Yes · 3-year validity', description:'Mandatory certification for all officers working with minors. Covers recognition of abuse and neglect, reporting obligations, and principles for safe programming.',                                                         objectives:['Identify signs of abuse, neglect, and exploitation in youth','Understand statutory reporting obligations and procedures','Implement safe programming principles in BB activities'] },
+  mentalhealth:{ name:'Youth Mental Health Awareness',        category:'Safeguarding & Welfare', provider:'Institute of Mental Health',             duration:'1 day',  cert:'Yes · No expiry',        description:'Workshop equipping officers to recognise and respond to mental health challenges in youth, with strategies for pastoral support and referral.',                                                                               objectives:['Identify signs of stress, anxiety, and depression in youth','Apply practical pastoral support strategies in a BB context','Know when and how to refer youth to professional help'] },
+  youthwork:   { name:'Youth Work Certificate',               category:'Youth Development',     provider:'National Youth Council',                 duration:'3 days', cert:'Yes · No expiry',        description:'Foundational certificate in youth development practice covering theories of adolescent development, facilitation skills, and programme design.',                                                                              objectives:['Apply key theories of adolescent development to programming','Facilitate group activities and discussions with youth effectively','Design youth development programmes with clear outcomes'] },
+  outdoor:     { name:'Outdoor Adventure Leadership',         category:'Youth Development',     provider:'Outward Bound Singapore',                duration:'5 days', cert:'Yes · No expiry',        description:'Leadership development through outdoor challenges, covering expedition planning, campcraft, navigation, risk management, and group dynamics facilitation.',                                                                   objectives:['Plan and lead safe outdoor expeditions and activities','Apply risk assessment and management for outdoor environments','Facilitate group learning through outdoor challenge experiences'] },
+  drill:       { name:'Drill Instruction Course',             category:'Drill & Leadership',    provider:"Boys' Brigade Singapore HQ",             duration:'2 days', cert:'Yes · No expiry',        description:'Covers precision drill commands, marching formations, and instructional techniques for conducting drill sessions with BB Boys and junior officers.',                                                                           objectives:['Issue and correct drill commands to the required standard','Lead marching formations and ceremonial parades','Teach drill to Boys and junior officers systematically'] },
 };
 
-// ── 3. Training Records ───────────────────────────────────────────
+// '" -' 3. Training Records '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 BB.records = [
-  // Theodor Gunawan (tg) — LTA, Alpha
+  // Theodor Gunawan (tg) - LTA, Alpha
   { id:'tg-oco',          officerId:'tg', courseKey:'oco',         category:'mandatory', completed:'15 Jan 2021', expiry:null,          status:'active',   certNo:'OCO-2021-0043' },
   { id:'tg-botc',         officerId:'tg', courseKey:'botc',        category:'mandatory', completed:'5 Mar 2022',  expiry:null,          status:'active',   certNo:'BOTC-2022-0112' },
   { id:'tg-cpr',          officerId:'tg', courseKey:'cpr',         category:'recurring', completed:'22 Jan 2023', expiry:'21 Jun 2025', status:'expiring', certNo:'SHF-CPR-2023-7841', expiryNote:'28 days left' },
@@ -48,7 +48,7 @@ BB.records = [
   { id:'tg-rifle',        officerId:'tg', courseKey:'rifle',       category:'elective',  completed:'18 Nov 2022', expiry:'18 Nov 2025', status:'active',   certNo:'BB-RSA-2022-0204' },
   { id:'tg-outdoor',      officerId:'tg', courseKey:'outdoor',     category:'elective',  completed:'2 Jul 2021',  expiry:null,          status:'active',   certNo:'OBS-OAL-2021-1152' },
   { id:'tg-drill',        officerId:'tg', courseKey:'drill',       category:'elective',  completed:'14 Sep 2020', expiry:null,          status:'active',   certNo:'BB-DIC-2020-0078' },
-  // John Seet (js) — LTA/Captain, Alpha
+  // John Seet (js) - LTA/Captain, Alpha
   { id:'js-oco',          officerId:'js', courseKey:'oco',         category:'mandatory', completed:'12 Jan 2019', expiry:null,          status:'active',   certNo:'OCO-2019-0021' },
   { id:'js-botc',         officerId:'js', courseKey:'botc',        category:'mandatory', completed:'8 Mar 2020',  expiry:null,          status:'active',   certNo:'BOTC-2020-0044' },
   { id:'js-aotc',         officerId:'js', courseKey:'aotc',        category:'mandatory', completed:'5 Jun 2021',  expiry:null,          status:'active',   certNo:'AOTC-2021-0009' },
@@ -56,7 +56,7 @@ BB.records = [
   { id:'js-safeguard',    officerId:'js', courseKey:'safeguard',   category:'mandatory', completed:'14 Mar 2022', expiry:'14 Mar 2025', status:'active',   certNo:'MSF-SCY-2022-1104' },
   { id:'js-cpr',          officerId:'js', courseKey:'cpr',         category:'recurring', completed:'9 Feb 2023',  expiry:'9 Feb 2025',  status:'active',   certNo:'SHF-CPR-2023-2291' },
   { id:'js-mentalhealth', officerId:'js', courseKey:'mentalhealth',category:'elective',  completed:'3 Aug 2022',  expiry:null,          status:'active',   certNo:'IMH-YMHA-2022-0044' },
-  // Joseph Goh (jg) — Chaplain
+  // Joseph Goh (jg) - Chaplain
   { id:'jg-orientation',  officerId:'jg', courseName:'BB Chaplaincy Orientation', provider:"Boys' Brigade Singapore HQ",
     category:'mandatory', completed:'5 Aug 2017', expiry:null, status:'active', certNo:'CHAP-2017-0003',
     description:"Foundation orientation covering the role and responsibilities of a BB Chaplain, pastoral principles, and safeguarding in a youth organisation context." },
@@ -66,25 +66,25 @@ BB.records = [
   { id:'jg-pastoral',     officerId:'jg', courseName:'Pastoral Care in Youth Organisations', provider:'Trinity Theological College',
     category:'elective', completed:'7 Oct 2020', expiry:null, status:'active', certNo:'TTC-PCYO-2020-0041',
     description:'Covers pastoral counselling techniques, crisis response, and spiritual formation within youth ministry contexts.' },
-  // Wendy Tio (wt) — Training Comm
+  // Wendy Tio (wt) - Training Comm
   { id:'wt-safeguard',    officerId:'wt', courseKey:'safeguard',   category:'mandatory', completed:'5 Apr 2023',  expiry:'5 Apr 2026',  status:'active',   certNo:'MSF-SCY-2023-0441' },
   { id:'wt-mentalhealth', officerId:'wt', courseKey:'mentalhealth',category:'elective',  completed:'8 Sep 2022',  expiry:null,          status:'active',   certNo:'IMH-YMHA-2022-0071' },
-  // Priya Raj (pr) — 2LT, Alpha
+  // Priya Raj (pr) - 2LT, Alpha
   { id:'pr-oco',          officerId:'pr', courseKey:'oco',         category:'mandatory', completed:'12 Jan 2021', expiry:null,          status:'active',   certNo:'OCO-2021-0039' },
   { id:'pr-botc',         officerId:'pr', courseKey:'botc',        category:'mandatory', completed:'4 Mar 2022',  expiry:null,          status:'active',   certNo:'BOTC-2022-0108' },
   { id:'pr-aotc',         officerId:'pr', courseKey:'aotc',        category:'mandatory', completed:'18 Jun 2023', expiry:null,          status:'active',   certNo:'AOTC-2023-0022' },
-  // Samuel Lim (sl) — 2LT, Alpha
+  // Samuel Lim (sl) - 2LT, Alpha
   { id:'sl-oco',          officerId:'sl', courseKey:'oco',         category:'mandatory', completed:'14 Jan 2021', expiry:null,          status:'active',   certNo:'OCO-2021-0041' },
   { id:'sl-botc',         officerId:'sl', courseKey:'botc',        category:'mandatory', completed:'6 Mar 2022',  expiry:null,          status:'active',   certNo:'BOTC-2022-0114' },
   { id:'sl-cpr',          officerId:'sl', courseKey:'cpr',         category:'recurring', completed:'10 Jan 2023', expiry:'30 Jun 2025', status:'expiring', certNo:'SHF-CPR-2023-0944', expiryNote:'37 days left' },
-  // Ahmad Wafi (aw) — OCT, Bravo
+  // Ahmad Wafi (aw) - OCT, Bravo
   { id:'aw-oco',          officerId:'aw', courseKey:'oco',         category:'mandatory', completed:'16 Jan 2023', expiry:null,          status:'active',   certNo:'OCO-2023-0007' },
   { id:'aw-cpr',          officerId:'aw', courseKey:'cpr',         category:'recurring', completed:'5 Mar 2023',  expiry:'5 Mar 2025',  status:'active',   certNo:'SHF-CPR-2023-3102' },
-  // Lena Yeo (ly) — LT, Alpha
+  // Lena Yeo (ly) - LT, Alpha
   { id:'ly-aotc',         officerId:'ly', courseKey:'aotc',        category:'mandatory', completed:'2 Jul 2022',  expiry:null,          status:'active',   certNo:'AOTC-2022-0015' },
 ];
 
-// ── 4. Submissions ────────────────────────────────────────────────
+// '" -' 4. Submissions '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 // stage: 'captain' | 'chaplain' | 'comm' | 'done'
 BB.submissions = {
   'SUB-00045': {
@@ -110,7 +110,7 @@ BB.submissions = {
   },
   'SUB-00124': {
     ref:'SUB-00124', officerId:'tg', courseKey:'fa1', type:'preapproved',
-    dates:'10–12 Jun 2025', submitted:'22 May 2025', cost:'Nil (company-sponsored)',
+    dates:'- Jun 2025', submitted:'22 May 2025', cost:'Nil (company-sponsored)',
     status:'pending', stage:'chaplain',
     purpose:'Renewing First Aid certification before expiry to maintain readiness for camp and activity facilitation.',
     remarks:'Approved by LTA Seet on 23 May 2025. Forwarded to Chaplain for endorsement.',
@@ -118,7 +118,7 @@ BB.submissions = {
   },
   'SUB-00127': {
     ref:'SUB-00127', officerId:'tg', courseName:'Leadership & Management Workshop', provider:'NTUC Learning Hub', type:'new',
-    dates:'15–16 Jul 2025', submitted:'23 May 2025', cost:'$120 / pax',
+    dates:'- Jul 2025', submitted:'23 May 2025', cost:'$120 / pax',
     status:'pending', stage:'captain',
     purpose:'Relevant to leadership development required for LTA progression. Course covers conflict resolution and team management.',
     remarks:'Pending initial review by LTA Seet.',
@@ -132,7 +132,7 @@ BB.submissions = {
   },
   'SUB-00131': {
     ref:'SUB-00131', officerId:'pr', courseKey:'youthwork', type:'preapproved',
-    dates:'2–4 Jun 2025', submitted:'22 May 2025', cost:'Nil (company-sponsored)',
+    dates:'- Jun 2025', submitted:'22 May 2025', cost:'Nil (company-sponsored)',
     status:'pending', stage:'captain',
     purpose:'To better support our Boys through structured youth development frameworks in weekly meetings.',
   },
@@ -140,11 +140,11 @@ BB.submissions = {
     ref:'SUB-00133', officerId:'sl', courseKey:'cpr', type:'preapproved',
     dates:'5 Jun 2025', submitted:'21 May 2025', cost:'Nil (company-sponsored)',
     status:'pending', stage:'captain',
-    purpose:'Renewal — current certification expires 30 Jun 2025. Mandatory for camp leadership roles.',
+    purpose:'Renewal - current certification expires 30 Jun 2025. Mandatory for camp leadership roles.',
   },
 };
 
-// ── 5. Endorsement History (past chaplain decisions) ──────────────
+// '" -' 5. Endorsement History (past chaplain decisions) '" - - - - - - - - - - - - -'
 BB.endorsementHistory = [
   { ref:'SUB-00118', officerId:'aw', courseName:'Youth Mental Health Awareness', decision:'returned',  date:'10 May 2025', note:'Returned to officer' },
   { ref:'SUB-00108', officerId:'tg', courseKey:'outdoor',  decision:'endorsed', date:'2 Apr 2025',   note:'Completed' },
@@ -152,7 +152,7 @@ BB.endorsementHistory = [
   { ref:'SUB-00095', officerId:'sl', courseKey:'rifle',    decision:'endorsed', date:'5 Mar 2025',   note:'Completed' },
 ];
 
-// ── 6. Helper utilities ───────────────────────────────────────────
+// '" -' 6. Helper utilities '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 
 BB._label = function(text) {
   return `<div style="font-size:0.75rem;color:var(--muted-fg);margin-bottom:0.25rem;">${text}</div>`;
@@ -193,17 +193,17 @@ BB.categoryChip = function(cat) {
 
 BB.courseName = function(sub) {
   if (sub.courseKey && BB.courses[sub.courseKey]) return BB.courses[sub.courseKey].name;
-  return sub.courseName || '—';
+  return sub.courseName || '-';
 };
 
 BB.courseProvider = function(sub) {
   if (sub.courseKey && BB.courses[sub.courseKey]) return BB.courses[sub.courseKey].provider;
-  return sub.provider || '—';
+  return sub.provider || '-';
 };
 
 BB.recordCourseName = function(rec) {
   if (rec.courseKey && BB.courses[rec.courseKey]) return BB.courses[rec.courseKey].name;
-  return rec.courseName || '—';
+  return rec.courseName || '-';
 };
 
 BB.stageLabel = function(sub) {
@@ -217,18 +217,18 @@ BB.stageLabel = function(sub) {
   return 'Done';
 };
 
-// ── 7. Approval Stepper HTML ──────────────────────────────────────
+// '" -' 7. Approval Stepper HTML '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 /*
  * Generates the 5-step approval stepper HTML for a submission.
  * stage:  'captain' | 'chaplain' | 'comm'  (current review stage)
  * status: 'pending' | 'approved' | 'returned' | 'completed'
  *
  * Step mapping:
- *   1 — Initiation            (always done once submitted)
- *   2 — Captain's Approval
- *   3 — Chaplain's Approval
- *   4 — Training Comm's Approval
- *   5 — Closure
+ *   1 - Initiation            (always done once submitted)
+ *   2 - Captain's Approval
+ *   3 - Chaplain's Approval
+ *   4 - Training Comm's Approval
+ *   5 - Closure
  */
 BB.approvalStepperHTML = function(stage, status) {
   const steps = [
@@ -239,7 +239,7 @@ BB.approvalStepperHTML = function(stage, status) {
     'Closure',
   ];
 
-  // Map stage → active step index (0-based)
+  // Map stage '�' active step index (0-based)
   const stageIndex = { captain: 1, chaplain: 2, comm: 3 };
   let activeIdx = stageIndex[stage] !== undefined ? stageIndex[stage] : 1;
   if (status === 'completed') activeIdx = 4;
@@ -258,7 +258,7 @@ BB.approvalStepperHTML = function(stage, status) {
   return '<div class="form-steps form-steps-left" style="margin-bottom:1.25rem;">' + stepHTML + '</div>';
 };
 
-// ── 8. Detail HTML generators ─────────────────────────────────────
+// '" -' 8. Detail HTML generators '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 
 BB.submissionDetailHTML = function(ref, role) {
   // role: 'officer' | 'captain' | 'chaplain' | 'comm'
@@ -275,7 +275,7 @@ BB.submissionDetailHTML = function(ref, role) {
   }
   rows += `<div>${BB._label('Type')}<div>${sub.type === 'preapproved' ? 'Pre-approved' : 'New Course'}</div></div>`;
   rows += `<div>${BB._label('Provider')}<div>${cProvider}</div></div>`;
-  rows += `<div>${BB._label('Dates')}<div>${sub.dates || '—'}</div></div>`;
+  rows += `<div>${BB._label('Dates')}<div>${sub.dates || '-'}</div></div>`;
   if (sub.cost) rows += `<div>${BB._label('Cost')}<div>${sub.cost}</div></div>`;
   if (sub.captainApproved) {
     rows += `<div>${BB._label('Captain')}<div style="color:var(--success);font-weight:500;">✓ ${sub.captainApproved}</div></div>`;
@@ -286,7 +286,7 @@ BB.submissionDetailHTML = function(ref, role) {
       chaplain: `Awaiting Rev Goh's endorsement`,
       comm:     'Awaiting Training Comm review',
     };
-    rows += `<div style="grid-column:1/-1;">${BB._label('Current Stage')}<div style="font-weight:500;color:var(--warning);">⏳ ${stageMap[sub.stage] || sub.stage}</div></div>`;
+    rows += `<div style="grid-column:1/-1;">${BB._label('Current Stage')}<div style="font-weight:500;color:var(--warning);">Pending: ${stageMap[sub.stage] || sub.stage}</div></div>`;
   }
   if (sub.purpose) rows += `<div style="grid-column:1/-1;">${BB._label('Purpose / Justification')}<div style="color:var(--muted-fg);">${sub.purpose}</div></div>`;
   if (sub.remarks) rows += `<div style="grid-column:1/-1;">${BB._label('Remarks')}<div style="color:var(--muted-fg);">${sub.remarks}</div></div>`;
@@ -299,7 +299,7 @@ BB.recordDetailHTML = function(recordId) {
   const rec = BB.records.find(r => r.id === recordId);
   if (!rec) return '<p style="color:var(--muted-fg);">Record not found.</p>';
   const course   = rec.courseKey ? BB.courses[rec.courseKey] : null;
-  const provider = course ? course.provider : (rec.provider || '—');
+  const provider = course ? course.provider : (rec.provider || '-');
   const desc     = course ? course.description : (rec.description || null);
 
   let expiryHTML;
@@ -316,7 +316,7 @@ BB.recordDetailHTML = function(recordId) {
   let rows = '';
   rows += `<div>${BB._label('Provider')}<div>${provider}</div></div>`;
   rows += `<div>${BB._label('Completed')}<div style="font-weight:500;">${rec.completed}</div></div>`;
-  rows += `<div>${BB._label('Certificate No.')}<div style="font-family:monospace;">${rec.certNo || '—'}</div></div>`;
+  rows += `<div>${BB._label('Certificate No.')}<div style="font-family:monospace;">${rec.certNo || '-'}</div></div>`;
   rows += `<div>${BB._label('Expiry')}${expiryHTML}</div>`;
   rows += `<div>${BB._label('Status')}${BB.statusPill(rec.status)}</div>`;
   rows += `<div>${BB._label('Category')}<div>${rec.category.charAt(0).toUpperCase() + rec.category.slice(1)}</div></div>`;
@@ -330,9 +330,9 @@ BB.recordDetailHTML = function(recordId) {
   return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem 2rem;font-size:0.875rem;">${rows}</div>`;
 };
 
-// ── 8. Table render functions ─────────────────────────────────────
+// '" -' 8. Table render functions '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 
-/* Officer — active submissions (dashboard card table) */
+/* Officer - active submissions (dashboard card table) */
 BB.renderOfficerActiveSubmissions = function(officerId, tbody) {
   if (!tbody) return;
   const subs = Object.values(BB.submissions)
@@ -362,7 +362,7 @@ BB.renderOfficerActiveSubmissions = function(officerId, tbody) {
   }).join('');
 };
 
-/* Officer — full submissions table (My Submissions section) */
+/* Officer - full submissions table (My Submissions section) */
 BB.renderOfficerSubmissionsTable = function(officerId, tbody) {
   if (!tbody) return;
   const subs = Object.values(BB.submissions)
@@ -385,7 +385,7 @@ BB.renderOfficerSubmissionsTable = function(officerId, tbody) {
   }).join('');
 };
 
-/* Officer — training records table */
+/* Officer - training records table */
 BB.renderOfficerRecordsTable = function(officerId, tbody) {
   if (!tbody) return;
   const recs = BB.records.filter(r => r.officerId === officerId);
@@ -411,7 +411,7 @@ BB.renderOfficerRecordsTable = function(officerId, tbody) {
   }).join('');
 };
 
-/* Captain — pending approvals (submissions at 'captain' stage for a company) */
+/* Captain - pending approvals (submissions at 'captain' stage for a company) */
 BB.renderCaptainApprovalsTable = function(company, tbody) {
   if (!tbody) return;
   const subs = Object.values(BB.submissions).filter(s => {
@@ -442,7 +442,7 @@ BB.renderCaptainApprovalsTable = function(company, tbody) {
   }).join('');
 };
 
-/* Captain — my records table */
+/* Captain - my records table */
 BB.renderCaptainMyRecordsTable = function(officerId, tbody) {
   if (!tbody) return;
   const recs = BB.records.filter(r => r.officerId === officerId);
@@ -466,7 +466,7 @@ BB.renderCaptainMyRecordsTable = function(officerId, tbody) {
   }).join('');
 };
 
-/* Captain — company records table */
+/* Captain - company records table */
 BB.renderCaptainCompanyRecordsTable = function(company, tbody) {
   if (!tbody) return;
   const recs = BB.records.filter(r => {
@@ -492,7 +492,7 @@ BB.renderCaptainCompanyRecordsTable = function(company, tbody) {
   }).join('');
 };
 
-/* Chaplain — pending endorsements */
+/* Chaplain - pending endorsements */
 BB.renderChaplainEndorsementsTable = function(tbody) {
   if (!tbody) return;
   const subs = Object.values(BB.submissions)
@@ -506,11 +506,11 @@ BB.renderChaplainEndorsementsTable = function(tbody) {
     const cName = BB.courseName(sub);
     const capHTML = sub.captainApproved
       ? `<span style="color:var(--success);font-weight:500;">✓ ${sub.captainApproved}</span>`
-      : `<span style="color:var(--muted-fg);">—</span>`;
+      : `<span style="color:var(--muted-fg);"> -</span>`;
     return `<tr data-search="${sub.ref.toLowerCase()} ${(o.name||'').toLowerCase()} ${cName.toLowerCase()}" data-company="${(o.company||'').toLowerCase()}">
       <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#${sub.ref}</td>
       <td>${BB.officerCell(sub.officerId)}</td>
-      <td style="color:var(--muted-fg);">${o.company || '—'}</td>
+      <td style="color:var(--muted-fg);">${o.company || '-'}</td>
       <td style="font-weight:500;">${cName}</td>
       <td style="font-size:0.8125rem;color:var(--muted-fg);">${sub.submitted}</td>
       <td style="font-size:0.8125rem;">${capHTML}</td>
@@ -525,12 +525,12 @@ BB.renderChaplainEndorsementsTable = function(tbody) {
   }).join('');
 };
 
-/* Chaplain — endorsement history */
+/* Chaplain - endorsement history */
 BB.renderChaplainEndorsementHistory = function(tbody) {
   if (!tbody) return;
   tbody.innerHTML = BB.endorsementHistory.map(h => {
     const o = BB.officers[h.officerId] || {};
-    const cName = h.courseKey ? (BB.courses[h.courseKey]?.name || h.courseKey) : (h.courseName || '—');
+    const cName = h.courseKey ? (BB.courses[h.courseKey]?.name || h.courseKey) : (h.courseName || '-');
     const pill = h.decision === 'endorsed'
       ? `<span class="status-pill approved">Endorsed</span>`
       : `<span class="status-pill" style="background:#fef3c7;color:#92400e;">Returned</span>`;
@@ -545,7 +545,7 @@ BB.renderChaplainEndorsementHistory = function(tbody) {
   }).join('');
 };
 
-/* Chaplain — my records table */
+/* Chaplain - my records table */
 BB.renderChaplainMyRecordsTable = function(officerId, tbody) {
   if (!tbody) return;
   const recs = BB.records.filter(r => r.officerId === officerId);
@@ -565,7 +565,7 @@ BB.renderChaplainMyRecordsTable = function(officerId, tbody) {
   }).join('');
 };
 
-/* Chaplain — officers overview (all officer records across all companies) */
+/* Chaplain - officers overview (all officer records across all companies) */
 BB.renderChaplainOfficersOverviewTable = function(tbody) {
   if (!tbody) return;
   const recs = BB.records.filter(r => BB.officers[r.officerId]?.role === 'officer');
@@ -579,7 +579,7 @@ BB.renderChaplainOfficersOverviewTable = function(tbody) {
       : `<span style="color:var(--muted-fg);">No expiry</span>`;
     return `<tr data-company="${(o?.company||'').toLowerCase()}" data-search="${(o?.name||'').toLowerCase()} ${cName.toLowerCase()} ${(o?.company||'').toLowerCase()}">
       <td>${BB.officerCell(rec.officerId)}</td>
-      <td style="color:var(--muted-fg);">${o?.company || '—'}</td>
+      <td style="color:var(--muted-fg);">${o?.company || '-'}</td>
       <td style="font-weight:500;">${cName}</td>
       <td>${rec.completed}</td>
       <td>${expHTML}</td>
@@ -588,7 +588,7 @@ BB.renderChaplainOfficersOverviewTable = function(tbody) {
   }).join('');
 };
 
-/* ── Load user-submitted entries from localStorage (user testing) ──────────
+/* '" -' Load user-submitted entries from localStorage (user testing) '" - - - - - - - - -'
    submit.html writes new submissions to localStorage key 'bb_user_submissions'.
    This snippet merges them into BB.submissions so all pages see the new data. */
 (function () {
