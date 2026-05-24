@@ -1797,3 +1797,395 @@ select.input {
 /* returned state for form-step (used in detail panel steppers) */
 .form-step.returned .form-step-num { background: var(--destructive); border-color: var(--destructive); color: white; }
 .form-step.returned .form-step-label { color: var(--destructive); }
+
+/* ══════════════════════════════════════════════════════════════
+   FINAL RESPONSIVE OVERRIDES
+   Keep this block last so it wins over page-level layout rules.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  html,
+  body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .layout {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .page-wrapper {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: auto;
+    min-height: 3.5rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    min-width: 0;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+  }
+
+  .breadcrumb {
+    display: none;
+  }
+
+  .page-content {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem !important;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-header,
+  .section-header,
+  .card-header,
+  .card-footer,
+  .submission-card-header,
+  .submission-card-footer,
+  .table-toolbar,
+  .table-pagination {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .page-header {
+    gap: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.125rem;
+    overflow-wrap: anywhere;
+  }
+
+  .page-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .page-actions .btn,
+  .section-header .btn,
+  .submission-card-footer .btn {
+    width: 100%;
+  }
+
+  .card,
+  .stat-card,
+  .submission-card,
+  .option-card,
+  .tabs-lift-content {
+    border-radius: var(--radius);
+  }
+
+  .card-header,
+  .card-content,
+  .card-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .card-header {
+    padding-top: 1rem;
+  }
+
+  .card-content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card-label {
+    font-size: 0.72rem;
+    white-space: normal;
+  }
+
+  .stat-card-value {
+    font-size: 1.35rem;
+  }
+
+  .submission-card {
+    padding: 1rem;
+  }
+
+  .btn {
+    min-height: 2.5rem;
+    height: auto;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .btn-icon {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .input {
+    min-height: 2.5rem;
+    height: auto;
+  }
+
+  textarea.input {
+    min-height: 6rem;
+  }
+
+  .dropdown-menu {
+    max-width: calc(100vw - 1.5rem);
+  }
+
+  .dropdown-menu.align-right {
+    right: 0;
+  }
+
+  .notif-btn,
+  .notif-btn + .dropdown-menu {
+    display: none;
+  }
+
+  .table-wrapper,
+  .card-content {
+    min-width: 0;
+  }
+
+  .table-scroll,
+  .table-wrapper,
+  .card-content table,
+  table.table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .card-content table,
+  table.table {
+    display: block;
+    width: 100%;
+    min-width: 42rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem;
+  }
+
+  .dialog-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .dialog {
+    width: 100vw !important;
+    max-width: none !important;
+    max-height: calc(100vh - 1rem);
+    margin: 0 !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    overflow-y: auto;
+  }
+
+  .dialog-header,
+  .dialog-content,
+  .dialog-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dialog-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .dialog-footer .btn {
+    width: 100%;
+  }
+
+  .tabs-list,
+  .tabs-lift-list {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tabs-lift-content {
+    padding: 1rem;
+  }
+
+  .form-steps {
+    overflow-x: auto;
+    gap: 0.25rem;
+    padding-bottom: 0.375rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .form-step,
+  .form-steps-left .form-step {
+    flex: 0 0 5.75rem;
+  }
+
+  .form-step-label {
+    font-size: 0.625rem;
+    line-height: 1.15;
+  }
+
+  .toast-container {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: auto;
+    max-width: none;
+  }
+
+  [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*="max-width:52rem"],
+  [style*="max-width:36rem"],
+  [style*="max-width:26rem"],
+  [style*="max-width:22rem"] {
+    max-width: 100% !important;
+  }
+
+  [style*="padding:2rem 2.5rem"] {
+    padding: 1rem !important;
+  }
+
+  [style*="height:100%"] {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0;
+    width: min(18rem, 85vw) !important;
+    height: 100dvh !important;
+    min-height: 100dvh;
+    transform: translateX(-100%);
+    z-index: 60;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar.collapsed {
+    width: min(18rem, 85vw) !important;
+  }
+
+  .sidebar.collapsed .sidebar-brand-name,
+  .sidebar.collapsed .sidebar-section-label,
+  .sidebar.collapsed .nav-item-label,
+  .sidebar.collapsed .nav-item-badge {
+    opacity: 1;
+    width: auto;
+    max-width: none;
+  }
+
+  .sidebar.collapsed .sidebar-header {
+    justify-content: space-between;
+  }
+
+  .sidebar.collapsed .sidebar-nav {
+    padding: 1.25rem 1rem;
+  }
+
+  .sidebar.collapsed .nav-item {
+    justify-content: flex-start;
+    padding: 0.75rem;
+  }
+
+  .sidebar-backdrop {
+    z-index: 55;
+  }
+
+  .sidebar-backdrop.open {
+    display: block;
+  }
+
+  .sidebar-mobile-btn {
+    display: inline-flex !important;
+    flex-shrink: 0;
+  }
+
+  .login-page {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .login-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .topbar {
+    gap: 0.5rem;
+  }
+
+  .avatar-sm {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .fulfillment-row {
+    align-items: flex-start;
+  }
+
+  .fulfillment-action {
+    width: 100%;
+  }
+
+  .fulfillment-action .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-content {
+    padding: 0.75rem !important;
+  }
+
+  .card-header,
+  .card-content,
+  .card-footer,
+  .submission-card {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+
+  .section-title,
+  .card-title,
+  .submission-card-title {
+    overflow-wrap: anywhere;
+  }
+
+  .badge,
+  .chip {
+    white-space: normal;
+  }
+
+  .tabs-lift-trigger {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .tab-lift-label {
+    display: none;
+  }
+}
