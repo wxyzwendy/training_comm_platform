@@ -168,72 +168,7 @@
               <button class="btn btn-ghost btn-sm" onclick="showSection('approvals')">View All</button>
             </div>
 
-            <div style="display:flex;flex-direction:column;gap:0.75rem;">
-
-              <div class="submission-card">
-                <div class="submission-card-header">
-                  <div>
-                    <div class="submission-card-title">Leadership &amp; Management Workshop</div>
-                    <div class="submission-card-meta">New Course · Theodor Gunawan · 15–16 Jul 2025 · $120/pax</div>
-                  </div>
-                  <span class="status-pill pending">Pending</span>
-                </div>
-                <div style="font-size:0.8125rem;color:var(--muted-fg);margin:0.5rem 0 0.625rem;">
-                  <strong style="color:var(--fg);">Purpose:</strong> Relevant to leadership development required for LTA progression. Course covers conflict resolution and team management.
-                </div>
-                <div class="submission-card-footer">
-                  <div style="font-size:0.75rem;color:var(--muted-fg);">Submitted 23 May · #SUB-00127</div>
-                  <div style="display:flex;gap:0.375rem;">
-                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00127')">View</button>
-                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Return</button>
-                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Approve</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="submission-card">
-                <div class="submission-card-header">
-                  <div>
-                    <div class="submission-card-title">Youth Work Certificate</div>
-                    <div class="submission-card-meta">Pre-approved · Priya Raj · 2–4 Jun 2025 · Nil</div>
-                  </div>
-                  <span class="status-pill pending">Pending</span>
-                </div>
-                <div style="font-size:0.8125rem;color:var(--muted-fg);margin:0.5rem 0 0.625rem;">
-                  <strong style="color:var(--fg);">Purpose:</strong> To better support our Boys through structured youth development frameworks in weekly meetings.
-                </div>
-                <div class="submission-card-footer">
-                  <div style="font-size:0.75rem;color:var(--muted-fg);">Submitted 22 May · #SUB-00131</div>
-                  <div style="display:flex;gap:0.375rem;">
-                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00131')">View</button>
-                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Return</button>
-                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Approve</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="submission-card">
-                <div class="submission-card-header">
-                  <div>
-                    <div class="submission-card-title">CPR + AED Certification (Renewal)</div>
-                    <div class="submission-card-meta">Pre-approved · Samuel Lim · 5 Jun 2025 · Nil</div>
-                  </div>
-                  <span class="status-pill pending">Pending</span>
-                </div>
-                <div style="font-size:0.8125rem;color:var(--muted-fg);margin:0.5rem 0 0.625rem;">
-                  <strong style="color:var(--fg);">Purpose:</strong> Renewal — current certification expires 30 Jun 2025. Mandatory for camp leadership roles.
-                </div>
-                <div class="submission-card-footer">
-                  <div style="font-size:0.75rem;color:var(--muted-fg);">Submitted 21 May · #SUB-00133</div>
-                  <div style="display:flex;gap:0.375rem;">
-                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00133')">View</button>
-                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Return</button>
-                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Approve</button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+            <div id="captain-dashboard-pending" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
           </div>
 
           <!-- Right: company compliance -->
@@ -340,68 +275,7 @@
                 <th style="width:11rem;"></th>
               </tr>
             </thead>
-            <tbody id="tbody-approvals">
-              <tr data-type="new" data-search="john tan leadership management workshop sub-00127">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00127</td>
-                <td>
-                  <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div>
-                    <div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div>
-                  </div>
-                </td>
-                <td style="font-weight:500;">Leadership &amp; Management Workshop</td>
-                <td><span class="chip">New Course</span></td>
-                <td>23 May 2025</td>
-                <td style="color:var(--muted-fg);">15–16 Jul 2025</td>
-                <td>
-                  <div style="display:flex;gap:0.375rem;">
-                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00127')">View</button>
-                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Return</button>
-                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00127','Theodor Gunawan','Leadership & Management Workshop')">Approve</button>
-                  </div>
-                </td>
-              </tr>
-              <tr data-type="preapproved" data-search="priya raj youth work certificate sub-00131">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00131</td>
-                <td>
-                  <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div>
-                    <div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div>
-                  </div>
-                </td>
-                <td style="font-weight:500;">Youth Work Certificate</td>
-                <td><span class="chip">Pre-approved</span></td>
-                <td>22 May 2025</td>
-                <td style="color:var(--muted-fg);">2–4 Jun 2025</td>
-                <td>
-                  <div style="display:flex;gap:0.375rem;">
-                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00131')">View</button>
-                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Return</button>
-                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00131','Priya Raj','Youth Work Certificate')">Approve</button>
-                  </div>
-                </td>
-              </tr>
-              <tr data-type="preapproved" data-search="samuel lim cpr aed certification sub-00133">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00133</td>
-                <td>
-                  <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div>
-                    <div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div>
-                  </div>
-                </td>
-                <td style="font-weight:500;">CPR + AED Certification (Renewal)</td>
-                <td><span class="chip">Pre-approved</span></td>
-                <td>21 May 2025</td>
-                <td style="color:var(--muted-fg);">5 Jun 2025</td>
-                <td>
-                  <div style="display:flex;gap:0.375rem;">
-                    <button class="btn btn-ghost btn-sm" onclick="openDetailDialog('SUB-00133')">View</button>
-                    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="openReturnDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Return</button>
-                    <button class="btn btn-default btn-sm" onclick="openApproveDialog('SUB-00133','Samuel Lim','CPR + AED Certification')">Approve</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="tbody-approvals"></tbody>
           </table>
         </div>
       </div><!-- /section-approvals -->
@@ -898,9 +772,11 @@ function openApproveDialog(ref, name, course) {
 }
 function closeApproveDialog() { document.getElementById('approve-overlay').classList.remove('open'); }
 function confirmApprove() {
+  const note = document.getElementById('approve-note').value.trim();
   closeApproveDialog();
+  BB.advanceSubmission(_activeRef, 'approve', 'captain', note);
   showToast('success', 'Submission approved', `"${_activeCourse}" forwarded to Rev Goh.`);
-  removeApprovalRow(_activeRef);
+  refreshCaptainQueues();
 }
 
 function openReturnDialog(ref, name, course) {
@@ -915,9 +791,11 @@ function confirmReturn() {
     showToast('warning', 'Reason required', 'Please provide a reason before returning the submission.');
     return;
   }
+  const reason = document.getElementById('return-reason').value.trim();
   closeReturnDialog();
+  BB.advanceSubmission(_activeRef, 'return', 'captain', reason);
   showToast('info', 'Submission returned', `"${_activeCourse}" returned to the officer for revision.`);
-  removeApprovalRow(_activeRef);
+  refreshCaptainQueues();
 }
 
 // ── Records sub-tabs ─────────────────────────────────────────────
@@ -962,17 +840,13 @@ function openCapRecordDetail(id) {
 
 
 
-function removeApprovalRow(ref) {
-  // Remove from table
-  document.querySelectorAll('#approvals-table tbody tr').forEach(r => {
-    if (r.dataset.search && r.dataset.search.includes(ref.toLowerCase().replace('-','-00').toLowerCase())) {
-      r.style.opacity = '0.4'; r.style.pointerEvents = 'none';
-    }
-  });
+function refreshCaptainQueues() {
+  BB.renderCaptainPendingCards(document.getElementById('captain-dashboard-pending'), 'Alpha', 5);
+  BB.renderCaptainApprovalsTable('Alpha', document.getElementById('tbody-approvals'));
 }
 
 // ── Render tables from shared data ───────────────────────────────
-BB.renderCaptainApprovalsTable('Alpha', document.getElementById('tbody-approvals'));
+refreshCaptainQueues();
 BB.renderCaptainMyRecordsTable('js', document.getElementById('tbody-my-records'));
 BB.renderCaptainCompanyRecordsTable('Alpha', document.getElementById('tbody-company-records'));
 </script>

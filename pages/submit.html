@@ -10,30 +10,234 @@
   <link rel="stylesheet" href="../components/styles.css" />
   <style>
 
-    /* ── Trainee rows ───────────────────────────────────────── */
-    .trainee-row {
+    /* ── Trainee cards (added officers) ─────────────────────── */
+    .trainee-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+      gap: 0.5rem;
+    }
+    .trainee-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--muted-fg);
+      padding: 1.25rem 1rem;
+      font-size: 0.8125rem;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--muted);
+    }
+    .trainee-card {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.625rem 0.875rem;
-      background: var(--muted);
+      gap: 0.625rem;
+      min-height: 0;
+      padding: 0.625rem 2rem 0.625rem 0.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      font-size: 0.875rem;
+      box-shadow: var(--shadow-sm);
     }
-    .trainee-row .remove-btn {
-      margin-left: auto;
+    .trainee-card-remove {
+      position: absolute;
+      top: 0.375rem;
+      right: 0.375rem;
       width: 1.5rem;
       height: 1.5rem;
+      padding: 0;
       border: none;
-      background: transparent;
-      cursor: pointer;
-      color: var(--muted-fg);
       border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--destructive);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background var(--transition), color var(--transition);
     }
-    .trainee-row .remove-btn:hover { background: var(--accent); color: var(--destructive); }
+    .trainee-card-remove:hover {
+      background: #fef2f2;
+      color: var(--destructive);
+    }
+    .trainee-card-remove svg {
+      width: 0.8125rem;
+      height: 0.8125rem;
+    }
+    .trainee-card-body {
+      min-width: 0;
+      flex: 1;
+      line-height: 1.2;
+    }
+    .trainee-card-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .trainee-card-meta {
+      font-size: 0.6875rem;
+      color: var(--muted-fg);
+      margin-top: 0.0625rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    @media (max-width: 520px) {
+      .trainee-list { grid-template-columns: 1fr; }
+    }
+
+    /* ── Closure (cert upload) ──────────────────────────────── */
+    .closure-cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .closure-cert-row {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+    .closure-cert-row.done {
+      border-color: #bbf7d0;
+      background: #f0fdf4;
+    }
+    .closure-cert-officer {
+      flex: 1;
+      min-width: 0;
+      line-height: 1.2;
+    }
+    .closure-cert-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .closure-cert-meta {
+      font-size: 0.6875rem;
+      color: var(--muted-fg);
+      margin-top: 0.0625rem;
+    }
+    .closure-cert-file {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      flex-shrink: 0;
+      max-width: 52%;
+    }
+    .closure-cert-file input[type="file"] {
+      font-size: 0.6875rem;
+      max-width: 9rem;
+    }
+    .closure-cert-filename {
+      font-size: 0.6875rem;
+      color: var(--success);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 6rem;
+    }
+    .closure-summary {
+      background: var(--muted);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      font-size: 0.8125rem;
+      margin-bottom: 1.25rem;
+    }
+    .closure-summary strong { color: var(--fg); }
+
+    /* ── Option choosers (for whom / course type) ───────────── */
+    .option-chooser-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+      max-width: 36rem;
+    }
+    .option-chooser-grid .option-card-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+    }
+    .option-chooser-grid .option-card-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+    .option-chooser-grid .option-card-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+    .option-chooser-grid .option-card-icon--self { background: #eff6ff; }
+    .option-chooser-grid .option-card-icon--others { background: #f0fdf4; }
+    .option-chooser-grid .option-card-icon--preapproved { background: #f0fdf4; }
+    .option-chooser-grid .option-card-icon--new { background: #fffbeb; }
+    .option-chooser-grid .option-card-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+    .option-chooser-grid .option-card-desc {
+      font-size: 0.8125rem;
+      color: var(--muted-fg);
+      margin-top: 0.25rem;
+    }
+    .option-chooser-grid .option-card-title-short { display: none; }
+
+    @media (max-width: 900px) {
+      .option-chooser-grid {
+        max-width: none;
+        gap: 0.375rem;
+      }
+      .option-chooser-grid .option-card {
+        padding: 0.5rem 0.25rem;
+        gap: 0;
+        min-width: 0;
+      }
+      .option-chooser-grid .option-card-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        width: 100%;
+      }
+      .option-chooser-grid .option-card-icon {
+        width: 1.375rem;
+        height: 1.375rem;
+        margin-top: 0;
+      }
+      .option-chooser-grid .option-card-icon svg {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+      .option-chooser-grid .option-card-desc {
+        display: none;
+      }
+      .option-chooser-grid .option-card-title-long {
+        display: none;
+      }
+      .option-chooser-grid .option-card-title-short {
+        display: block;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        line-height: 1.15;
+        text-align: center;
+      }
+      .option-chooser-grid .option-card-title:not(.option-card-title-long):not(.option-card-title-short) {
+        font-size: 0.6875rem;
+        line-height: 1.15;
+        text-align: center;
+      }
+    }
 
     /* ── Course info card ───────────────────────────────────── */
     .course-info-card {
@@ -138,13 +342,13 @@
         <!-- Header -->
         <div class="page-header" style="margin-bottom:1.5rem;">
           <div>
-            <h1 class="page-title">Submit Training Request</h1>
-            <p class="page-subtitle">Complete each section to send your request for approval.</p>
+            <h1 class="page-title" id="page-title">Submit Training Request</h1>
+            <p class="page-subtitle" id="page-subtitle">Complete each section to send your request for approval.</p>
           </div>
         </div>
 
         <!-- ── Approval workflow stepper ────────────────────────── -->
-        <div class="form-steps form-steps-left" style="margin-bottom:2rem;">
+        <div class="form-steps form-steps-left" id="page-stepper" style="margin-bottom:2rem;">
           <div class="form-step active">
             <div class="form-step-num">1</div>
             <div class="form-step-label">Initiation</div>
@@ -177,6 +381,10 @@
             <span class="tab-lift-num">2</span>
             <span class="tab-lift-label">Course Information</span>
           </button>
+          <button class="tabs-lift-trigger locked" id="tab-btn-3" onclick="goToTab(3)">
+            <span class="tab-lift-num">3</span>
+            <span class="tab-lift-label">Closure</span>
+          </button>
         </div>
 
         <!-- ── Card wrapping all panels ──────────────────────── -->
@@ -191,28 +399,29 @@
             <div style="margin-bottom:1.75rem;">
               <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Who is this request for?</div>
               <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Select whether you are submitting for yourself or on behalf of other officers.</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;max-width:36rem;">
+              <div class="option-chooser-grid">
                 <label class="option-card selected" id="for-self-card" style="cursor:pointer;" onclick="selectFor('self')">
                   <input type="radio" name="for-whom" value="self" checked style="display:none;">
-                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
-                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <div class="option-card-inner">
+                    <div class="option-card-icon option-card-icon--self">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </div>
                     <div>
-                      <div style="font-weight:600;font-size:0.9375rem;">For Myself</div>
-                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Submit under your own name.</div>
+                      <div class="option-card-title">For Myself</div>
+                      <div class="option-card-desc">Submit under your own name.</div>
                     </div>
                   </div>
                 </label>
                 <label class="option-card" id="for-others-card" style="cursor:pointer;" onclick="selectFor('others')">
                   <input type="radio" name="for-whom" value="others" style="display:none;">
-                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
-                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <div class="option-card-inner">
+                    <div class="option-card-icon option-card-icon--others">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
                     <div>
-                      <div style="font-weight:600;font-size:0.9375rem;">On Behalf of Others</div>
-                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Submit for one or more other officers.</div>
+                      <div class="option-card-title option-card-title-long">On Behalf of Others</div>
+                      <div class="option-card-title option-card-title-short">Others</div>
+                      <div class="option-card-desc">Submit for one or more other officers.</div>
                     </div>
                   </div>
                 </label>
@@ -255,26 +464,11 @@
                 </div>
               </div>
 
-              <!-- Trainee data table -->
-              <div class="table-wrapper">
-                <table class="table" id="trainee-table">
-                  <thead>
-                    <tr>
-                      <th style="width:2.5rem;"></th>
-                      <th>Name</th>
-                      <th>Rank</th>
-                      <th>Company / Unit</th>
-                      <th style="width:3rem;"></th>
-                    </tr>
-                  </thead>
-                  <tbody id="trainee-tbody">
-                    <tr id="trainee-empty-row">
-                      <td colspan="5" style="text-align:center;color:var(--muted-fg);padding:2rem 1rem;font-size:0.875rem;">
-                        No trainees added yet — select from the roster above or add manually.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <!-- Added officers -->
+              <div class="trainee-list" id="trainee-list">
+                <div class="trainee-empty" id="trainee-empty">
+                  No trainees added yet — select from the roster above.
+                </div>
               </div>
             </div>
 
@@ -296,28 +490,30 @@
             <div style="margin-bottom:1.75rem;">
               <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Type of Request</div>
               <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Is this a pre-approved course from our catalogue, or a new external course?</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;max-width:36rem;">
+              <div class="option-chooser-grid">
                 <label class="option-card selected" id="type-preapproved-card" style="cursor:pointer;" onclick="selectType('preapproved')">
                   <input type="radio" name="course-type" value="preapproved" checked style="display:none;">
-                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
-                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <div class="option-card-inner">
+                    <div class="option-card-icon option-card-icon--preapproved">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     </div>
                     <div>
-                      <div style="font-weight:600;font-size:0.9375rem;">Pre-approved Course</div>
-                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Select from our catalogue — faster approval.</div>
+                      <div class="option-card-title option-card-title-long">Pre-approved Course</div>
+                      <div class="option-card-title option-card-title-short">Pre-approved</div>
+                      <div class="option-card-desc">Select from our catalogue — faster approval.</div>
                     </div>
                   </div>
                 </label>
                 <label class="option-card" id="type-new-card" style="cursor:pointer;" onclick="selectType('new')">
                   <input type="radio" name="course-type" value="new" style="display:none;">
-                  <div style="display:flex;align-items:flex-start;gap:0.875rem;">
-                    <div style="width:2.25rem;height:2.25rem;border-radius:var(--radius);background:#fffbeb;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.125rem;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <div class="option-card-inner">
+                    <div class="option-card-icon option-card-icon--new">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </div>
                     <div>
-                      <div style="font-weight:600;font-size:0.9375rem;">New / External Course</div>
-                      <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Not in our catalogue — requires extra review.</div>
+                      <div class="option-card-title option-card-title-long">New / External Course</div>
+                      <div class="option-card-title option-card-title-short">New course</div>
+                      <div class="option-card-desc">Not in our catalogue — requires extra review.</div>
                     </div>
                   </div>
                 </label>
@@ -441,6 +637,59 @@
             </div>
           </div><!-- /panel-2 -->
 
+          <!-- ════════════════════════════════════════════════════
+               TAB 3 — Closure
+               ════════════════════════════════════════════════════ -->
+          <div id="panel-3" style="display:none;">
+
+            <div class="closure-summary" id="closure-summary" style="display:none;">
+              <div style="color:var(--muted-fg);font-size:0.75rem;margin-bottom:0.25rem;">Submission</div>
+              <div><strong id="closure-summary-course">—</strong> · <span id="closure-summary-ref">—</span></div>
+              <div style="color:var(--muted-fg);margin-top:0.25rem;" id="closure-summary-dates">—</div>
+            </div>
+
+            <div style="margin-bottom:1.25rem;">
+              <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Training outcome</div>
+              <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Upload a certificate for each officer on this request, or report that the training was cancelled.</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;max-width:36rem;">
+                <label class="option-card selected" id="outcome-completed-card" style="cursor:pointer;" onclick="selectClosureOutcome('completed')">
+                  <input type="radio" name="closure-outcome" value="completed" checked style="display:none;">
+                  <div style="font-weight:600;font-size:0.9375rem;">Training completed</div>
+                  <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Upload certificates for all officers.</div>
+                </label>
+                <label class="option-card" id="outcome-cancelled-card" style="cursor:pointer;" onclick="selectClosureOutcome('cancelled')">
+                  <input type="radio" name="closure-outcome" value="cancelled" style="display:none;">
+                  <div style="font-weight:600;font-size:0.9375rem;">Training cancelled</div>
+                  <div style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.25rem;">Course did not go ahead.</div>
+                </label>
+              </div>
+            </div>
+
+            <div id="closure-upload-section">
+              <div style="font-size:0.875rem;font-weight:600;margin-bottom:0.5rem;">Certificate upload <span style="color:var(--destructive);">*</span></div>
+              <p style="font-size:0.8125rem;color:var(--muted-fg);margin:0 0 0.75rem;">One certificate file is required per officer listed below.</p>
+              <div class="closure-cert-list" id="closure-cert-list"></div>
+            </div>
+
+            <div id="closure-cancel-section" style="display:none;">
+              <div class="form-group">
+                <label class="label label-required" for="closure-cancel-reason">Reason for cancellation</label>
+                <textarea class="input" id="closure-cancel-reason" rows="3" placeholder="Briefly explain why the training did not proceed…"></textarea>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-top:1.75rem;">
+              <button class="btn btn-outline" id="closure-back-btn" type="button" onclick="closureBack()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="15 18 9 12 15 6"/></svg>
+                Back
+              </button>
+              <button class="btn btn-default" type="button" onclick="handleClosureSubmit()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="20 6 9 17 4 12"/></svg>
+                Submit closure
+              </button>
+            </div>
+          </div><!-- /panel-3 -->
+
         </div><!-- /tabs-lift-content -->
     </main>
   </div><!-- /page-wrapper -->
@@ -496,7 +745,13 @@ let currentType  = 'preapproved'; // 'preapproved' | 'new'
 let trainees     = [];            // { id?, name, rank, unit }
 let currentTab   = 1;
 let maxUnlocked  = 1;             // highest tab the user has earned access to
-const TABS       = 2;
+const TABS       = 3;
+
+let closureMode      = false;
+let closureRef       = null;
+let closureOfficers  = [];        // officers requiring certs
+let closureOutcome   = 'completed'; // 'completed' | 'cancelled'
+let closureCerts     = {};        // officerKey → file name
 
 // ── Tab navigation ───────────────────────────────────────────────
 function goToTab(n) {
@@ -517,7 +772,8 @@ function goToTab(n) {
     else if (i > maxUnlocked) btn.classList.add('locked');
   }
 
-  if (n === 2) syncCourseView(); // ensure correct course sub-form shows
+  if (n === 2) syncCourseView();
+  if (n === 3) renderClosureCerts();
   document.querySelector('.page-content').scrollTop = 0;
 }
 
@@ -705,44 +961,48 @@ function validateTab1AndNext() {
   unlockAndAdvance();
 }
 
-// ── Trainee table ─────────────────────────────────────────────────
+// ── Trainee cards ─────────────────────────────────────────────────
+const TRASH_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>`;
+
 function renderTrainees() {
-  const tbody = document.getElementById('trainee-tbody');
-  const emptyRow = document.getElementById('trainee-empty-row');
-  // Remove all rows except the empty-state row
-  tbody.querySelectorAll('tr:not(#trainee-empty-row)').forEach(r => r.remove());
+  const list = document.getElementById('trainee-list');
+  const empty = document.getElementById('trainee-empty');
+  list.querySelectorAll('.trainee-card').forEach(el => el.remove());
 
   if (!trainees.length) {
-    emptyRow.style.display = '';
+    empty.style.display = '';
     return;
   }
-  emptyRow.style.display = 'none';
+  empty.style.display = 'none';
 
   trainees.forEach((t, idx) => {
     const o = t.id ? BB.officers[t.id] : null;
+    const initials = (t.name || '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
     const avatarHTML = o
-      ? `<div class="avatar avatar-sm" style="background:${o.bg};color:${o.fg};">${o.initials}</div>`
-      : `<div class="avatar avatar-sm" style="background:var(--muted);color:var(--muted-fg);">${(t.name||'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>`;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${avatarHTML}</td>
-      <td style="font-weight:500;">${t.name}</td>
-      <td style="color:var(--muted-fg);">${t.rank || '—'}</td>
-      <td style="color:var(--muted-fg);">${t.unit || '—'}</td>
-      <td style="text-align:right;">
-        <button class="btn btn-ghost btn-sm" style="color:var(--muted-fg);" onclick="removeTrainee(${idx})" title="Remove">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </td>`;
-    tbody.appendChild(tr);
+      ? `<div class="avatar avatar-sm" style="background:${o.bg};color:${o.fg};flex-shrink:0;">${o.initials}</div>`
+      : `<div class="avatar avatar-sm" style="background:var(--muted);color:var(--muted-fg);flex-shrink:0;">${initials}</div>`;
+    const rank = t.rank || '—';
+    const unit = t.unit || '—';
+    const card = document.createElement('div');
+    card.className = 'trainee-card';
+    card.innerHTML = `
+      <button type="button" class="trainee-card-remove" onclick="removeTrainee(${idx})" title="Remove ${t.name}" aria-label="Remove ${t.name}">
+        ${TRASH_ICON}
+      </button>
+      ${avatarHTML}
+      <div class="trainee-card-body">
+        <div class="trainee-card-name">${t.name}</div>
+        <div class="trainee-card-meta">${rank} · ${unit}</div>
+      </div>`;
+    list.appendChild(card);
   });
 }
 
 function removeTrainee(idx) {
   trainees.splice(idx, 1);
   renderTrainees();
-  // Refresh roster if it's open so the removed officer becomes selectable again
-  if (document.getElementById('roster-menu').classList.contains('open')) renderRosterItems();
+  renderRosterItems();
+  updateRosterAddBtn();
 }
 
 // ── Tab 2: course type ────────────────────────────────────────────
@@ -856,20 +1116,13 @@ function handleSubmit() {
     sub.purpose    = document.getElementById('nc-purpose').value.trim();
   }
 
-  // If on behalf of others, attach trainee list
+  sub.for = currentFor;
+  sub.traineeList = getTraineesForSubmission();
   if (currentFor === 'others') {
     sub.trainees = trainees.map(t => t.name).join(', ');
   }
 
-  // 1. Add to in-memory BB store
-  BB.submissions[ref] = sub;
-
-  // 2. Persist to localStorage for cross-page sync
-  try {
-    const stored = JSON.parse(localStorage.getItem('bb_user_submissions') || '[]');
-    stored.push(sub);
-    localStorage.setItem('bb_user_submissions', JSON.stringify(stored));
-  } catch(e) { console.warn('localStorage write failed', e); }
+  BB.persistSubmission(sub);
 
   showToast('success', 'Request submitted!', 'LTA Seet has been notified and will review your request shortly.');
   setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1800);
@@ -881,6 +1134,181 @@ function fmtDate(val) {
   const d = new Date(val + 'T00:00:00');
   return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
 }
+
+// ── Trainee list for submission / closure ─────────────────────────
+function getTraineesForSubmission() {
+  if (currentFor === 'self') {
+    const o = BB.officers[ME];
+    return [{ id: ME, name: o.name, rank: o.rank, unit: o.company || '' }];
+  }
+  return trainees.map(t => ({ id: t.id, name: t.name, rank: t.rank, unit: t.unit || '' }));
+}
+
+function officerKey(o, idx) {
+  return o.id || ('manual-' + idx);
+}
+
+// ── Closure tab ───────────────────────────────────────────────────
+function selectClosureOutcome(val) {
+  closureOutcome = val;
+  document.getElementById('outcome-completed-card').classList.toggle('selected', val === 'completed');
+  document.getElementById('outcome-cancelled-card').classList.toggle('selected', val === 'cancelled');
+  document.getElementById('closure-upload-section').style.display = val === 'completed' ? '' : 'none';
+  document.getElementById('closure-cancel-section').style.display = val === 'cancelled' ? '' : 'none';
+}
+
+function renderClosureCerts() {
+  const list = document.getElementById('closure-cert-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  if (!closureOfficers.length) {
+    list.innerHTML = '<p style="font-size:0.8125rem;color:var(--muted-fg);">No officers on this submission.</p>';
+    return;
+  }
+
+  closureOfficers.forEach((o, idx) => {
+    const key = officerKey(o, idx);
+    const oData = o.id ? BB.officers[o.id] : null;
+    const initials = oData
+      ? oData.initials
+      : (o.name || '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    const avatarStyle = oData
+      ? `background:${oData.bg};color:${oData.fg};`
+      : 'background:var(--muted);color:var(--muted-fg);';
+    const uploaded = closureCerts[key];
+    const row = document.createElement('div');
+    row.className = 'closure-cert-row' + (uploaded ? ' done' : '');
+    row.innerHTML = `
+      <div class="avatar avatar-sm" style="${avatarStyle}flex-shrink:0;">${initials}</div>
+      <div class="closure-cert-officer">
+        <div class="closure-cert-name">${o.name}</div>
+        <div class="closure-cert-meta">${o.rank || '—'} · ${o.unit || '—'}</div>
+      </div>
+      <div class="closure-cert-file">
+        <input type="file" accept=".pdf,.jpg,.jpeg,.png" id="cert-file-${key}"
+          aria-label="Certificate for ${o.name}" />
+        <span class="closure-cert-filename" id="cert-name-${key}">${uploaded || ''}</span>
+      </div>`;
+    list.appendChild(row);
+
+    const input = row.querySelector('input[type="file"]');
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (!file) {
+        delete closureCerts[key];
+        row.classList.remove('done');
+        document.getElementById('cert-name-' + key).textContent = '';
+        return;
+      }
+      closureCerts[key] = file.name;
+      row.classList.add('done');
+      document.getElementById('cert-name-' + key).textContent = file.name;
+    });
+  });
+}
+
+function validateClosure() {
+  if (closureOutcome === 'cancelled') {
+    const reason = document.getElementById('closure-cancel-reason').value.trim();
+    if (!reason) {
+      showToast('warning', 'Reason required', 'Please explain why the training was cancelled.');
+      return false;
+    }
+    return true;
+  }
+  for (let i = 0; i < closureOfficers.length; i++) {
+    const key = officerKey(closureOfficers[i], i);
+    if (!closureCerts[key]) {
+      showToast('warning', 'Certificates required', `Please upload a certificate for ${closureOfficers[i].name}.`);
+      return false;
+    }
+  }
+  return true;
+}
+
+function handleClosureSubmit() {
+  if (!validateClosure()) return;
+
+  const sub = BB.submissions[closureRef];
+  if (!sub) return;
+
+  if (closureOutcome === 'cancelled') {
+    sub.closureStatus = 'cancelled';
+    sub.closureOutcome = 'cancelled';
+    sub.closureCancelReason = document.getElementById('closure-cancel-reason').value.trim();
+    sub.status = 'completed';
+    sub.stage = 'done';
+    sub.remarks = (sub.remarks ? sub.remarks + ' ' : '') + 'Training cancelled by officer.';
+  } else {
+    sub.closureStatus = 'completed';
+    sub.closureOutcome = 'completed';
+    sub.closureCerts = {};
+    closureOfficers.forEach((o, idx) => {
+      sub.closureCerts[officerKey(o, idx)] = closureCerts[officerKey(o, idx)];
+    });
+    sub.status = 'completed';
+    sub.stage = 'done';
+    sub.remarks = (sub.remarks ? sub.remarks + ' ' : '') + 'Certificates uploaded. Submission closed.';
+  }
+
+  BB.persistSubmission(sub);
+
+  showToast('success', 'Closure submitted', closureOutcome === 'cancelled'
+    ? 'This submission has been marked as cancelled.'
+    : 'Certificates received. This submission is now complete.');
+  setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1600);
+}
+
+function closureBack() {
+  if (closureMode) {
+    window.location.href = 'officer.html?section=submissions';
+    return;
+  }
+  goToTab(2);
+}
+
+function updatePageStepperForClosure() {
+  const el = document.getElementById('page-stepper');
+  if (!el) return;
+  const sub = BB.submissions[closureRef];
+  el.innerHTML = BB.approvalStepperHTML(sub.stage, sub.status);
+}
+
+function initClosureMode(ref) {
+  const sub = BB.submissions[ref];
+  if (!sub || sub.stage !== 'closure' || sub.closureStatus !== 'pending') {
+    showToast('warning', 'Not available', 'This submission is not awaiting closure.');
+    return;
+  }
+
+  closureMode = true;
+  closureRef = ref;
+  closureOfficers = BB.getSubmissionTrainees(sub);
+  closureCerts = {};
+
+  document.getElementById('page-title').textContent = 'Complete Submission Closure';
+  document.getElementById('page-subtitle').textContent =
+    'Upload certificates for each officer, or report that the training was cancelled.';
+  document.getElementById('closure-summary').style.display = '';
+  document.getElementById('closure-summary-course').textContent = BB.courseName(sub);
+  document.getElementById('closure-summary-ref').textContent = '#' + ref;
+  document.getElementById('closure-summary-dates').textContent = sub.dates || '—';
+
+  updatePageStepperForClosure();
+
+  maxUnlocked = 3;
+  document.getElementById('tab-btn-1').classList.add('done', 'locked');
+  document.getElementById('tab-btn-2').classList.add('done', 'locked');
+
+  selectClosureOutcome('completed');
+  goToTab(3);
+}
+
+(function initPage() {
+  const ref = new URLSearchParams(window.location.search).get('ref');
+  if (ref) initClosureMode(ref);
+})();
 </script>
 </body>
 </html>

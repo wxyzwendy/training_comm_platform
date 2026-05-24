@@ -279,70 +279,7 @@
                   <th style="width:12rem;">Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td><input type="checkbox" class="table-checkbox row-checkbox" /></td>
-                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div class="font-medium text-sm">Theodor Gunawan</div><div class="text-xs text-muted">2LT · Alpha</div></div></div></td>
-                  <td><div class="font-medium text-sm">First Aid Level 1</div><div class="text-xs text-muted">#SUB-00124</div></td>
-                  <td><span class="badge badge-success" style="font-size:.7rem;">Pre-approved</span></td>
-                  <td class="text-sm">10–12 Jun 2025</td>
-                  <td><span class="status-pill pending">Training Comm</span></td>
-                  <td>
-                    <div class="flex gap-1">
-                      <button class="btn btn-default btn-sm" onclick="openApproveDialog('JT','First Aid Level 1','SUB-00124')">Approve</button>
-                      <button class="btn btn-ghost btn-icon btn-sm" title="More" data-dropdown="more-00124">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                      </button>
-                      <div class="dropdown-menu align-right" id="more-00124">
-                        <button class="dropdown-item" onclick="showToast('info','Returned','Submission returned for amendment.')">Return for Amendment</button>
-                        <button class="dropdown-item destructive" onclick="openRejectDialog('First Aid Level 1','SUB-00124')">Reject</button>
-                        <div class="dropdown-separator"></div>
-                        <button class="dropdown-item">View Full Details</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="table-checkbox row-checkbox" /></td>
-                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div class="font-medium text-sm">Priya Raj</div><div class="text-xs text-muted">2LT · Alpha</div></div></div></td>
-                  <td><div class="font-medium text-sm">CPR + AED Certification</div><div class="text-xs text-muted">#SUB-00121</div></td>
-                  <td><span class="badge badge-success" style="font-size:.7rem;">Pre-approved</span></td>
-                  <td class="text-sm">5–5 Jul 2025</td>
-                  <td><span class="status-pill pending">Training Comm</span></td>
-                  <td>
-                    <div class="flex gap-1">
-                      <button class="btn btn-default btn-sm" onclick="openApproveDialog('PR','CPR + AED Certification','SUB-00121')">Approve</button>
-                      <button class="btn btn-ghost btn-icon btn-sm" data-dropdown="more-00121">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                      </button>
-                      <div class="dropdown-menu align-right" id="more-00121">
-                        <button class="dropdown-item" onclick="showToast('info','Returned','Submission returned for amendment.')">Return for Amendment</button>
-                        <button class="dropdown-item destructive" onclick="openRejectDialog('CPR + AED Certification','SUB-00121')">Reject</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="table-checkbox row-checkbox" /></td>
-                  <td><div class="flex items-center gap-2"><div class="avatar avatar-sm">AW</div><div><div class="font-medium text-sm">Ahmad Wafi</div><div class="text-xs text-muted">OCT · Charlie</div></div></div></td>
-                  <td><div class="font-medium text-sm">Youth Mental Health Awareness</div><div class="text-xs text-muted">#SUB-00119 · New course</div></td>
-                  <td><span class="badge badge-secondary" style="font-size:.7rem;">New Course</span></td>
-                  <td class="text-sm">18–19 Aug 2025</td>
-                  <td><span class="status-pill pending">Training Comm</span></td>
-                  <td>
-                    <div class="flex gap-1">
-                      <button class="btn btn-default btn-sm" onclick="openApproveDialog('AW','Youth Mental Health Awareness','SUB-00119')">Approve</button>
-                      <button class="btn btn-ghost btn-icon btn-sm" data-dropdown="more-00119">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                      </button>
-                      <div class="dropdown-menu align-right" id="more-00119">
-                        <button class="dropdown-item" onclick="showToast('info','Returned','Submission returned for amendment.')">Return for Amendment</button>
-                        <button class="dropdown-item destructive" onclick="openRejectDialog('Youth Mental Health Awareness','SUB-00119')">Reject</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody id="tbody-comm-approvals"></tbody>
             </table>
           </div>
           <div class="table-pagination">
@@ -809,22 +746,35 @@ function switchTab(id) {
 }
 
 // ── Approve / Reject dialog helpers ───────────────────────────
+let _commActiveRef = '';
+let _commActiveCourse = '';
+
 function openApproveDialog(initials, course, ref) {
+  _commActiveRef = ref;
+  _commActiveCourse = course;
   document.getElementById('approve-desc').textContent = `Approve "${course}" (${ref}) for the officer.`;
   document.getElementById('dialog-approve').classList.add('open');
 }
 function openRejectDialog(course, ref) {
+  _commActiveRef = ref;
+  _commActiveCourse = course;
   document.getElementById('reject-desc').textContent = `Reject "${course}" (${ref}). The officer will be notified.`;
   document.getElementById('dialog-reject').classList.add('open');
 }
 function confirmApprove() {
   document.getElementById('dialog-approve').classList.remove('open');
-  showToast('success', 'Submission approved', 'A training record will be created for the officer.');
+  BB.advanceSubmission(_commActiveRef, 'approve', 'comm');
+  showToast('success', 'Submission approved', 'Forwarded to officer for certificate upload (closure).');
+  BB.renderCommApprovalsTable(document.getElementById('tbody-comm-approvals'));
 }
 function confirmReject() {
   document.getElementById('dialog-reject').classList.remove('open');
+  BB.advanceSubmission(_commActiveRef, 'reject', 'comm');
   showToast('destructive', 'Submission rejected', 'The officer has been notified.');
+  BB.renderCommApprovalsTable(document.getElementById('tbody-comm-approvals'));
 }
+
+BB.renderCommApprovalsTable(document.getElementById('tbody-comm-approvals'));
 function addCourse() {
   document.getElementById('dialog-add-course').classList.remove('open');
   showToast('success', 'Course added', 'The new course is now in the catalogue.');
