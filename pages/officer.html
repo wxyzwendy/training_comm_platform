@@ -180,7 +180,6 @@
                   <h3 class="card-title">Active Submissions</h3>
                   <p style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.125rem;">Submissions currently in the approval workflow</p>
                 </div>
-                <a href="submit.html" class="btn btn-outline btn-sm">New Request</a>
               </div>
               <div class="card-content" style="padding:0;border-top:1px solid var(--border);">
                 <table class="table table-card-mobile">
@@ -195,7 +194,7 @@
                     </tr>
                   </thead>
                   <tbody id="tbody-active-subs">
-                    <tr>
+                    <tr onclick="openSubmissionDetail('SUB-00124')">
                       <td data-label="Course / Training">
                         <div style="font-weight:500;font-size:0.875rem;">First Aid Level 1</div>
                         <div style="font-size:0.75rem;color:var(--muted-fg);">#SUB-00124 · Red Cross</div>
@@ -210,10 +209,10 @@
                       </td>
                       <td data-label="Status"><span class="status-pill pending">Pending</span></td>
                       <td data-label="Action" style="text-align:right;">
-                        <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00124')">View</button>
+                        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openSubmissionDetail('SUB-00124')">View</button>
                       </td>
                     </tr>
-                    <tr>
+                    <tr onclick="openSubmissionDetail('SUB-00127')">
                       <td data-label="Course / Training">
                         <div style="font-weight:500;font-size:0.875rem;">Leadership &amp; Management Workshop</div>
                         <div style="font-size:0.75rem;color:var(--muted-fg);">#SUB-00127 · NTUC Learning Hub</div>
@@ -228,7 +227,7 @@
                       </td>
                       <td data-label="Status"><span class="status-pill pending">Pending</span></td>
                       <td data-label="Action" style="text-align:right;">
-                        <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00127')">View</button>
+                        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openSubmissionDetail('SUB-00127')">View</button>
                       </td>
                     </tr>
                   </tbody>

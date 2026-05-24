@@ -343,21 +343,21 @@ BB.renderOfficerActiveSubmissions = function(officerId, tbody) {
   }
   tbody.innerHTML = subs.map(sub => {
     const cName = BB.courseName(sub);
-    return `<tr>
-      <td>
+    return `<tr onclick="openSubmissionDetail('${sub.ref}')">
+      <td data-label="Course / Training">
         <div style="font-weight:500;font-size:0.875rem;">${cName}</div>
         <div style="font-size:0.75rem;color:var(--muted-fg);">#${sub.ref} · ${BB.courseProvider(sub)}</div>
       </td>
-      <td style="font-size:0.8125rem;">${sub.type === 'preapproved' ? 'Pre-approved' : 'New Course'}</td>
-      <td style="font-size:0.8125rem;">${sub.dates}</td>
-      <td>
+      <td data-label="Type" style="font-size:0.8125rem;">${sub.type === 'preapproved' ? 'Pre-approved' : 'New Course'}</td>
+      <td data-label="Dates" style="font-size:0.8125rem;">${sub.dates}</td>
+      <td data-label="Current Stage">
         <div style="display:flex;align-items:center;gap:0.375rem;font-size:0.8125rem;">
           <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#f59e0b;flex-shrink:0;display:inline-block;"></span>
           ${BB.stageLabel(sub)}
         </div>
       </td>
-      <td>${BB.statusPill('pending')}</td>
-      <td style="text-align:right;"><button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('${sub.ref}')">View</button></td>
+      <td data-label="Status">${BB.statusPill('pending')}</td>
+      <td data-label="Action" style="text-align:right;"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openSubmissionDetail('${sub.ref}')">View</button></td>
     </tr>`;
   }).join('');
 };
