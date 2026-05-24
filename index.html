@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../components/styles.css" />
+  <link rel="stylesheet" href="components/styles.css" />
 </head>
 <body>
 
@@ -66,19 +66,19 @@
           </button>
           <div class="dropdown-menu" id="demo-menu" style="width:100%;top:calc(100% + 0.25rem);">
             <div class="dropdown-label">Demo roles</div>
-            <a href="officer.html" class="dropdown-item">
+            <a href="pages/officer.html" class="dropdown-item">
               <div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;width:1.5rem;height:1.5rem;font-size:0.6rem;flex-shrink:0;">TG</div>
               <div><div style="font-weight:500;">Officer</div><div style="font-size:0.75rem;color:var(--muted-fg);">Theodor Gunawan · LTA · Alpha Co.</div></div>
             </a>
-            <a href="captain.html" class="dropdown-item">
+            <a href="pages/captain.html" class="dropdown-item">
               <div class="avatar avatar-sm" style="background:#dcfce7;color:#166534;width:1.5rem;height:1.5rem;font-size:0.6rem;flex-shrink:0;">JS</div>
               <div><div style="font-weight:500;">Captain</div><div style="font-size:0.75rem;color:var(--muted-fg);">John Seet · Alpha Co.</div></div>
             </a>
-            <a href="chaplain.html" class="dropdown-item">
+            <a href="pages/chaplain.html" class="dropdown-item">
               <div class="avatar avatar-sm" style="background:#fef9c3;color:#713f12;width:1.5rem;height:1.5rem;font-size:0.6rem;flex-shrink:0;">JG</div>
               <div><div style="font-weight:500;">Chaplain</div><div style="font-size:0.75rem;color:var(--muted-fg);">Joseph Goh</div></div>
             </a>
-            <a href="comm.html" class="dropdown-item">
+            <a href="pages/comm.html" class="dropdown-item">
               <div class="avatar avatar-sm" style="background:#fef3c7;color:#b45309;width:1.5rem;height:1.5rem;font-size:0.6rem;flex-shrink:0;">WT</div>
               <div><div style="font-weight:500;">Training Comm</div><div style="font-size:0.75rem;color:var(--muted-fg);">Wendy Tio</div></div>
             </a>
@@ -93,20 +93,20 @@
   </div>
 </div>
 
-<script src="../components/components.js"></script>
-<script src="../data/data.js"></script>
+<script src="components/components.js"></script>
+<script src="data/data.js"></script>
 <script>
 function handleLogin(e) {
   e.preventDefault();
   const email = document.getElementById('email').value.toLowerCase();
   if (email.includes('comm') || email.includes('admin') || email.includes('tio')) {
-    window.location.href = 'comm.html';
+    window.location.href = 'pages/comm.html';
   } else if (email.includes('capt') || email.includes('captain')) {
-    window.location.href = 'captain.html';
+    window.location.href = 'pages/captain.html';
   } else if (email.includes('chap') || email.includes('chaplain')) {
-    window.location.href = 'chaplain.html';
+    window.location.href = 'pages/chaplain.html';
   } else {
-    window.location.href = 'officer.html';
+    window.location.href = 'pages/officer.html';
   }
 }
 </script>
