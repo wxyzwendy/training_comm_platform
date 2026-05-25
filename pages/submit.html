@@ -84,8 +84,172 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .per-person-funding-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .per-person-funding-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      padding: 0.625rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+    .funding-tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    .funding-tile {
+      min-height: 4.25rem;
+      padding: 0.625rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color var(--transition), background var(--transition), box-shadow var(--transition), opacity var(--transition);
+    }
+    .funding-tile.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .funding-tile.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      background: var(--muted);
+    }
+    .funding-tile-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+    .funding-tile-desc {
+      font-size: 0.6875rem;
+      color: var(--muted-fg);
+      margin-top: 0.1875rem;
+      line-height: 1.25;
+    }
+    .per-person-funding-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .per-person-funding-meta {
+      font-size: 0.6875rem;
+      color: var(--muted-fg);
+      margin-top: 0.0625rem;
+    }
+    .date-pair-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 12rem));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .funding-allocation-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      max-width: 34rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .funding-allocation-card + .funding-allocation-card {
+      margin-top: 0.75rem;
+    }
+    .funding-allocation-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.875rem;
+      background: #fafafa;
+      transition: background var(--transition);
+    }
+    .funding-allocation-card summary:hover {
+      background: var(--muted);
+    }
+    .funding-allocation-card summary::-webkit-details-marker {
+      display: none;
+    }
+    .funding-allocation-card summary::after {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 2px solid var(--muted-fg);
+      border-bottom: 2px solid var(--muted-fg);
+      transform: rotate(45deg);
+      transition: transform var(--transition);
+      justify-self: end;
+    }
+    .funding-allocation-card[open] summary::after {
+      transform: rotate(-135deg);
+    }
+    .funding-allocation-head,
+    .funding-allocation-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 8rem;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .funding-allocation-head {
+      font-weight: 600;
+    }
+    .funding-allocation-card summary.funding-allocation-head {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+    }
+    .funding-allocation-body {
+      padding: 0.75rem 0.875rem 0.875rem;
+      border-top: 1px solid var(--border);
+    }
+    .funding-allocation-calc {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.375rem;
+      white-space: nowrap;
+      font-size: 0.875rem;
+    }
+    .funding-status-dot {
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 999px;
+      background: var(--destructive);
+      box-shadow: 0 0 0 2px #fee2e2;
+      flex-shrink: 0;
+    }
+    .funding-status-dot.ok {
+      background: var(--success);
+      box-shadow: 0 0 0 2px #dcfce7;
+    }
+    .funding-allocation-line {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--fg);
+    }
+    .funding-allocation-line input {
+      text-align: right;
+    }
+    .funding-allocation-total {
+      border-top: 1px solid var(--border);
+      margin-top: 0.625rem;
+      padding-top: 0.625rem;
+      color: var(--muted-fg);
+      font-size: 0.8125rem;
+    }
     @media (max-width: 520px) {
       .trainee-list { grid-template-columns: 1fr; }
+      .date-pair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .funding-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .funding-allocation-head,
+      .funding-allocation-line { grid-template-columns: minmax(0, 1fr) 6.75rem; }
+      .funding-allocation-card summary.funding-allocation-head { grid-template-columns: minmax(0, 1fr) auto auto; }
     }
 
     /* ── Closure (cert upload) ──────────────────────────────── */
@@ -179,10 +343,14 @@
       width: 1.25rem;
       height: 1.25rem;
     }
-    .option-chooser-grid .option-card-icon--self { background: #eff6ff; }
-    .option-chooser-grid .option-card-icon--others { background: #f0fdf4; }
-    .option-chooser-grid .option-card-icon--preapproved { background: #f0fdf4; }
-    .option-chooser-grid .option-card-icon--new { background: #fffbeb; }
+    .option-chooser-grid .option-card-icon--self,
+    .option-chooser-grid .option-card.selected .option-card-icon--self { background: #eff6ff; }
+    .option-chooser-grid .option-card-icon--others,
+    .option-chooser-grid .option-card.selected .option-card-icon--others { background: #f0fdf4; }
+    .option-chooser-grid .option-card-icon--preapproved,
+    .option-chooser-grid .option-card.selected .option-card-icon--preapproved { background: #f0fdf4; }
+    .option-chooser-grid .option-card-icon--new,
+    .option-chooser-grid .option-card.selected .option-card-icon--new { background: #fffbeb; }
     .option-chooser-grid .option-card-title {
       font-weight: 600;
       font-size: 0.9375rem;
@@ -367,12 +535,12 @@
           </div>
           <div class="form-step">
             <div class="form-step-num">5</div>
-            <div class="form-step-label">Closure</div>
+            <div class="form-step-label">Certificate(s)</div>
           </div>
         </div>
 
         <!-- ── Tab navigation ─────────────────────────────────── -->
-        <div class="tabs-lift-list">
+        <div class="tabs-lift-list" id="tabs-lift-list">
           <button class="tabs-lift-trigger active" id="tab-btn-1" onclick="goToTab(1)">
             <span class="tab-lift-num">1</span>
             <span class="tab-lift-label">List of Trainees</span>
@@ -383,12 +551,16 @@
           </button>
           <button class="tabs-lift-trigger locked" id="tab-btn-3" onclick="goToTab(3)">
             <span class="tab-lift-num">3</span>
-            <span class="tab-lift-label">Closure</span>
+            <span class="tab-lift-label">Funding</span>
+          </button>
+          <button class="tabs-lift-trigger locked" id="tab-btn-4" onclick="goToTab(4)">
+            <span class="tab-lift-num">4</span>
+            <span class="tab-lift-label">Certificate(s)</span>
           </button>
         </div>
 
         <!-- ── Card wrapping all panels ──────────────────────── -->
-        <div class="tabs-lift-content">
+        <div class="tabs-lift-content" id="tabs-lift-content">
 
           <!-- ════════════════════════════════════════════════════
                TAB 1 — List of Trainees
@@ -474,8 +646,7 @@
 
             <div style="display:flex;justify-content:flex-end;margin-top:1.75rem;">
               <button class="btn btn-default" onclick="validateTab1AndNext()">
-                Next — Course Information
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="9 18 15 12 9 6"/></svg>
+                Next
               </button>
             </div>
           </div><!-- /panel-1 -->
@@ -552,6 +723,7 @@
                 <div class="course-info-meta">
                   <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span id="ci-duration"></span></span>
                   <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span id="ci-provider"></span></span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span id="ci-cost"></span></span>
                   <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="ci-cert"></span></span>
                 </div>
                 <div id="ci-description" style="margin-top:0.75rem;font-size:0.8125rem;color:var(--muted-fg);"></div>
@@ -559,7 +731,7 @@
 
               <!-- Dates + purpose shown after course selected -->
               <div id="pa-details" style="display:none;">
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div class="date-pair-grid">
                   <div class="form-group">
                     <label class="label label-required">Start Date</label>
                     <input class="input" type="date" id="pa-start" />
@@ -567,10 +739,6 @@
                   <div class="form-group">
                     <label class="label label-required">End Date</label>
                     <input class="input" type="date" id="pa-end" />
-                  </div>
-                  <div class="form-group">
-                    <label class="label">Venue <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
-                    <input class="input" type="text" id="pa-venue" placeholder="e.g. Red Cross HQ" />
                   </div>
                 </div>
                 <div class="form-group" style="margin-bottom:1.25rem;">
@@ -591,15 +759,18 @@
                   <input class="input" type="text" id="nc-name" placeholder="e.g. Leadership &amp; Management Workshop" />
                 </div>
                 <div class="form-group">
-                  <label class="label">Cost per Pax</label>
+                  <label class="label label-required">Cost per Pax</label>
                   <input class="input" type="text" id="nc-cost" placeholder="e.g. $120 or Nil" />
                 </div>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+              <div class="date-pair-grid">
                 <div class="form-group">
                   <label class="label label-required">Training Provider</label>
                   <input class="input" type="text" id="nc-provider" placeholder="Organisation name" />
                 </div>
+                <div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
                 <div class="form-group">
                   <label class="label label-required">Start Date</label>
                   <input class="input" type="date" id="nc-start" />
@@ -619,28 +790,69 @@
                   <input class="input" type="url" id="nc-url" placeholder="https://…" />
                 </div>
               </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div class="form-group">
+                  <label class="label label-required">Course Objective</label>
+                  <textarea class="input" id="nc-objective" rows="2" placeholder="What will participants be able to do after completing this course?"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="label label-required">Description</label>
+                  <textarea class="input" id="nc-description" rows="2" placeholder="Brief overview of course content and scope…"></textarea>
+                </div>
+              </div>
               <div class="form-group" style="margin-bottom:1.25rem;">
                 <label class="label label-required">Purpose / Justification</label>
                 <textarea class="input" id="nc-purpose" rows="3" placeholder="Explain why this training is relevant and what benefit it brings to your BB work…"></textarea>
+              </div>
+              <div class="form-group" style="margin-bottom:1.25rem;">
+                <label class="label label-required">Price Evidence Screenshot</label>
+                <input class="input" type="file" id="nc-price-screenshot" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" />
+                <span class="helper-text">Upload a screenshot that clearly shows the course name, provider, and price.</span>
               </div>
             </div>
 
             <div style="display:flex;justify-content:space-between;margin-top:0.5rem;">
               <button class="btn btn-outline" onclick="goToTab(1)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="15 18 9 12 15 6"/></svg>
                 Back
               </button>
-              <button class="btn btn-default" onclick="openConfirmDialog()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="20 6 9 17 4 12"/></svg>
-                Review &amp; Submit
+              <button class="btn btn-default" onclick="validateCourseAndNext()">
+                Next
               </button>
             </div>
           </div><!-- /panel-2 -->
 
           <!-- ════════════════════════════════════════════════════
-               TAB 3 — Closure
+               TAB 3 — Funding
                ════════════════════════════════════════════════════ -->
           <div id="panel-3" style="display:none;">
+            <div id="funding-section" style="display:none;">
+              <div style="font-size:0.9375rem;font-weight:600;margin-bottom:0.25rem;">Funding</div>
+              <div style="font-size:0.875rem;color:var(--muted-fg);margin-bottom:1rem;">Split the course fee across allowance, self-pay, and Coy Funds. Each officer's total must match the course fee.</div>
+              <div id="company-funds-warning" style="display:none;margin-bottom:1rem;" class="alert alert-warning">
+                <div class="alert-body">
+                  <div class="alert-title">Coy Funds requested</div>
+                  <div class="alert-description">Captain and Chaplain will be informed during approval. Usage is subject to their discretion.</div>
+                </div>
+              </div>
+              <div id="per-person-funding-wrap">
+                <div class="per-person-funding-list" id="per-person-funding-list"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-top:1.5rem;">
+              <button class="btn btn-outline" onclick="goToTab(2)">
+                Back
+              </button>
+              <button class="btn btn-default" onclick="openConfirmDialog()">
+                Submit
+              </button>
+            </div>
+          </div><!-- /panel-3 -->
+
+          <!-- ════════════════════════════════════════════════════
+               TAB 4 — Certificate(s)
+               ════════════════════════════════════════════════════ -->
+          <div id="panel-4" style="display:none;">
 
             <div class="closure-summary" id="closure-summary" style="display:none;">
               <div style="color:var(--muted-fg);font-size:0.75rem;margin-bottom:0.25rem;">Submission</div>
@@ -680,17 +892,18 @@
 
             <div style="display:flex;justify-content:space-between;margin-top:1.75rem;">
               <button class="btn btn-outline" id="closure-back-btn" type="button" onclick="closureBack()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="15 18 9 12 15 6"/></svg>
                 Back
               </button>
               <button class="btn btn-default" type="button" onclick="handleClosureSubmit()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><polyline points="20 6 9 17 4 12"/></svg>
-                Submit closure
+                Next
               </button>
             </div>
-          </div><!-- /panel-3 -->
+          </div><!-- /panel-4 -->
 
         </div><!-- /tabs-lift-content -->
+
+        <!-- panel-5 (Review tab) is injected dynamically by initReviewMode() -->
+
     </main>
   </div><!-- /page-wrapper -->
 </div><!-- /layout -->
@@ -701,7 +914,7 @@
   <div class="dialog" style="max-width:30rem;width:100%;" onclick="event.stopPropagation()">
     <div class="dialog-header">
       <div class="dialog-title">Send for approval?</div>
-      <div class="dialog-description">This will notify <strong id="confirm-captain">LTA Seet</strong> to review your request. You can track the status under My Submissions.</div>
+      <div class="dialog-description" id="confirm-description">This will notify <strong>LTA Seet</strong> to review your request. You can track the status under My Submissions.</div>
     </div>
     <div class="dialog-content">
       <div style="background:var(--muted);border-radius:var(--radius);padding:0.875rem 1rem;font-size:0.875rem;display:flex;flex-direction:column;gap:0.5rem;">
@@ -727,7 +940,7 @@
       <button class="btn btn-outline" onclick="closeConfirmDialog()">Cancel</button>
       <button class="btn btn-default" onclick="handleSubmit()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Submit Request
+        Confirm Submission
       </button>
     </div>
   </div>
@@ -738,14 +951,18 @@
 <script src="../data/data.js"></script>
 <script>
 'use strict';
+BB.loadUserSubmissions();
 
 // ── State ────────────────────────────────────────────────────────
-let currentFor   = 'self';        // 'self' | 'others'
-let currentType  = 'preapproved'; // 'preapproved' | 'new'
-let trainees     = [];            // { id?, name, rank, unit }
-let currentTab   = 1;
-let maxUnlocked  = 1;             // highest tab the user has earned access to
-const TABS       = 3;
+let currentFor      = 'self';        // 'self' | 'others'
+let currentType     = 'preapproved'; // 'preapproved' | 'new'
+let currentFundingAllocation = { allowance:0, selfPay:0, companyFunds:0 };
+let trainees        = [];            // { id?, name, rank, unit, fundingAllocation }
+let currentTab      = 1;
+let maxUnlocked     = 1;             // highest tab the user has earned access to
+let formSubmitted   = false;
+let suppressInvalidation = false;
+let TABS            = 4;
 
 let closureMode      = false;
 let closureRef       = null;
@@ -753,33 +970,54 @@ let closureOfficers  = [];        // officers requiring certs
 let closureOutcome   = 'completed'; // 'completed' | 'cancelled'
 let closureCerts     = {};        // officerKey → file name
 
+let reviewMode       = false;     // true when opened by captain/chaplain/comm for approval
+let reviewRole       = '';        // 'captain' | 'chaplain' | 'comm'
+
 // ── Tab navigation ───────────────────────────────────────────────
 function goToTab(n) {
   if (n < 1 || n > TABS) return;
-  if (n > maxUnlocked) return; // locked — can't jump ahead
+  if (closureMode && n !== 4) return;
+  if (!reviewMode && n > maxUnlocked) return; // locked — can't jump ahead
 
   currentTab = n;
 
   for (let i = 1; i <= TABS; i++) {
-    document.getElementById('panel-' + i).style.display = (i === n) ? '' : 'none';
+    const panel = document.getElementById('panel-' + i);
+    if (panel) panel.style.display = (i === n) ? '' : 'none';
   }
 
   for (let i = 1; i <= TABS; i++) {
     const btn = document.getElementById('tab-btn-' + i);
+    if (!btn) continue;
     btn.classList.remove('active', 'done', 'locked');
-    if (i === n)              btn.classList.add('active');
-    else if (i < n)           btn.classList.add('done');
-    else if (i > maxUnlocked) btn.classList.add('locked');
+    if (i === n)                         btn.classList.add('active');
+    else if (reviewMode)                 btn.classList.add('done');
+    else if (i < n)                      btn.classList.add('done');
+    else if (i > maxUnlocked)            btn.classList.add('locked');
   }
 
-  if (n === 2) syncCourseView();
-  if (n === 3) renderClosureCerts();
+  if (!reviewMode) {
+    if (n === 2) syncCourseView();
+    if (n === 3) showFundingSection();
+    if (n === 4) renderClosureCerts();
+  }
   document.querySelector('.page-content').scrollTop = 0;
 }
 
 function unlockAndAdvance() {
   maxUnlocked = Math.max(maxUnlocked, currentTab + 1);
   goToTab(currentTab + 1);
+}
+
+function refreshTabLocks() {
+  for (let i = 1; i <= TABS; i++) {
+    const btn = document.getElementById('tab-btn-' + i);
+    if (!btn) continue;
+    btn.classList.remove('active', 'done', 'locked');
+    if (i === currentTab) btn.classList.add('active');
+    else if (i < currentTab && i <= maxUnlocked) btn.classList.add('done');
+    else if (i > maxUnlocked) btn.classList.add('locked');
+  }
 }
 
 // ── Custom roster multi-select dropdown ──────────────────────────
@@ -797,6 +1035,66 @@ const rosterOfficers = Object.values(BB.officers)
 document.getElementById('roster-company-label').textContent = myCompany + ' Company';
 
 let pendingIds = new Set(); // officers selected but not yet confirmed
+
+function closeConfirmSilently() {
+  document.getElementById('confirm-dialog')?.classList.remove('open');
+}
+
+function clearInputValue(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.value = '';
+}
+
+function resetCourseFields() {
+  [
+    'pa-course', 'pa-start', 'pa-end', 'pa-purpose',
+    'nc-name', 'nc-cost', 'nc-provider', 'nc-start', 'nc-end',
+    'nc-venue', 'nc-url', 'nc-objective', 'nc-description',
+    'nc-purpose', 'nc-price-screenshot'
+  ].forEach(clearInputValue);
+
+  const infoCard = document.getElementById('course-info-card');
+  const details = document.getElementById('pa-details');
+  if (infoCard) infoCard.style.display = 'none';
+  if (details) details.style.display = 'none';
+}
+
+function resetFundingFields() {
+  currentFundingAllocation = defaultFundingAllocation(ME);
+  trainees.forEach(t => {
+    t.fundingAllocation = defaultFundingAllocation(t.id);
+  });
+  const fundingSection = document.getElementById('funding-section');
+  if (fundingSection) fundingSection.style.display = 'none';
+  renderPerPersonFunding();
+}
+
+function invalidateFrom(step) {
+  if (suppressInvalidation || formSubmitted || closureMode) return;
+
+  closeConfirmSilently();
+  maxUnlocked = Math.min(maxUnlocked, step);
+
+  if (step <= 1) {
+    resetCourseFields();
+    resetFundingFields();
+  } else if (step <= 2) {
+    resetFundingFields();
+  }
+
+  if (currentTab > maxUnlocked) goToTab(maxUnlocked);
+  else refreshTabLocks();
+}
+
+function lockSubmittedForm() {
+  document.querySelectorAll('input, textarea, select, button').forEach(el => {
+    el.disabled = true;
+  });
+  document.querySelectorAll('.option-card, .funding-tile, .trainee-card-remove').forEach(el => {
+    el.style.pointerEvents = 'none';
+  });
+}
 
 function renderRosterItems() {
   const q = (document.getElementById('roster-search')?.value || '').toLowerCase();
@@ -874,22 +1172,26 @@ function updateRosterAddBtn() {
 }
 
 function confirmRosterSelection(e) {
+  if (formSubmitted) return;
   if (e) {
     e.preventDefault();
     e.stopPropagation();
   }
+  const beforeCount = trainees.length;
   pendingIds.forEach(id => {
     if (!trainees.find(t => t.id === id)) {
       const o = BB.officers[id];
-      if (o) trainees.push({ id, name: o.name, rank: o.rank, unit: o.company || '' });
+      if (o) trainees.push({ id, name: o.name, rank: o.rank, unit: o.company || '', fundingAllocation: defaultFundingAllocation(o.id) });
     }
   });
   pendingIds.clear();
   renderTrainees();
   closeRosterDropdown();
+  if (trainees.length !== beforeCount) invalidateFrom(1);
 }
 
 function toggleRosterDropdown(e) {
+  if (formSubmitted) return;
   if (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -941,19 +1243,26 @@ rosterTrigger.addEventListener('keydown', (event) => {
 
 // ── Tab 1: for-whom selection ─────────────────────────────────────
 function selectFor(val) {
+  if (formSubmitted || currentFor === val) return;
   currentFor = val;
+  trainees = [];
+  pendingIds.clear();
   document.getElementById('for-self-card').classList.toggle('selected',   val === 'self');
   document.getElementById('for-others-card').classList.toggle('selected', val === 'others');
   // Show/hide trainee sections immediately
   document.getElementById('self-trainee-section').style.display   = val === 'self'   ? '' : 'none';
   document.getElementById('others-trainee-section').style.display = val === 'others' ? '' : 'none';
+  renderTrainees();
   if (val === 'others') {
     renderRosterItems();
     updateRosterAddBtn();
   }
+  renderPerPersonFunding();
+  invalidateFrom(1);
 }
 
 function validateTab1AndNext() {
+  if (formSubmitted) return;
   if (currentFor === 'others' && trainees.length === 0) {
     showToast('warning', 'No trainees added', 'Please add at least one trainee before continuing.');
     return;
@@ -996,18 +1305,24 @@ function renderTrainees() {
       </div>`;
     list.appendChild(card);
   });
+  renderPerPersonFunding();
 }
 
 function removeTrainee(idx) {
+  if (formSubmitted) return;
   trainees.splice(idx, 1);
   renderTrainees();
   renderRosterItems();
   updateRosterAddBtn();
+  invalidateFrom(1);
 }
 
 // ── Tab 2: course type ────────────────────────────────────────────
 function selectType(val) {
+  if (formSubmitted || currentType === val) return;
   currentType = val;
+  resetCourseFields();
+  invalidateFrom(2);
   document.getElementById('type-preapproved-card').classList.toggle('selected', val === 'preapproved');
   document.getElementById('type-new-card').classList.toggle('selected',          val === 'new');
   syncCourseView();
@@ -1018,53 +1333,325 @@ function syncCourseView() {
   document.getElementById('form-newcourse').style.display   = currentType === 'new'         ? '' : 'none';
 }
 
+// ── Funding mode ─────────────────────────────────────────────────
+function allowanceAvailable(officerId) {
+  const b = BB.getOfficerBudget(officerId || ME, 2025);
+  return Math.max(0, (b.annualAllowance || 0) - (b.committedAmount || 0) - (b.usedAmount || 0));
+}
+
+function moneyValue(value) {
+  const raw = String(value || '').trim();
+  const sign = raw.startsWith('-') ? -1 : 1;
+  const n = parseFloat(raw.replace(/[^0-9.]/g, ''));
+  return Number.isFinite(n) ? sign * n : 0;
+}
+
+function formatMoney(amount) {
+  const n = Math.round((Number(amount) || 0) * 100) / 100;
+  return '$' + (Number.isInteger(n) ? String(n) : n.toFixed(2));
+}
+
+function currentCourseFee() {
+  if (currentType === 'preapproved') {
+    const key = document.getElementById('pa-course')?.value;
+    return moneyValue(key && courses[key] ? courses[key].cost : 0);
+  }
+  return moneyValue(document.getElementById('nc-cost')?.value);
+}
+
+function defaultFundingAllocation(officerId) {
+  const fee = currentCourseFee();
+  const allowance = Math.min(fee, allowanceAvailable(officerId));
+  return {
+    allowance,
+    selfPay: Math.max(0, fee - allowance),
+    companyFunds: 0,
+  };
+}
+
+function fundingModeFromAllocation(allocation) {
+  if ((allocation.companyFunds || 0) > 0) return 'company-funds';
+  if ((allocation.allowance || 0) > 0) return 'allowance';
+  if ((allocation.selfPay || 0) > 0) return 'self-pay';
+  return 'no-cost';
+}
+
+function fundingRemarksFromAllocation(allocation) {
+  return `Allowance ${formatMoney(allocation.allowance || 0)}, Self-pay ${formatMoney(allocation.selfPay || 0)}, Coy Funds ${formatMoney(allocation.companyFunds || 0)}`;
+}
+
+function ensureFundingAllocations() {
+  const fee = currentCourseFee();
+  if (currentFor === 'self') {
+    const total = allocationTotal(currentFundingAllocation);
+    if (!currentFundingAllocation || total === 0 || total !== fee) {
+      currentFundingAllocation = defaultFundingAllocation(ME);
+    }
+    return;
+  }
+  trainees.forEach(t => {
+    const total = allocationTotal(t.fundingAllocation);
+    if (!t.fundingAllocation || total === 0 || total !== fee) {
+      t.fundingAllocation = defaultFundingAllocation(t.id);
+    }
+  });
+}
+
+function allocationTotal(allocation) {
+  if (!allocation) return 0;
+  return moneyValue(allocation.allowance) + moneyValue(allocation.selfPay) + moneyValue(allocation.companyFunds);
+}
+
+function updateFundingAllocation(idx, key, value) {
+  if (formSubmitted) return;
+  let amount = Math.max(0, moneyValue(value));
+  if (key === 'allowance') {
+    const officerId = idx === 'self' ? ME : trainees[idx]?.id;
+    const available = allowanceAvailable(officerId);
+    if (amount > available) amount = available;
+    const input = document.getElementById(`fund-${idx}-allowance`);
+    if (input && Number(input.value) !== amount) input.value = amount;
+  }
+  if (idx === 'self') currentFundingAllocation[key] = amount;
+  else if (trainees[idx]) trainees[idx].fundingAllocation[key] = amount;
+  invalidateFrom(3);
+  updateCompanyFundsWarning();
+  updateFundingTotals();
+}
+
+function fundingAllocationCardHTML(officer, idx, allocation) {
+  const available = allowanceAvailable(officer.id);
+  const fee = currentCourseFee();
+  const total = allocationTotal(allocation);
+  const isBalanced = Math.abs(total - fee) < 0.01;
+  const target = idx === 'self' ? 'self' : idx;
+  const disabledAllowance = available <= 0 ? ' disabled' : '';
+  return `<details class="funding-allocation-card" open>
+    <summary class="funding-allocation-head">
+      <div>
+        <div class="per-person-funding-name">${officer.name}</div>
+        <div class="per-person-funding-meta">${officer.rank || '—'} · ${formatMoney(available)} allowance left</div>
+      </div>
+      <div class="funding-allocation-calc" id="fund-${target}-calc">
+        <span class="funding-status-dot${isBalanced ? ' ok' : ''}" id="fund-${target}-dot"></span>
+        <span id="fund-${target}-calc-text">${formatMoney(total)} / ${formatMoney(fee)}</span>
+      </div>
+    </summary>
+    <div class="funding-allocation-body">
+      <div class="funding-allocation-line">
+        <label for="fund-${target}-allowance">Allowance (${formatMoney(available)} left)</label>
+        <input class="input" type="number" min="0" max="${available}" step="0.01" id="fund-${target}-allowance" value="${Math.min(allocation.allowance || 0, available)}"${disabledAllowance} oninput="updateFundingAllocation('${target}', 'allowance', this.value)" />
+      </div>
+      <div class="funding-allocation-line">
+        <label for="fund-${target}-self-pay">Self-pay</label>
+        <input class="input" type="number" min="0" step="0.01" id="fund-${target}-self-pay" value="${allocation.selfPay || 0}" oninput="updateFundingAllocation('${target}', 'selfPay', this.value)" />
+      </div>
+      <div class="funding-allocation-line">
+        <label for="fund-${target}-company-funds">Coy Funds</label>
+        <input class="input" type="number" min="0" step="0.01" id="fund-${target}-company-funds" value="${allocation.companyFunds || 0}" oninput="updateFundingAllocation('${target}', 'companyFunds', this.value)" />
+      </div>
+      <div class="funding-allocation-total" id="fund-${target}-total">${isBalanced ? 'Funding matches the course fee.' : 'Amounts must match the course fee.'}</div>
+    </div>
+  </details>`;
+}
+
+function renderPerPersonFunding() {
+  const list = document.getElementById('per-person-funding-list');
+  if (!list) return;
+  ensureFundingAllocations();
+  if (currentFor === 'others' && !trainees.length) {
+    list.innerHTML = '<div style="font-size:0.8125rem;color:var(--muted-fg);padding:0.75rem;border:1px dashed var(--border);border-radius:var(--radius);background:var(--muted);">Add officers first to set funding per person.</div>';
+    updateCompanyFundsWarning();
+    return;
+  }
+  if (currentFor === 'self') {
+    const o = BB.officers[ME];
+    list.innerHTML = fundingAllocationCardHTML(o, 'self', currentFundingAllocation);
+  } else {
+    list.innerHTML = trainees.map((t, idx) => fundingAllocationCardHTML(t, idx, t.fundingAllocation)).join('');
+  }
+  updateCompanyFundsWarning();
+}
+
+function updateCompanyFundsWarning() {
+  const hasCompanyFunds = currentFor === 'others'
+    ? trainees.some(t => moneyValue(t.fundingAllocation?.companyFunds) > 0)
+    : moneyValue(currentFundingAllocation.companyFunds) > 0;
+  document.getElementById('company-funds-warning').style.display = hasCompanyFunds ? '' : 'none';
+}
+
+function updateFundingTotals() {
+  const fee = currentCourseFee();
+  const update = (target, allocation) => {
+    const el = document.getElementById(`fund-${target}-total`);
+    const calcText = document.getElementById(`fund-${target}-calc-text`);
+    const dot = document.getElementById(`fund-${target}-dot`);
+    const total = allocationTotal(allocation);
+    const isBalanced = Math.abs(total - fee) < 0.01;
+    if (el) {
+      el.textContent = isBalanced ? 'Funding matches the course fee.' : 'Amounts must match the course fee.';
+      el.style.color = isBalanced ? 'var(--success)' : 'var(--destructive)';
+    }
+    if (calcText) calcText.textContent = `${formatMoney(total)} / ${formatMoney(fee)}`;
+    if (dot) {
+      dot.classList.toggle('ok', isBalanced);
+    }
+  };
+  if (currentFor === 'self') update('self', currentFundingAllocation);
+  else trainees.forEach((t, idx) => update(idx, t.fundingAllocation));
+}
+
+function validateFundingAllocations() {
+  const fee = currentCourseFee();
+  const rows = currentFor === 'self'
+    ? [{ name: BB.officers[ME].name, officerId: ME, allocation: currentFundingAllocation }]
+    : trainees.map(t => ({ name: t.name, officerId: t.id, allocation: t.fundingAllocation }));
+
+  for (const row of rows) {
+    const allocation = row.allocation || defaultFundingAllocation(row.officerId);
+    const allowance = moneyValue(allocation.allowance);
+    const available = allowanceAvailable(row.officerId);
+    if (allowance > available) {
+      showToast('warning', 'Allowance exceeded', `${row.name} only has ${formatMoney(available)} allowance left.`);
+      return false;
+    }
+    const total = allocationTotal(allocation);
+    if (Math.abs(total - fee) >= 0.01) {
+      showToast('warning', 'Funding does not add up', `${row.name}'s funding must total ${formatMoney(fee)}.`);
+      updateFundingTotals();
+      return false;
+    }
+  }
+  return true;
+}
+
+function showFundingSection() {
+  document.getElementById('funding-section').style.display = '';
+  renderPerPersonFunding();
+}
+
 const courses = BB.courses;
 
+function dateInputValue(d) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function earliestAllowedStartDate() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 8);
+  return d;
+}
+
+function applyDateMinimums() {
+  const min = dateInputValue(earliestAllowedStartDate());
+  ['pa-start', 'pa-end', 'nc-start', 'nc-end'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.min = min;
+  });
+}
+
+function validateTrainingDates(start, end) {
+  if (!start || !end) {
+    showToast('warning', 'Dates required', 'Please enter the start and end dates.');
+    return false;
+  }
+  const startDate = new Date(start + 'T00:00:00');
+  const endDate = new Date(end + 'T00:00:00');
+  const earliest = earliestAllowedStartDate();
+  if (startDate < earliest) {
+    showToast('warning', 'Start date too soon', 'Training requests must be submitted at least 7 calendar days in advance. Please choose a start date after the next 7 days.');
+    return false;
+  }
+  if (endDate < startDate) {
+    showToast('warning', 'Invalid end date', 'End date cannot be before the start date.');
+    return false;
+  }
+  return true;
+}
+
 function prefillCourse(key) {
-  const infoCard     = document.getElementById('course-info-card');
+  if (formSubmitted) return;
+  invalidateFrom(2);
+  const infoCard       = document.getElementById('course-info-card');
   const detailsSection = document.getElementById('pa-details');
   if (!key) { infoCard.style.display = 'none'; detailsSection.style.display = 'none'; return; }
   const c = courses[key];
+  const meta = BB.coursesMeta ? (BB.coursesMeta[key] || {}) : {};
   document.getElementById('ci-name').textContent     = c.name;
   document.getElementById('ci-provider').textContent = c.provider;
   document.getElementById('ci-duration').textContent = c.duration;
+  document.getElementById('ci-cost').textContent     = c.cost || 'Cost TBC';
   document.getElementById('ci-cert').textContent     = c.cert;
   document.getElementById('ci-description').textContent = c.description;
   infoCard.style.display     = '';
   detailsSection.style.display = '';
+  if (meta.source === 'internal' || !meta.financeEligible) resetFundingFields();
+  showFundingSection();
 }
 
 // ── Confirm dialog ────────────────────────────────────────────────
-function openConfirmDialog() {
-  // Validate required fields
+function validateCourseFields(populateConfirm) {
   if (currentType === 'preapproved') {
     const key = document.getElementById('pa-course').value;
-    if (!key) { showToast('warning', 'Select a course', 'Please select a course from the catalogue.'); return; }
+    if (!key) { showToast('warning', 'Select a course', 'Please select a course from the catalogue.'); return false; }
     const start = document.getElementById('pa-start').value;
     const end   = document.getElementById('pa-end').value;
-    if (!start || !end) { showToast('warning', 'Dates required', 'Please enter the start and end dates.'); return; }
+    if (!validateTrainingDates(start, end)) return false;
     const purpose = document.getElementById('pa-purpose').value.trim();
-    if (!purpose) { showToast('warning', 'Purpose required', 'Please fill in the purpose / justification field.'); return; }
-    const c = courses[key];
-    document.getElementById('confirm-course').textContent = c.name;
-    document.getElementById('confirm-dates').textContent  = fmtDate(start) + ' – ' + fmtDate(end);
-  } else {
-    const name = document.getElementById('nc-name').value.trim();
-    if (!name) { showToast('warning', 'Course name required', 'Please enter the course name.'); return; }
-    const start = document.getElementById('nc-start').value;
-    const end   = document.getElementById('nc-end').value;
-    if (!start || !end) { showToast('warning', 'Dates required', 'Please enter the start and end dates.'); return; }
-    const purpose = document.getElementById('nc-purpose').value.trim();
-    if (!purpose) { showToast('warning', 'Purpose required', 'Please fill in the purpose / justification field.'); return; }
+    if (!purpose) { showToast('warning', 'Purpose required', 'Please fill in the purpose / justification field.'); return false; }
+    if (populateConfirm) {
+      const c = courses[key];
+      document.getElementById('confirm-course').textContent = c.name;
+      document.getElementById('confirm-dates').textContent  = fmtDate(start) + ' – ' + fmtDate(end);
+    }
+    return true;
+  }
+
+  const name = document.getElementById('nc-name').value.trim();
+  if (!name) { showToast('warning', 'Course name required', 'Please enter the course name.'); return false; }
+  const provider = document.getElementById('nc-provider').value.trim();
+  if (!provider) { showToast('warning', 'Provider required', 'Please enter the training provider.'); return false; }
+  const cost = document.getElementById('nc-cost').value.trim();
+  if (!cost) { showToast('warning', 'Cost required', 'Please enter the course cost per pax.'); return false; }
+  const start = document.getElementById('nc-start').value;
+  const end   = document.getElementById('nc-end').value;
+  if (!validateTrainingDates(start, end)) return false;
+  const purpose = document.getElementById('nc-purpose').value.trim();
+  if (!purpose) { showToast('warning', 'Purpose required', 'Please fill in the purpose / justification field.'); return false; }
+  const objective = document.getElementById('nc-objective')?.value.trim();
+  if (!objective) { showToast('warning', 'Objective required', 'Please enter the course objective.'); return false; }
+  const description = document.getElementById('nc-description')?.value.trim();
+  if (!description) { showToast('warning', 'Description required', 'Please enter a short course description.'); return false; }
+  const screenshot = document.getElementById('nc-price-screenshot').files[0];
+  if (!screenshot) { showToast('warning', 'Screenshot required', 'Upload a screenshot showing the course name, provider, and price.'); return false; }
+  if (populateConfirm) {
     document.getElementById('confirm-course').textContent = name;
     document.getElementById('confirm-dates').textContent  = fmtDate(start) + ' – ' + fmtDate(end);
   }
+  return true;
+}
 
-  const traineeNames = currentFor === 'self'
+function validateCourseAndNext() {
+  if (formSubmitted) return;
+  if (!validateCourseFields(false)) return;
+  showFundingSection();
+  unlockAndAdvance();
+}
+
+function openConfirmDialog() {
+  if (formSubmitted) return;
+  if (!validateCourseFields(true)) return;
+  if (!validateFundingAllocations()) return;
+
+  const traineeText = currentFor === 'self'
     ? 'Theodor Gunawan (yourself)'
-    : trainees.map(t => t.name).join(', ');
-  document.getElementById('confirm-trainees').textContent = traineeNames;
-  document.getElementById('confirm-type').textContent     = currentType === 'preapproved' ? 'Pre-approved Course' : 'New / External Course';
+    : `${trainees.length} officer${trainees.length > 1 ? 's' : ''} — ${trainees.map(t => t.name).join(', ')}`;
+  document.getElementById('confirm-trainees').textContent = traineeText;
+  document.getElementById('confirm-type').textContent = currentType === 'preapproved' ? 'Pre-approved Course' : 'New / External Course';
 
   document.getElementById('confirm-dialog').classList.add('open');
 }
@@ -1076,7 +1663,10 @@ function closeConfirmDialog(e) {
 
 // ── Submit → localStorage ─────────────────────────────────────────
 function handleSubmit() {
+  if (formSubmitted) return;
+  formSubmitted = true;
   document.getElementById('confirm-dialog').classList.remove('open');
+  lockSubmittedForm();
 
   const now = new Date();
   const submittedDate = now.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
@@ -1086,42 +1676,70 @@ function handleSubmit() {
   const nextNum  = Math.max(...existing, 0) + 1;
   const ref      = 'SUB-' + String(nextNum).padStart(5,'0');
 
-  let sub = {
+  let baseSub = {
     ref,
     officerId: 'tg',
     type: currentType,
     submitted: submittedDate,
     status: 'pending',
     stage: 'captain',
+    submittedBy: ME,
   };
 
   if (currentType === 'preapproved') {
     const key = document.getElementById('pa-course').value;
     const start = document.getElementById('pa-start').value;
     const end   = document.getElementById('pa-end').value;
-    sub.courseKey = key;
-    sub.dates    = fmtDate(start) + '–' + fmtDate(end);
-    sub.venue    = document.getElementById('pa-venue').value.trim();
-    sub.purpose  = document.getElementById('pa-purpose').value.trim();
-    sub.cost     = 'Nil (company-sponsored)';
+    const c     = courses[key];
+    const meta  = BB.coursesMeta ? (BB.coursesMeta[key] || {}) : {};
+    baseSub.courseKey = key;
+    baseSub.dates    = fmtDate(start) + '–' + fmtDate(end);
+    baseSub.venue    = '';
+    baseSub.purpose  = document.getElementById('pa-purpose').value.trim();
+    baseSub.financeEligible = meta.financeEligible !== false;
+    baseSub.cost     = meta.financeEligible === false ? 'Nil' : (c?.cost || 'TBC');
   } else {
-    sub.courseName = document.getElementById('nc-name').value.trim();
-    sub.provider   = document.getElementById('nc-provider').value.trim();
-    const start    = document.getElementById('nc-start').value;
-    const end      = document.getElementById('nc-end').value;
-    sub.dates      = fmtDate(start) + '–' + fmtDate(end);
-    sub.venue      = document.getElementById('nc-venue').value.trim();
-    sub.cost       = document.getElementById('nc-cost').value.trim() || 'TBC';
-    sub.url        = document.getElementById('nc-url').value.trim();
-    sub.purpose    = document.getElementById('nc-purpose').value.trim();
+    baseSub.courseName  = document.getElementById('nc-name').value.trim();
+    baseSub.provider    = document.getElementById('nc-provider').value.trim();
+    const screenshot    = document.getElementById('nc-price-screenshot').files[0];
+    const start     = document.getElementById('nc-start').value;
+    const end       = document.getElementById('nc-end').value;
+    baseSub.dates       = fmtDate(start) + '–' + fmtDate(end);
+    baseSub.venue       = document.getElementById('nc-venue').value.trim();
+    baseSub.cost        = document.getElementById('nc-cost').value.trim() || 'TBC';
+    baseSub.priceScreenshotName = screenshot ? screenshot.name : '';
+    baseSub.priceEvidenceRequired = true;
+    baseSub.url         = document.getElementById('nc-url').value.trim();
+    baseSub.purpose     = document.getElementById('nc-purpose').value.trim();
+    baseSub.objective   = document.getElementById('nc-objective')?.value.trim();
+    baseSub.description = document.getElementById('nc-description')?.value.trim();
   }
 
-  sub.for = currentFor;
-  sub.traineeList = getTraineesForSubmission();
+  const selfAllocation = currentFor === 'self' ? currentFundingAllocation : null;
+  baseSub.fundingAllocation = selfAllocation;
+  baseSub.fundingMode = selfAllocation ? fundingModeFromAllocation(selfAllocation) : 'split';
+  baseSub.fundingRemarks = selfAllocation ? fundingRemarksFromAllocation(selfAllocation) : '';
+
   if (currentFor === 'others') {
-    sub.trainees = trainees.map(t => t.name).join(', ');
+    const sub = {
+      ...baseSub,
+      for: 'others',
+      submittedBy: ME,
+      traineeList: getTraineesForSubmission(),
+      trainees: trainees.map(t => t.name).join(', '),
+    };
+    BB.persistSubmission(sub);
+    const n = trainees.length;
+    showToast('success', 'Request submitted!', `LTA Seet has been notified and will review your request for ${n} officer${n > 1 ? 's' : ''}.`);
+    setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1800);
+    return;
   }
 
+  const sub = {
+    ...baseSub,
+    for: 'self',
+    traineeList: getTraineesForSubmission(),
+  };
   BB.persistSubmission(sub);
 
   showToast('success', 'Request submitted!', 'LTA Seet has been notified and will review your request shortly.');
@@ -1139,9 +1757,13 @@ function fmtDate(val) {
 function getTraineesForSubmission() {
   if (currentFor === 'self') {
     const o = BB.officers[ME];
-    return [{ id: ME, name: o.name, rank: o.rank, unit: o.company || '' }];
+    const allocation = currentFundingAllocation || defaultFundingAllocation(ME);
+    return [{ id: ME, name: o.name, rank: o.rank, unit: o.company || '', fundingAllocation: allocation, fundingMode: fundingModeFromAllocation(allocation), fundingRemarks: fundingRemarksFromAllocation(allocation) }];
   }
-  return trainees.map(t => ({ id: t.id, name: t.name, rank: t.rank, unit: t.unit || '' }));
+  return trainees.map(t => {
+    const allocation = t.fundingAllocation || defaultFundingAllocation(t.id);
+    return { id: t.id, name: t.name, rank: t.rank, unit: t.unit || '', fundingAllocation: allocation, fundingMode: fundingModeFromAllocation(allocation), fundingRemarks: fundingRemarksFromAllocation(allocation) };
+  });
 }
 
 function officerKey(o, idx) {
@@ -1252,12 +1874,20 @@ function handleClosureSubmit() {
     sub.remarks = (sub.remarks ? sub.remarks + ' ' : '') + 'Certificates uploaded. Submission closed.';
   }
 
+  if (closureOutcome === 'completed') {
+    sub.surveyRequired = true;
+    sub.surveyStatus = 'pending';
+  }
+
   BB.persistSubmission(sub);
 
-  showToast('success', 'Closure submitted', closureOutcome === 'cancelled'
-    ? 'This submission has been marked as cancelled.'
-    : 'Certificates received. This submission is now complete.');
-  setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1600);
+  if (closureOutcome === 'completed') {
+    showToast('success', 'Closure submitted', 'Certificates received. Your captain will be notified to complete a post-training survey.');
+    setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1600);
+  } else {
+    showToast('success', 'Closure submitted', 'This submission has been marked as cancelled.');
+    setTimeout(() => { window.location.href = 'officer.html?section=submissions'; }, 1600);
+  }
 }
 
 function closureBack() {
@@ -1265,7 +1895,7 @@ function closureBack() {
     window.location.href = 'officer.html?section=submissions';
     return;
   }
-  goToTab(2);
+  goToTab(3);
 }
 
 function updatePageStepperForClosure() {
@@ -1297,17 +1927,348 @@ function initClosureMode(ref) {
 
   updatePageStepperForClosure();
 
-  maxUnlocked = 3;
+  maxUnlocked = 4;
+  selectClosureOutcome('completed');
+  goToTab(4);
   document.getElementById('tab-btn-1').classList.add('done', 'locked');
   document.getElementById('tab-btn-2').classList.add('done', 'locked');
+  document.getElementById('tab-btn-3').classList.add('done', 'locked');
+}
 
-  selectClosureOutcome('completed');
-  goToTab(3);
+function bindInvalidation(ids, step) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const eventName = el.type === 'file' || el.type === 'date' || el.tagName === 'SELECT'
+      ? 'change'
+      : 'input';
+    el.addEventListener(eventName, () => invalidateFrom(step));
+  });
+}
+
+function registerFormInvalidation() {
+  bindInvalidation([
+    'pa-start', 'pa-end', 'pa-purpose',
+    'nc-name', 'nc-cost', 'nc-provider', 'nc-start', 'nc-end',
+    'nc-venue', 'nc-url', 'nc-objective', 'nc-description',
+    'nc-purpose', 'nc-price-screenshot'
+  ], 2);
+}
+
+// ── Review Mode (captain / chaplain / comm) ───────────────────────
+let captainReviewRef = '';
+let crDecisions  = {};   // { officerId: 'approve' | 'return' }
+let crTraineeIds = [];   // ordered officer IDs for the current request
+
+/* ── Populate panels 1-4 with read-only content from submission ── */
+function setReviewPanels(sub) {
+  const trainees = BB.getSubmissionTrainees(sub);
+  const course   = sub.courseKey ? BB.courses[sub.courseKey] : null;
+  const dl = (lbl, val) =>
+    `<div><div style="font-size:.75rem;color:var(--muted-fg);font-weight:500;margin-bottom:.25rem;">${lbl}</div>`+
+    `<div style="font-size:.875rem;font-weight:500;">${val}</div></div>`;
+
+  // Panel 1 — Trainees
+  const p1 = document.getElementById('panel-1');
+  if (p1) {
+    const cards = trainees.map(o => {
+      const off = BB.officers[o.id] || o;
+      return `<div class="trainee-card" style="padding:0.625rem 0.75rem;">
+        <div class="avatar avatar-sm" style="background:${off.bg||'var(--muted)'};color:${off.fg||'var(--fg)'};">${off.initials||o.initials||''}</div>
+        <div class="trainee-card-body">
+          <div class="trainee-card-name">${o.name}</div>
+          <div class="trainee-card-meta">${o.rank||''} · ${o.unit||off.company||''}</div>
+        </div>
+      </div>`;
+    }).join('');
+    p1.innerHTML = `<div>
+      <div style="font-size:.9375rem;font-weight:600;margin-bottom:.25rem;">Trainees on this request</div>
+      <div style="font-size:.875rem;color:var(--muted-fg);margin-bottom:1rem;">${trainees.length} officer${trainees.length===1?'':'s'} on this submission.</div>
+      <div class="trainee-list">${cards}</div>
+    </div>`;
+  }
+
+  // Panel 2 — Course Information
+  const p2 = document.getElementById('panel-2');
+  if (p2) {
+    let rows = dl('Type', sub.type==='preapproved' ? 'Pre-approved Course' : 'New / External Course');
+    rows += dl('Course Name', BB.courseName(sub));
+    rows += dl('Provider', BB.courseProvider(sub));
+    rows += dl('Training Dates', sub.dates || '—');
+    if (BB.courseCost(sub) !== '-') rows += dl('Cost', BB.courseCost(sub));
+    if (course && course.duration) rows += dl('Duration', course.duration);
+    const descBlock = course && course.description
+      ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+           <div style="font-size:.75rem;color:var(--muted-fg);font-weight:500;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;">Description</div>
+           <div style="font-size:.875rem;line-height:1.6;">${course.description}</div>
+         </div>` : '';
+    p2.innerHTML = `<div>
+      <div style="font-size:.9375rem;font-weight:600;margin-bottom:1rem;">Course Information</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;">${rows}</div>
+      ${descBlock}
+    </div>`;
+  }
+
+  // Panel 3 — Funding
+  const p3 = document.getElementById('panel-3');
+  if (p3) {
+    const isCoy = sub.fundingMode === 'company-funds';
+    const fundingBadge = isCoy
+      ? '<span class="badge badge-destructive" style="font-size:.7rem;vertical-align:middle;">Company Funds</span>'
+      : (BB.fundingModeLabel(sub.fundingMode) || '—');
+    let rows = dl('Funding Mode', fundingBadge);
+    if (BB.courseCost(sub) !== '-') rows += dl('Cost per Pax', BB.courseCost(sub));
+    const alert = isCoy
+      ? `<div class="alert alert-warning" style="display:flex;gap:.625rem;align-items:flex-start;padding:.875rem;margin-top:1rem;">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:.125rem;color:var(--warning);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+           <div style="font-size:.875rem;"><strong>Company Funds requested.</strong> Verify budget availability before approving.</div>
+         </div>` : '';
+    const purposeBlock = sub.purpose
+      ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+           <div style="font-size:.75rem;color:var(--muted-fg);font-weight:500;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;">Purpose / Justification</div>
+           <div style="font-size:.875rem;line-height:1.6;">${sub.purpose}</div>
+         </div>` : '';
+    p3.innerHTML = `<div>
+      <div style="font-size:.9375rem;font-weight:600;margin-bottom:1rem;">Funding</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;">${rows}</div>
+      ${alert}${purposeBlock}
+    </div>`;
+  }
+
+  // Panel 4 — Certificates (not yet available at review stage)
+  const p4 = document.getElementById('panel-4');
+  if (p4) {
+    p4.innerHTML = `<div style="text-align:center;padding:4rem 1rem;">
+      <div style="width:3rem;height:3rem;margin:0 auto 1rem;opacity:.3;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;color:var(--muted-fg);"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div style="font-size:.9375rem;font-weight:600;margin-bottom:.5rem;">No certificates yet</div>
+      <div style="font-size:.875rem;color:var(--muted-fg);max-width:28rem;margin:0 auto;">Certificates will be uploaded once training is complete. This section becomes available at the Closure stage.</div>
+    </div>`;
+  }
+}
+
+/* ── Build the Review tab (tab 5) content ────────────────────────── */
+function buildReviewTab(sub, role) {
+  const trainees  = BB.getSubmissionTrainees(sub);
+  crTraineeIds = trainees.map(o => o.id);
+
+  const officerRows = trainees.map(o => {
+    const off = BB.officers[o.id] || o;
+    return `<div id="cr-row-${o.id}" style="display:flex;align-items:center;gap:.625rem;padding:.625rem .75rem;border:1px solid var(--border);border-radius:var(--radius);transition:background .15s,border-color .15s;">
+      <input type="checkbox" id="cr-cb-${o.id}" onchange="crCheckboxChange('${o.id}',this.checked)" style="width:1rem;height:1rem;cursor:pointer;flex-shrink:0;accent-color:var(--success);">
+      <div class="avatar avatar-sm" style="background:${off.bg||'var(--muted)'};color:${off.fg||'var(--fg)'};flex-shrink:0;">${off.initials||o.initials||''}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:.875rem;font-weight:500;">${o.name}</div>
+        <div style="font-size:.75rem;color:var(--muted-fg);">${o.rank||''}</div>
+      </div>
+      <div id="cr-status-${o.id}" style="font-size:.75rem;color:var(--muted-fg);flex-shrink:0;">Pending</div>
+      <button title="Approve" onclick="crSetDecision('${o.id}','approve')"
+        style="width:2rem;height:2rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0;"
+        onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='transparent'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;"><polyline points="20 6 9 17 4 12"/></svg>
+      </button>
+      <button title="Return" onclick="crSetDecision('${o.id}','return')"
+        style="width:2rem;height:2rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--destructive);flex-shrink:0;"
+        onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='transparent'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+      </button>
+    </div>`;
+  }).join('');
+
+  const submitter = BB.officers[sub.submittedBy || sub.officerId] || {};
+  const roleLabel = role === 'captain' ? "Captain's Approval" : role === 'chaplain' ? "Chaplain's Endorsement" : "Training Comm Review";
+  const backHref  = role === 'captain' ? 'captain.html' : role === 'chaplain' ? 'chaplain.html' : 'comm.html';
+
+  return `<div style="display:grid;grid-template-columns:1fr 22rem;gap:1.25rem;align-items:start;">
+    <!-- Left: summary + tip -->
+    <div>
+      <div style="font-size:.9375rem;font-weight:600;margin-bottom:1rem;">${roleLabel}</div>
+      <div class="card" style="padding:1rem 1.25rem;margin-bottom:1.25rem;">
+        <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-fg);font-weight:600;margin-bottom:.75rem;">Request Summary</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.5rem;font-size:.875rem;">
+          <div><div style="font-size:.75rem;color:var(--muted-fg);">Submitted By</div><div style="font-weight:500;">${submitter.name||'—'}</div></div>
+          <div><div style="font-size:.75rem;color:var(--muted-fg);">Date Submitted</div><div style="font-weight:500;">${sub.submitted||'—'}</div></div>
+          <div><div style="font-size:.75rem;color:var(--muted-fg);">Training Dates</div><div style="font-weight:500;">${sub.dates||'—'}</div></div>
+          <div><div style="font-size:.75rem;color:var(--muted-fg);">Funding</div><div style="font-weight:500;">${BB.fundingModeLabel(sub.fundingMode)||'—'}</div></div>
+        </div>
+      </div>
+      <div style="background:var(--muted);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem 1rem;font-size:.8125rem;color:var(--muted-fg);">
+        <strong style="color:var(--fg);">Tip:</strong> Browse the other tabs to review full trainee, course, and funding details before deciding.
+      </div>
+    </div>
+    <!-- Right: officers + note + submit -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.625rem;">
+          <input type="checkbox" id="cr-select-all" onchange="crSelectAll(this.checked)" style="width:1rem;height:1rem;cursor:pointer;accent-color:var(--success);">
+          <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-fg);font-weight:600;flex:1;">Officers on this request</div>
+          <div style="font-size:.75rem;color:var(--muted-fg);" id="cr-decision-count"></div>
+        </div>
+        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem;">${officerRows}</div>
+      </div>
+      <div class="card" style="padding:1rem 1.25rem;">
+        <label class="label" style="font-size:.8125rem;margin-bottom:.375rem;">Note <span style="font-weight:400;color:var(--muted-fg);">(optional)</span></label>
+        <textarea class="input" id="cr-note" rows="3" placeholder="Add any instructions or remarks visible to the officer…" style="margin-bottom:.875rem;"></textarea>
+        <button class="btn btn-default" id="cr-submit-btn" onclick="submitCrDecision()" disabled style="width:100%;">Submit Decision</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── Init review mode (shared for captain / chaplain / comm) ─────── */
+function initReviewMode(ref, role) {
+  const sub = BB.submissions[ref];
+  if (!sub) { showToast('warning', 'Not found', 'Submission ' + ref + ' could not be loaded.'); return; }
+
+  reviewMode = true;
+  reviewRole = role;
+  captainReviewRef = ref;   // reuse for all roles
+  crDecisions = {};
+
+  // ── Breadcrumb & back
+  const backHref = role === 'captain' ? 'captain.html' : role === 'chaplain' ? 'chaplain.html' : 'comm.html';
+  const homeLabel = role === 'captain' ? 'Captain Dashboard' : role === 'chaplain' ? 'Chaplain Dashboard' : 'Training Comm';
+  const chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;"><polyline points="9 18 15 12 9 6"/></svg>';
+  const sep = `<div class="breadcrumb-separator">${chevron}</div>`;
+  const bc = document.querySelector('.breadcrumb');
+  if (bc) bc.innerHTML = `<div class="breadcrumb-item"><a href="${backHref}">${homeLabel}</a></div>${sep}<div class="breadcrumb-item"><a href="${backHref}" onclick="history.back();return false;">Pending</a></div>${sep}<div class="breadcrumb-item">${ref}</div>`;
+  const cancelBtn = document.querySelector('.topbar-right a.btn-ghost');
+  if (cancelBtn) { cancelBtn.href = backHref; cancelBtn.textContent = '← Back'; }
+
+  // ── Page header
+  document.getElementById('page-title').textContent = BB.courseName(sub);
+  document.getElementById('page-subtitle').textContent = '#' + ref + ' · Submitted ' + (sub.submitted || '');
+
+  // ── Update stepper
+  const stepperEl = document.getElementById('page-stepper');
+  if (stepperEl) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = BB.approvalStepperHTML(sub.stage, sub.status);
+    const src = tmp.firstElementChild;
+    if (src) stepperEl.innerHTML = src.innerHTML;
+  }
+
+  // ── Replace panel 1-4 with read-only views
+  setReviewPanels(sub);
+
+  // ── Inject tab 5 "Review"
+  TABS = 5;
+  maxUnlocked = 5;
+  const tabList = document.getElementById('tabs-lift-list');
+  if (tabList && !document.getElementById('tab-btn-5')) {
+    const btn5 = document.createElement('button');
+    btn5.className = 'tabs-lift-trigger';
+    btn5.id = 'tab-btn-5';
+    btn5.setAttribute('onclick', 'goToTab(5)');
+    btn5.innerHTML = '<span class="tab-lift-num">5</span><span class="tab-lift-label">Review</span>';
+    tabList.appendChild(btn5);
+  }
+  const tabContent = document.getElementById('tabs-lift-content');
+  if (tabContent && !document.getElementById('panel-5')) {
+    const p5 = document.createElement('div');
+    p5.id = 'panel-5';
+    p5.style.display = 'none';
+    p5.innerHTML = buildReviewTab(sub, role);
+    tabContent.appendChild(p5);
+  }
+
+  // ── Navigate to Review tab
+  goToTab(5);
+  crUpdateCount();
+}
+
+// Keep old name as alias for captain.html links that use role=captain
+function initCaptainReviewMode(ref) { initReviewMode(ref, 'captain'); }
+
+function crSetDecision(officerId, decision) {
+  crDecisions[officerId] = decision;
+  const row    = document.getElementById('cr-row-' + officerId);
+  const status = document.getElementById('cr-status-' + officerId);
+  const cb     = document.getElementById('cr-cb-' + officerId);
+  if (decision === 'approve') {
+    if (row)    { row.style.background = '#f0fdf4'; row.style.borderColor = '#bbf7d0'; }
+    if (status) status.innerHTML = '<span style="color:var(--success);font-weight:600;">Approved</span>';
+    if (cb)     cb.checked = true;
+  } else {
+    if (row)    { row.style.background = '#fef2f2'; row.style.borderColor = '#fecaca'; }
+    if (status) status.innerHTML = '<span style="color:var(--destructive);font-weight:600;">Returned</span>';
+    if (cb)     cb.checked = false;
+  }
+  crUpdateCount();
+}
+
+function crCheckboxChange(officerId, checked) {
+  if (checked) {
+    crSetDecision(officerId, 'approve');
+  } else {
+    delete crDecisions[officerId];
+    const row    = document.getElementById('cr-row-' + officerId);
+    const status = document.getElementById('cr-status-' + officerId);
+    if (row)    { row.style.background = ''; row.style.borderColor = ''; }
+    if (status) status.innerHTML = '<span style="color:var(--muted-fg);">Pending</span>';
+    crUpdateCount();
+  }
+}
+
+function crSelectAll(checked) {
+  crTraineeIds.forEach(id => {
+    const cb = document.getElementById('cr-cb-' + id);
+    if (cb) cb.checked = checked;
+    if (checked) {
+      crSetDecision(id, 'approve');
+    } else {
+      delete crDecisions[id];
+      const row    = document.getElementById('cr-row-' + id);
+      const status = document.getElementById('cr-status-' + id);
+      if (row)    { row.style.background = ''; row.style.borderColor = ''; }
+      if (status) status.innerHTML = '<span style="color:var(--muted-fg);">Pending</span>';
+    }
+  });
+  crUpdateCount();
+}
+
+function crUpdateCount() {
+  const decided = Object.keys(crDecisions).length;
+  const total   = crTraineeIds.length;
+  const el = document.getElementById('cr-decision-count');
+  if (el) el.textContent = decided + ' / ' + total + ' decided';
+  const btn = document.getElementById('cr-submit-btn');
+  if (btn) btn.disabled = decided < total;
+  // Sync select-all checkbox indeterminate state
+  const selectAll = document.getElementById('cr-select-all');
+  if (selectAll) {
+    const approvedCount = Object.values(crDecisions).filter(d => d === 'approve').length;
+    selectAll.indeterminate = approvedCount > 0 && approvedCount < total;
+    selectAll.checked = approvedCount === total;
+  }
+}
+
+function submitCrDecision() {
+  const sub = BB.submissions[captainReviewRef];
+  if (!sub) return;
+  const note = (document.getElementById('cr-note') || {}).value?.trim() || '';
+  const allApproved = Object.values(crDecisions).every(d => d === 'approve');
+  document.getElementById('cr-submit-btn').disabled = true;
+  const backHref = reviewRole === 'captain' ? 'captain.html' : reviewRole === 'chaplain' ? 'chaplain.html' : 'comm.html';
+  if (allApproved) {
+    BB.advanceSubmission(captainReviewRef, 'approve', reviewRole, note);
+    showToast('success', 'Decision submitted', '"' + BB.courseName(sub) + '" approved and forwarded.');
+  } else {
+    BB.advanceSubmission(captainReviewRef, 'return', reviewRole, note || 'Returned for revision.');
+    showToast('info', 'Submission returned', '"' + BB.courseName(sub) + '" returned to the officer.');
+  }
+  setTimeout(() => { window.location.href = backHref; }, 1800);
 }
 
 (function initPage() {
-  const ref = new URLSearchParams(window.location.search).get('ref');
-  if (ref) initClosureMode(ref);
+  applyDateMinimums();
+  registerFormInvalidation();
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  const role = params.get('role');
+  if (ref && (role === 'captain' || role === 'chaplain' || role === 'comm')) initReviewMode(ref, role);
+  else if (ref) initClosureMode(ref);
 })();
 </script>
 </body>

@@ -25,24 +25,40 @@
       </button>
     </div>
     <nav class="sidebar-nav">
-      <div class="sidebar-section">
-        <div class="sidebar-section-label">Menu</div>
-        <a href="#" id="nav-dashboard" class="nav-item active" onclick="showSection('dashboard');return false;">
-          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
-          <span class="nav-item-label">Dashboard</span>
+      <a href="#" id="nav-dashboard" class="nav-item active" onclick="showSection('dashboard');return false;">
+        <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+        <span class="nav-item-label">Dashboard</span>
+      </a>
+      <div class="sidebar-section" style="margin-top:1rem;">
+        <div class="sidebar-section-label">Self</div>
+        <a href="#" id="nav-submissions" class="nav-item" onclick="showSection('submissions');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          <span class="nav-item-label">My Submissions</span>
         </a>
+        <a href="#" id="nav-records" class="nav-item" onclick="showSection('records');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span class="nav-item-label">Training Records</span>
+        </a>
+      </div><!-- /Self -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Company</div>
         <a href="#" id="nav-approvals" class="nav-item" onclick="showSection('approvals');return false;">
           <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
           <span class="nav-item-label">Pending Approvals</span>
-          <span class="nav-item-badge"><span class="badge badge-info" style="font-size:.65rem;padding:.125rem .4rem;">3</span></span>
+          <span class="nav-item-badge"><span class="badge badge-info" id="badge-approvals" style="font-size:.65rem;padding:.125rem .4rem;display:none;"></span></span>
         </a>
         <a href="#" id="nav-officers" class="nav-item" onclick="showSection('officers');return false;">
           <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
           <span class="nav-item-label">Company Officers</span>
         </a>
-        <a href="#" id="nav-records" class="nav-item" onclick="showSection('records');return false;">
-          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
-          <span class="nav-item-label">Training Records</span>
+        <a href="#" id="nav-company-records" class="nav-item" onclick="showSection('company-records');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="nav-item-label">Company Records</span>
+        </a>
+        <a href="#" id="nav-surveys" class="nav-item" onclick="showSection('surveys');return false;">
+          <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+          <span class="nav-item-label">Post-Training Surveys</span>
+          <span class="nav-item-badge"><span class="badge badge-warning" id="badge-surveys" style="font-size:.65rem;padding:.125rem .4rem;display:none;"></span></span>
         </a>
       </div>
     </nav>
@@ -105,136 +121,211 @@
       <!-- ══════════════════════════════════════════════════════
            SECTION: Dashboard
            ══════════════════════════════════════════════════════ -->
-      <div id="section-dashboard">
+      <div id="section-dashboard" data-display="flex" style="display:flex;flex-direction:column;min-height:calc(100vh - 3.5rem - 3rem);">
+        <!-- Page header with toggle -->
         <div class="page-header">
           <div>
             <h1 class="page-title">Good morning, John 👋</h1>
             <p class="page-subtitle">Saturday, 24 May 2025 · Alpha Company · Captain</p>
           </div>
-        </div>
-
-        <!-- Stat cards -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.5rem;">
-          <div class="stat-card" style="cursor:pointer;" onclick="showSection('approvals')">
-            <div class="stat-card-header">
-              <span class="stat-card-label">Pending Review</span>
-              <div class="stat-card-icon" style="background:#fffbeb;color:var(--warning);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
+          <div class="page-actions">
+            <div style="display:flex;background:var(--muted);border-radius:var(--radius);padding:0.25rem;gap:0.25rem;">
+              <button id="dash-toggle-self" onclick="switchDashView('self')" style="padding:0.375rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);">Self</button>
+              <button id="dash-toggle-coy" onclick="switchDashView('coy')" style="padding:0.375rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:transparent;color:var(--muted-fg);">Company</button>
             </div>
-            <div class="stat-card-value">3</div>
-            <div class="stat-card-trend">awaiting your action</div>
-          </div>
-          <div class="stat-card" style="cursor:pointer;" onclick="showSection('officers')">
-            <div class="stat-card-header">
-              <span class="stat-card-label">Officers</span>
-              <div class="stat-card-icon" style="background:#eff6ff;color:var(--info);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-            </div>
-            <div class="stat-card-value">8</div>
-            <div class="stat-card-trend">in Alpha Company</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card-header">
-              <span class="stat-card-label">Compliance Rate</span>
-              <div class="stat-card-icon" style="background:#f0fdf4;color:var(--success);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-            </div>
-            <div class="stat-card-value">85%</div>
-            <div class="stat-card-trend" style="color:var(--success);">↑ 3% this quarter</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card-header">
-              <span class="stat-card-label">Expiring Soon</span>
-              <div class="stat-card-icon" style="background:#fef2f2;color:var(--destructive);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              </div>
-            </div>
-            <div class="stat-card-value">2</div>
-            <div class="stat-card-trend">certifications expiring</div>
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 22rem;gap:1.25rem;align-items:start;">
-          <!-- Left: pending submissions -->
-          <div class="section">
-            <div class="section-header">
-              <div>
-                <div class="section-title">Submissions Awaiting Your Review</div>
-                <div class="section-subtitle">These requests need your approval before proceeding</div>
+        <!-- ── SELF VIEW ─────────────────────────────────────────── -->
+        <div id="dash-self" style="display:flex;flex-direction:column;flex:1;">
+          <!-- Stat cards (same as officer) -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.5rem;flex-shrink:0;">
+            <div class="stat-card" style="cursor:pointer;" onclick="showCaptainStatDetail('completed')">
+              <div class="stat-card-header">
+                <span class="stat-card-label">Completed</span>
+                <div class="stat-card-icon" style="background:#f0fdf4;color:var(--success);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
               </div>
-              <button class="btn btn-ghost btn-sm" onclick="showSection('approvals')">View All</button>
+              <div class="stat-card-value" id="self-stat-completed">—</div>
+              <div class="stat-card-trend">training records</div>
             </div>
-
-            <div id="captain-dashboard-pending" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+            <div class="stat-card" style="cursor:pointer;" onclick="showCaptainStatDetail('pending')">
+              <div class="stat-card-header">
+                <span class="stat-card-label">Pending</span>
+                <div class="stat-card-icon" style="background:#fffbeb;color:var(--warning);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="self-stat-pending">—</div>
+              <div class="stat-card-trend">awaiting approval</div>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" onclick="showCaptainStatDetail('expiring')">
+              <div class="stat-card-header">
+                <span class="stat-card-label">Expiring Soon</span>
+                <div class="stat-card-icon" style="background:#fef2f2;color:var(--destructive);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="self-stat-expiring">—</div>
+              <div class="stat-card-trend">within 90 days</div>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" onclick="showCaptainStatDetail('outstanding')">
+              <div class="stat-card-header">
+                <span class="stat-card-label">Outstanding</span>
+                <div class="stat-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="self-stat-outstanding">—</div>
+              <div class="stat-card-trend">mandatory requirements</div>
+            </div>
           </div>
 
-          <!-- Right: company compliance -->
-          <div style="display:flex;flex-direction:column;gap:1.25rem;">
-
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Alpha Company Compliance</h3>
-                <p class="card-description">Mandatory training fulfilment by officer</p>
+          <!-- Annual Allowance Widget -->
+          <div class="card" style="margin-bottom:1.25rem;padding:1rem 1.25rem;flex-shrink:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <div class="stat-card-icon" style="background:#eff6ff;color:#2563eb;width:2.25rem;height:2.25rem;flex-shrink:0;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.8125rem;font-weight:600;color:var(--fg);">Annual Training Allowance</div>
+                  <div style="font-size:0.75rem;color:var(--muted-fg);">FY 2025</div>
+                </div>
               </div>
-              <div class="card-content" style="padding-top:0.5rem;display:flex;flex-direction:column;gap:0.75rem;">
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
-                    <span style="font-weight:500;">Theodor Gunawan <span style="color:var(--muted-fg);font-weight:400;">2LT</span></span>
-                    <span style="color:var(--muted-fg);">2 / 3</span>
+              <div style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+                <div style="text-align:center;"><div style="font-size:1.25rem;font-weight:700;color:var(--success);" id="cap-allowance-available">—</div><div style="font-size:.75rem;color:var(--muted-fg);">Available</div></div>
+                <div style="text-align:center;"><div style="font-size:1.125rem;font-weight:600;color:var(--warning);" id="cap-allowance-pending">—</div><div style="font-size:.75rem;color:var(--muted-fg);">Pending</div></div>
+                <div style="text-align:center;"><div style="font-size:1.125rem;font-weight:600;color:var(--destructive);" id="cap-allowance-committed">—</div><div style="font-size:.75rem;color:var(--muted-fg);">Committed</div></div>
+                <div style="text-align:center;"><div style="font-size:1.125rem;font-weight:600;color:var(--muted-fg);" id="cap-allowance-used">—</div><div style="font-size:.75rem;color:var(--muted-fg);">Used</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two-column grid: Active Submissions + Upcoming Courses -->
+          <div style="display:grid;grid-template-columns:1fr 22rem;gap:1.25rem;align-items:stretch;flex:1;">
+
+            <!-- LEFT: Active Submissions -->
+            <div style="display:flex;flex-direction:column;">
+              <div class="card" style="flex:1;">
+                <div class="card-header" style="display:flex;align-items:center;justify-content:space-between;padding-bottom:1.25rem;">
+                  <div>
+                    <h3 class="card-title">Active Submissions</h3>
+                    <p style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.125rem;">Submissions currently in the approval workflow</p>
                   </div>
-                  <div class="progress"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
                 </div>
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
-                    <span style="font-weight:500;">Priya Raj <span style="color:var(--muted-fg);font-weight:400;">2LT</span></span>
-                    <span style="color:var(--muted-fg);">3 / 3</span>
-                  </div>
-                  <div class="progress"><div class="progress-bar" data-value="100"></div></div>
+                <div class="card-content" style="padding:0;border-top:1px solid var(--border);">
+                  <table class="table table-card-mobile hide-mobile-actions">
+                    <thead>
+                      <tr>
+                        <th>Course / Training</th>
+                        <th>Type</th>
+                        <th>Dates</th>
+                        <th>Current Stage</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="cap-tbody-active-subs"></tbody>
+                  </table>
                 </div>
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
-                    <span style="font-weight:500;">Samuel Lim <span style="color:var(--muted-fg);font-weight:400;">2LT</span></span>
-                    <span style="color:var(--muted-fg);">2 / 3</span>
-                  </div>
-                  <div class="progress"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
+              </div>
+            </div><!-- /left -->
+
+            <!-- RIGHT: Upcoming Courses -->
+            <div style="display:flex;flex-direction:column;">
+              <div class="card" style="flex:1;">
+                <div class="card-header">
+                  <h3 class="card-title">Upcoming Courses</h3>
                 </div>
-                <div>
-                  <div style="display:flex;justify-content:space-between;font-size:0.8125rem;margin-bottom:0.3rem;">
-                    <span style="font-weight:500;">Ahmad Wafi <span style="color:var(--muted-fg);font-weight:400;">OCT</span></span>
-                    <span style="color:var(--muted-fg);">1 / 3</span>
-                  </div>
-                  <div class="progress"><div class="progress-bar" data-value="33" style="background:var(--destructive);"></div></div>
+                <div class="card-content" style="padding-top:0.25rem;" id="cap-upcoming-courses-list"></div>
+              </div>
+            </div><!-- /right -->
+
+          </div><!-- /two-column grid -->
+        </div><!-- /dash-self -->
+
+        <!-- ── COMPANY VIEW ───────────────────────────────────────── -->
+        <div id="dash-coy" style="display:none;flex-direction:column;flex:1;">
+          <!-- Stat cards -->
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.875rem;margin-bottom:1.5rem;flex-shrink:0;">
+            <div class="stat-card" style="cursor:pointer;" onclick="showSection('approvals')">
+              <div class="stat-card-header">
+                <span class="stat-card-label">Pending Approvals</span>
+                <div class="stat-card-icon" style="background:#fffbeb;color:var(--warning);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="coy-stat-approvals">—</div>
+              <div class="stat-card-trend">awaiting your action</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-label">Expiring Soon</span>
+                <div class="stat-card-icon" style="background:#fef2f2;color:var(--destructive);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="coy-stat-expiring">—</div>
+              <div class="stat-card-trend">certifications across company</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 22rem;gap:1.25rem;align-items:stretch;flex:1;">
+            <!-- Left: pending approvals -->
+            <div style="display:flex;flex-direction:column;">
+              <div class="card" style="flex:1;">
+                <div class="card-header" style="padding-bottom:1.25rem;">
+                  <h3 class="card-title">Pending Approvals</h3>
+                  <p style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.125rem;">Training requests awaiting your review</p>
+                </div>
+                <div class="card-content" style="padding:0;border-top:1px solid var(--border);">
+                  <table class="table table-card-mobile hide-mobile-actions">
+                    <thead>
+                      <tr>
+                        <th>Course / Training</th>
+                        <th>Type</th>
+                        <th>Dates</th>
+                        <th>Current Stage</th>
+                        <th>Funding</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="captain-dashboard-pending"></tbody>
+                  </table>
                 </div>
               </div>
             </div>
 
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Expiring Certifications</h3>
-              </div>
-              <div class="card-content" style="padding-top:0.5rem;display:flex;flex-direction:column;gap:0.5rem;">
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem;background:var(--muted);border-radius:var(--radius);font-size:0.8125rem;">
+            <!-- Right: expiring certifications -->
+            <div style="display:flex;flex-direction:column;">
+              <div class="card" style="flex:1;padding:0;display:flex;flex-direction:column;">
+                <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--border);">
+                  <h3 class="card-title">Expiring Certifications</h3>
+                  <p class="card-description" style="margin-top:0.125rem;">Across all Alpha Company officers</p>
+                </div>
+                <div id="coy-expiring-list" style="flex:1;display:flex;flex-direction:column;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);font-size:0.8125rem;">
                   <div>
                     <div style="font-weight:500;">Theodor Gunawan — CPR + AED</div>
-                    <div style="color:var(--destructive);font-size:0.75rem;font-weight:600;">Expires 21 Jun · 28 days</div>
+                    <div style="color:var(--destructive);font-size:.75rem;font-weight:600;margin-top:.125rem;">Expires 21 Jun 2025 · 28 days</div>
                   </div>
-                  <span class="badge" style="background:#fef2f2;color:var(--destructive);border-color:#fecaca;">Urgent</span>
+                  <span class="badge" style="background:#fef2f2;color:var(--destructive);border-color:#fecaca;flex-shrink:0;">Urgent</span>
                 </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem;background:var(--muted);border-radius:var(--radius);font-size:0.8125rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.875rem 1.25rem;font-size:0.8125rem;">
                   <div>
                     <div style="font-weight:500;">Samuel Lim — CPR + AED</div>
-                    <div style="color:var(--warning);font-size:0.75rem;font-weight:600;">Expires 30 Jun · 37 days</div>
+                    <div style="color:var(--warning);font-size:.75rem;font-weight:600;margin-top:.125rem;">Expires 30 Jun 2025 · 37 days</div>
                   </div>
-                  <span class="badge badge-warning">Soon</span>
+                  <span class="badge badge-warning" style="flex-shrink:0;">Soon</span>
                 </div>
               </div>
-            </div>
+            </div><!-- /right card -->
+            </div><!-- /right wrapper -->
+          </div><!-- /grid -->
+        </div><!-- /dash-coy -->
 
-          </div>
-        </div>
       </div><!-- /section-dashboard -->
 
 
@@ -263,16 +354,15 @@
         </div>
 
         <div class="card" style="padding:0;overflow:hidden;">
-          <table class="table" id="approvals-table">
+          <table class="table table-card-mobile hide-mobile-actions" id="approvals-table">
             <thead>
               <tr>
-                <th>Ref #</th>
-                <th>Officer</th>
-                <th>Course</th>
+                <th>Course / Training</th>
                 <th>Type</th>
-                <th>Submitted</th>
                 <th>Dates</th>
-                <th style="width:11rem;"></th>
+                <th>Current Stage</th>
+                <th>Funding</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="tbody-approvals"></tbody>
@@ -288,7 +378,7 @@
         <div class="page-header">
           <div>
             <h1 class="page-title">Company Officers</h1>
-            <p class="page-subtitle">Alpha Company · 8 officers</p>
+            <p class="page-subtitle">Alpha Company · 4 officers</p>
           </div>
         </div>
 
@@ -314,16 +404,16 @@
                     <span style="font-weight:500;">Theodor Gunawan</span>
                   </div>
                 </td>
-                <td>2LT</td>
+                <td>LTA</td>
                 <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
                 <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
                 <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
                 <td><span class="status-pill" style="background:#fef3c7;color:#92400e;font-size:0.7rem;">Expiring</span></td>
-                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill" style="background:#fef3c7;color:#92400e;font-size:0.7rem;">Expiring</span></td>
                 <td>
                   <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
-                    <span style="font-size:0.8125rem;color:var(--muted-fg);">67%</span>
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="80" style="background:var(--warning);"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">80%</span>
                   </div>
                 </td>
               </tr>
@@ -362,28 +452,8 @@
                 <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
                 <td>
                   <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="67" style="background:var(--warning);"></div></div>
-                    <span style="font-size:0.8125rem;color:var(--muted-fg);">67%</span>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="avatar avatar-sm">AW</div>
-                    <span style="font-weight:500;">Ahmad Wafi</span>
-                  </div>
-                </td>
-                <td>OCT</td>
-                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
-                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
-                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
-                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
-                <td><span class="status-pill pending" style="font-size:0.7rem;">—</span></td>
-                <td>
-                  <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="33" style="background:var(--destructive);"></div></div>
-                    <span style="font-size:0.8125rem;color:var(--muted-fg);">33%</span>
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="80" style="background:var(--warning);"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">80%</span>
                   </div>
                 </td>
               </tr>
@@ -391,19 +461,22 @@
                 <td>
                   <div style="display:flex;align-items:center;gap:0.5rem;">
                     <div class="avatar avatar-sm" style="background:#fce7f3;color:#9d174d;">LY</div>
-                    <span style="font-weight:500;">Lena Yeo</span>
+                    <div>
+                      <span style="font-weight:500;">Lena Yeo</span>
+                      <span class="chip" style="font-size:0.65rem;margin-left:0.375rem;background:#f4f4f5;color:#71717a;">Inactive</span>
+                    </div>
                   </div>
                 </td>
                 <td>LT</td>
                 <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
                 <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
                 <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
-                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
-                <td><span class="status-pill approved" style="font-size:0.7rem;">✓</span></td>
+                <td><span class="status-pill" style="background:#fef2f2;color:var(--destructive);font-size:0.7rem;">Expired</span></td>
+                <td><span class="status-pill" style="background:#fef2f2;color:var(--destructive);font-size:0.7rem;">Expired</span></td>
                 <td>
                   <div style="display:flex;align-items:center;gap:0.5rem;">
-                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="100"></div></div>
-                    <span style="font-size:0.8125rem;color:var(--muted-fg);">100%</span>
+                    <div class="progress" style="width:4rem;"><div class="progress-bar" data-value="60" style="background:var(--warning);"></div></div>
+                    <span style="font-size:0.8125rem;color:var(--muted-fg);">60%</span>
                   </div>
                 </td>
               </tr>
@@ -414,14 +487,61 @@
 
 
       <!-- ══════════════════════════════════════════════════════
-           SECTION: Training Records
+           SECTION: My Submissions
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-submissions" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">My Submissions</h1>
+            <p class="page-subtitle">All training requests you have submitted</p>
+          </div>
+          <div class="page-actions">
+            <a href="submit.html" class="btn btn-default">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Request
+            </a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+          <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+            <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+            <input class="input has-icon-left" type="text" placeholder="Search submissions…" oninput="filterMySubmissions(this.value)" />
+          </div>
+          <select class="input" style="width:auto;" onchange="filterMySubmissionStatus(this.value)">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="returned">Returned</option>
+          </select>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table" id="cap-submissions-table">
+            <thead>
+              <tr>
+                <th>Ref #</th>
+                <th>Course / Training</th>
+                <th>Type</th>
+                <th>Submitted</th>
+                <th>Date(s)</th>
+                <th>Status</th>
+                <th style="width:6rem;"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-cap-submissions"></tbody>
+          </table>
+        </div>
+      </div><!-- /section-submissions -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Training Records (self)
            ══════════════════════════════════════════════════════ -->
       <div id="section-records" style="display:none;">
 
         <div class="page-header">
           <div>
             <h1 class="page-title">Training Records</h1>
-            <p class="page-subtitle">Your personal certifications and company officer records</p>
+            <p class="page-subtitle">Your complete history of approved and completed trainings</p>
           </div>
           <div class="page-actions">
             <button class="btn btn-outline" onclick="showToast('success','Export','Training records exported as CSV')">
@@ -431,220 +551,158 @@
           </div>
         </div>
 
-        <!-- Sub-tab switcher -->
-        <div style="display:flex;gap:0.25rem;padding:0.25rem;background:var(--muted);border-radius:var(--radius);width:fit-content;margin-bottom:1.5rem;">
-          <button id="rectab-mine" onclick="switchRecordsTab('mine')" style="padding:0.4rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);">My Records</button>
-          <button id="rectab-company" onclick="switchRecordsTab('company')" style="padding:0.4rem 1rem;border-radius:calc(var(--radius) - 2px);font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;background:transparent;color:var(--muted-fg);">Company Records</button>
-        </div>
-
-        <!-- ── My Records ── -->
-        <div id="records-mine">
-          <div style="display:flex;gap:0.625rem;margin-bottom:1.25rem;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius);font-size:0.8125rem;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span style="font-weight:600;color:#166534;">7</span><span style="color:#166534;">Completed</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius);font-size:0.8125rem;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--destructive)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span style="font-weight:600;color:var(--destructive);">1</span><span style="color:var(--destructive);">Expired</span>
-            </div>
+        <!-- Summary chips -->
+        <div style="display:flex;gap:0.625rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius);font-size:0.8125rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span style="font-weight:600;color:#166534;" id="cap-rec-summary-completed">—</span><span style="color:#166534;">Completed</span>
           </div>
-
-          <div class="card" style="padding:0;overflow:hidden;">
-            <table class="table" id="my-records-table">
-              <thead>
-                <tr>
-                  <th>Course / Training</th>
-                  <th>Category</th>
-                  <th>Completed</th>
-                  <th>Expiry</th>
-                  <th>Status</th>
-                  <th>Curriculum</th>
-                  <th style="width:7rem;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:500;">OCO</td>
-                  <td><span class="chip">Mandatory</span></td>
-                  <td>12 Jan 2019</td>
-                  <td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                  <td><span class="badge badge-secondary">OCO Track</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('oco')">View details</button></td>
-                </tr>
-                <tr>
-                  <td style="font-weight:500;">BOTC</td>
-                  <td><span class="chip">Mandatory</span></td>
-                  <td>8 Mar 2020</td>
-                  <td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                  <td><span class="badge badge-secondary">BOTC Track</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('botc')">View details</button></td>
-                </tr>
-                <tr>
-                  <td style="font-weight:500;">AOTC</td>
-                  <td><span class="chip">Mandatory</span></td>
-                  <td>5 Jun 2021</td>
-                  <td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                  <td><span class="badge badge-secondary">AOTC Track</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('aotc')">View details</button></td>
-                </tr>
-                <tr>
-                  <td style="font-weight:500;">First Aid Level 2</td>
-                  <td><span class="chip">Mandatory</span></td>
-                  <td>20 May 2021</td>
-                  <td>20 May 2023</td>
-                  <td><span class="status-pill" style="background:#fef2f2;color:var(--destructive);">Expired</span></td>
-                  <td><span class="badge">General</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('fa2')">View details</button></td>
-                </tr>
-                <tr>
-                  <td style="font-weight:500;">Safeguarding Children &amp; Youth</td>
-                  <td><span class="chip">Mandatory</span></td>
-                  <td>14 Mar 2022</td>
-                  <td style="color:var(--muted-fg);">14 Mar 2025</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                  <td><span class="badge">General</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('safeguard')">View details</button></td>
-                </tr>
-                <tr>
-                  <td style="font-weight:500;">CPR + AED Certification</td>
-                  <td><span class="chip">Recurring</span></td>
-                  <td>9 Feb 2023</td>
-                  <td style="color:var(--muted-fg);">9 Feb 2025</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                  <td><span class="badge">General</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('cpr')">View details</button></td>
-                </tr>
-                <tr>
-                  <td style="font-weight:500;">Youth Mental Health Awareness</td>
-                  <td><span class="chip">Elective</span></td>
-                  <td>3 Aug 2022</td>
-                  <td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                  <td><span class="badge">General</span></td>
-                  <td><button class="btn btn-ghost btn-sm" onclick="openCapRecordDetail('mentalhealth')">View details</button></td>
-                </tr>
-              </tbody>
-            </table>
+          <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius);font-size:0.8125rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--destructive)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span style="font-weight:600;color:var(--destructive);" id="cap-rec-summary-expired">—</span><span style="color:var(--destructive);">Expired</span>
           </div>
         </div>
 
-        <!-- ── Company Records ── -->
-        <div id="records-company" style="display:none;">
-          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
-            <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
-              <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
-              <input class="input has-icon-left" type="text" placeholder="Search officer or course…" oninput="filterCompanyRecords(this.value)" />
-            </div>
-            <select class="input" style="width:auto;" onchange="filterCompanyRecordsOfficer(this.value)">
-              <option value="">All Officers</option>
-              <option value="jt">Theodor Gunawan</option>
-              <option value="pr">Priya Raj</option>
-              <option value="sl">Samuel Lim</option>
-              <option value="aw">Ahmad Wafi</option>
-              <option value="ly">Lena Yeo</option>
-            </select>
+        <!-- Filter bar -->
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+            <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+            <input class="input has-icon-left" type="text" placeholder="Search records…" oninput="filterCapRecords(this.value)" />
           </div>
+          <select class="input" style="width:auto;" onchange="filterCapRecordStatus(this.value)">
+            <option value="">All</option>
+            <option value="active">Active</option>
+            <option value="expiring">Expiring Soon</option>
+            <option value="expired">Expired</option>
+          </select>
+        </div>
 
-          <div class="card" style="padding:0;overflow:hidden;">
-            <table class="table" id="company-records-table">
-              <thead>
-                <tr>
-                  <th>Officer</th>
-                  <th>Course / Training</th>
-                  <th>Category</th>
-                  <th>Completed</th>
-                  <th>Expiry</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-company-records">
-                <tr data-officer="jt" data-search="john tan oco officer cadet">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
-                  <td>15 Jan 2021</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="jt" data-search="john tan botc basic officer">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">BOTC</td><td><span class="chip">Mandatory</span></td>
-                  <td>5 Mar 2022</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="jt" data-search="john tan cpr aed certification">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#dbeafe;color:#1d4ed8;">TG</div><div><div style="font-weight:500;font-size:0.875rem;">Theodor Gunawan</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">CPR + AED</td><td><span class="chip">Recurring</span></td>
-                  <td>22 Jan 2023</td><td style="color:var(--destructive);font-weight:600;">21 Jun 2025 · 28 days</td>
-                  <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Expiring</span></td>
-                </tr>
-                <tr data-officer="pr" data-search="priya raj oco botc aotc">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
-                  <td>12 Jan 2021</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="pr" data-search="priya raj botc">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">BOTC</td><td><span class="chip">Mandatory</span></td>
-                  <td>4 Mar 2022</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="pr" data-search="priya raj aotc advanced">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#f3e8ff;color:#7c3aed;">PR</div><div><div style="font-weight:500;font-size:0.875rem;">Priya Raj</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">AOTC</td><td><span class="chip">Mandatory</span></td>
-                  <td>18 Jun 2023</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="sl" data-search="samuel lim oco">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div><div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
-                  <td>14 Jan 2021</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="sl" data-search="samuel lim botc">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div><div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">BOTC</td><td><span class="chip">Mandatory</span></td>
-                  <td>6 Mar 2022</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="sl" data-search="samuel lim cpr aed">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fef9c3;color:#854d0e;">SL</div><div><div style="font-weight:500;font-size:0.875rem;">Samuel Lim</div><div style="font-size:0.75rem;color:var(--muted-fg);">2LT</div></div></div></td>
-                  <td style="font-weight:500;">CPR + AED</td><td><span class="chip">Recurring</span></td>
-                  <td>10 Jan 2023</td><td style="color:var(--warning);font-weight:600;">30 Jun 2025 · 37 days</td>
-                  <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Expiring</span></td>
-                </tr>
-                <tr data-officer="aw" data-search="ahmad wafi oco">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm">AW</div><div><div style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</div><div style="font-size:0.75rem;color:var(--muted-fg);">OCT</div></div></div></td>
-                  <td style="font-weight:500;">OCO</td><td><span class="chip">Mandatory</span></td>
-                  <td>16 Jan 2023</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="aw" data-search="ahmad wafi cpr aed">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm">AW</div><div><div style="font-weight:500;font-size:0.875rem;">Ahmad Wafi</div><div style="font-size:0.75rem;color:var(--muted-fg);">OCT</div></div></div></td>
-                  <td style="font-weight:500;">CPR + AED</td><td><span class="chip">Recurring</span></td>
-                  <td>5 Mar 2023</td><td style="color:var(--muted-fg);">5 Mar 2025</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-                <tr data-officer="ly" data-search="lena yeo oco botc aotc">
-                  <td><div style="display:flex;align-items:center;gap:0.5rem;"><div class="avatar avatar-sm" style="background:#fce7f3;color:#9d174d;">LY</div><div><div style="font-weight:500;font-size:0.875rem;">Lena Yeo</div><div style="font-size:0.75rem;color:var(--muted-fg);">LT</div></div></div></td>
-                  <td style="font-weight:500;">AOTC</td><td><span class="chip">Mandatory</span></td>
-                  <td>2 Jul 2022</td><td style="color:var(--muted-fg);">No expiry</td>
-                  <td><span class="status-pill approved">Active</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table" id="cap-records-table">
+            <thead>
+              <tr>
+                <th>Course / Training</th>
+                <th>Category</th>
+                <th>Completed</th>
+                <th>Expiry</th>
+                <th>Status</th>
+                <th>Curriculum</th>
+                <th style="width:7rem;"></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-cap-records"></tbody>
+          </table>
         </div>
 
       </div><!-- /section-records -->
+
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Company Records
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-company-records" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Company Records</h1>
+            <p class="page-subtitle">Training certifications across all Alpha Company officers</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline" onclick="showToast('success','Export','Company records exported as CSV')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <div class="input-wrapper" style="flex:1;min-width:14rem;max-width:22rem;">
+            <span class="input-icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+            <input class="input has-icon-left" type="text" placeholder="Search officer or course…" oninput="filterCompanyRecords(this.value)" />
+          </div>
+          <select class="input" style="width:auto;" onchange="filterCompanyRecordsOfficer(this.value)">
+            <option value="">All Officers</option>
+            <option value="tg">Theodor Gunawan</option>
+            <option value="pr">Priya Raj</option>
+            <option value="sl">Samuel Lim</option>
+            <option value="aw">Ahmad Wafi</option>
+            <option value="ly">Lena Yeo</option>
+          </select>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table class="table" id="company-records-table">
+            <thead>
+              <tr>
+                <th>Officer</th>
+                <th>Course / Training</th>
+                <th>Category</th>
+                <th>Completed</th>
+                <th>Expiry</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-company-records"></tbody>
+          </table>
+        </div>
+      </div><!-- /section-company-records -->
+
+      <!-- ══════════════════════════════════════════════════════
+           SECTION: Post-Training Surveys
+           ══════════════════════════════════════════════════════ -->
+      <div id="section-surveys" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Post-Training Surveys</h1>
+            <p class="page-subtitle">Complete a survey for each officer who has finished a training course.</p>
+          </div>
+        </div>
+
+        <div class="card" style="padding:0;">
+          <div class="card-header" style="padding:1rem 1.25rem;">
+            <h3 class="card-title">Pending Surveys</h3>
+            <p style="font-size:0.8125rem;color:var(--muted-fg);margin-top:0.125rem;">Surveys awaiting completion — triggered when an officer submits their closure.</p>
+          </div>
+          <div style="border-top:1px solid var(--border);">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Officer</th>
+                  <th>Course</th>
+                  <th>Completed</th>
+                  <th>Survey Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-surveys">
+                <!-- populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /section-surveys -->
 
     </main>
   </div>
 </div>
 
+
+<!-- ── Captain Review Modal ──────────────────────────────────── -->
+<div class="dialog-overlay" id="captain-review-overlay" onclick="if(event.target===this)closeCaptainReview()">
+  <div class="dialog" style="max-width:42rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
+      <div>
+        <div class="dialog-title" id="cr-title"></div>
+        <div class="dialog-description" id="cr-ref"></div>
+      </div>
+      <button class="dialog-close" onclick="closeCaptainReview()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-content" id="cr-content" style="padding:0;max-height:70vh;overflow-y:auto;"></div>
+    <div class="dialog-footer">
+      <button class="btn btn-outline" onclick="closeCaptainReview()">Cancel</button>
+      <button class="btn btn-default" id="cr-submit-btn" onclick="submitCaptainDecisions()" disabled>Submit Decision</button>
+    </div>
+  </div>
+</div>
 
 <!-- ── Submission Detail Modal ───────────────────────────────── -->
 <div class="dialog-overlay" id="detail-overlay" onclick="closeDetailDialog(event)">
@@ -675,6 +733,14 @@
       <div class="dialog-description" id="approve-desc">This will forward the request to the Chaplain for endorsement.</div>
     </div>
     <div class="dialog-content">
+      <div id="approve-company-funds-warning" style="display:none;margin-bottom:0.875rem;">
+        <div class="alert alert-warning" style="display:flex;gap:0.5rem;align-items:flex-start;padding:0.75rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:0.125rem;color:var(--warning);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div style="font-size:0.8125rem;">
+            <strong>Coy Funds requested.</strong> This submission uses Coy Funds rather than the officer's annual allowance. Ensure you have budget approval before proceeding.
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <label class="label">Note to officer <span style="color:var(--muted-fg);font-weight:400;">(optional)</span></label>
         <textarea class="input" id="approve-note" rows="2" placeholder="Add an encouraging note or any relevant instructions…"></textarea>
@@ -687,6 +753,16 @@
         Confirm Approval
       </button>
     </div>
+  </div>
+</div>
+
+<!-- ── Stat Detail Modal (self view) ─────────────────────────── -->
+<div class="dialog-overlay" id="cap-stat-detail-overlay" onclick="if(event.target===this)document.getElementById('cap-stat-detail-overlay').classList.remove('open')">
+  <div class="dialog" style="max-width:42rem;width:100%;" onclick="event.stopPropagation()">
+    <button class="dialog-close" onclick="document.getElementById('cap-stat-detail-overlay').classList.remove('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="dialog-header"><h2 class="dialog-title" id="cap-stat-detail-title"></h2></div>
+    <div class="dialog-content" id="cap-stat-detail-body" style="padding:0;max-height:65vh;overflow-y:auto;"></div>
+    <div class="dialog-footer" style="justify-content:flex-end;"><button class="btn btn-outline" onclick="document.getElementById('cap-stat-detail-overlay').classList.remove('open')">Close</button></div>
   </div>
 </div>
 
@@ -717,15 +793,36 @@
 <script src="../components/components.js"></script>
 <script src="../data/data.js"></script>
 <script>
+BB.loadUserSubmissions();
 // ── Section navigation ────────────────────────────────────────────
-const sections = ['dashboard','approvals','officers','records'];
-const labels   = { dashboard:'Dashboard', approvals:'Pending Approvals', officers:'Company Officers', records:'Training Records' };
+const sections = ['dashboard','submissions','records','approvals','officers','company-records','surveys'];
+const labels   = {
+  dashboard:        'Dashboard',
+  submissions:      'My Submissions',
+  records:          'Training Records',
+  approvals:        'Pending Approvals',
+  officers:         'Company Officers',
+  'company-records':'Company Records',
+  surveys:          'Post-Training Surveys'
+};
+
+// Nav items keyed by section id
+const navIds = {
+  dashboard:        'nav-dashboard',
+  submissions:      'nav-submissions',
+  records:          'nav-records',
+  approvals:        'nav-approvals',
+  officers:         'nav-officers',
+  'company-records':'nav-company-records',
+  surveys:          'nav-surveys'
+};
 
 function showSection(id) {
   sections.forEach(s => {
     const el = document.getElementById('section-' + s);
-    el.style.display = (s === id) ? (el.dataset.display || 'block') : 'none';
-    const nav = document.getElementById('nav-' + s);
+    if (el) el.style.display = (s === id) ? (el.dataset.display || 'block') : 'none';
+    const navId = navIds[s];
+    const nav = navId ? document.getElementById(navId) : null;
     if (nav) nav.classList.toggle('active', s === id);
   });
   document.getElementById('breadcrumb-current').textContent = labels[id] || id;
@@ -762,12 +859,28 @@ function openDetailDialog(ref) {
 }
 function closeDetailDialog(e) { document.getElementById('detail-overlay').classList.remove('open'); }
 
+// Read-only submission detail for the captain's OWN submissions (self view)
+function openSubmissionDetail(ref) {
+  const sub = BB.submissions[ref];
+  if (!sub) return;
+  document.getElementById('detail-title').textContent = BB.courseName(sub);
+  document.getElementById('detail-ref').textContent   = '#' + ref + ' · Submitted ' + sub.submitted;
+  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'officer');
+  document.getElementById('detail-return-btn').style.display  = 'none';
+  document.getElementById('detail-approve-btn').style.display = 'none';
+  document.getElementById('detail-overlay').classList.add('open');
+}
+
 
 
 function openApproveDialog(ref, name, course) {
   _activeRef = ref; _activeName = name; _activeCourse = course;
   document.getElementById('approve-desc').textContent = `Approving "${course}" — this will forward the request to Rev Goh for endorsement.`;
   document.getElementById('approve-note').value = '';
+  // Show company funds warning if applicable
+  const sub = BB.submissions[ref];
+  const warnEl = document.getElementById('approve-company-funds-warning');
+  if (warnEl) warnEl.style.display = (sub && sub.fundingMode === 'company-funds') ? 'block' : 'none';
   document.getElementById('approve-overlay').classList.add('open');
 }
 function closeApproveDialog() { document.getElementById('approve-overlay').classList.remove('open'); }
@@ -798,24 +911,34 @@ function confirmReturn() {
   refreshCaptainQueues();
 }
 
-// ── Records sub-tabs ─────────────────────────────────────────────
-function switchRecordsTab(tab) {
-  document.getElementById('records-mine').style.display    = tab === 'mine'    ? '' : 'none';
-  document.getElementById('records-company').style.display = tab === 'company' ? '' : 'none';
-  const mine = document.getElementById('rectab-mine');
-  const comp = document.getElementById('rectab-company');
-  if (tab === 'mine') {
-    mine.style.cssText += 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);';
-    comp.style.cssText += 'background:transparent;color:var(--muted-fg);box-shadow:none;';
-  } else {
-    comp.style.cssText += 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);';
-    mine.style.cssText += 'background:transparent;color:var(--muted-fg);box-shadow:none;';
-  }
+// ── My Submissions filters ────────────────────────────────────────
+function filterMySubmissions(q) {
+  document.querySelectorAll('#cap-submissions-table tbody tr').forEach(r => {
+    r.style.display = !q || (r.dataset.search || '').includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filterMySubmissionStatus(v) {
+  document.querySelectorAll('#cap-submissions-table tbody tr').forEach(r => {
+    r.style.display = !v || r.dataset.status === v ? '' : 'none';
+  });
 }
 
+// ── Training Records filters ─────────────────────────────────────
+function filterCapRecords(q) {
+  document.querySelectorAll('#cap-records-table tbody tr').forEach(r => {
+    r.style.display = !q || (r.dataset.recSearch || '').includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filterCapRecordStatus(v) {
+  document.querySelectorAll('#cap-records-table tbody tr').forEach(r => {
+    r.style.display = !v || r.dataset.recStatus === v ? '' : 'none';
+  });
+}
+
+// ── Company Records filters ──────────────────────────────────────
 function filterCompanyRecords(q) {
   document.querySelectorAll('#company-records-table tbody tr').forEach(r => {
-    r.style.display = r.dataset.search.includes(q.toLowerCase()) ? '' : 'none';
+    r.style.display = !q || (r.dataset.search || '').includes(q.toLowerCase()) ? '' : 'none';
   });
 }
 function filterCompanyRecordsOfficer(v) {
@@ -840,15 +963,343 @@ function openCapRecordDetail(id) {
 
 
 
+// ── Captain Review Modal ─────────────────────────────────────────
+let _crRef = '';
+let _crDecisions = {}; // { officerId: 'approve' | 'return' }
+
+function openCaptainReview(ref) {
+  _crRef = ref;
+  _crDecisions = {};
+  const sub = BB.submissions[ref];
+  if (!sub) return;
+
+  const cName = BB.courseName(sub);
+  const course = sub.courseKey ? BB.courses[sub.courseKey] : null;
+  const submitter = BB.officers[sub.submittedBy || sub.officerId] || {};
+  const isCompanyFunds = sub.fundingMode === 'company-funds';
+
+  // Build trainee list
+  let trainees = [];
+  if (sub.for === 'others' && sub.traineeList && sub.traineeList.length) {
+    trainees = sub.traineeList.map(id => BB.officers[id]).filter(Boolean);
+  } else {
+    const o = BB.officers[sub.officerId];
+    if (o) trainees = [o];
+  }
+
+  document.getElementById('cr-title').textContent = cName;
+  document.getElementById('cr-ref').textContent = '#' + ref + ' · Submitted ' + sub.submitted;
+
+  document.getElementById('cr-content').innerHTML = `
+    <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;">Type</div>
+        <div style="font-size:.875rem;">${sub.type === 'preapproved' ? 'Pre-approved' : 'New Course'}</div>
+      </div>
+      <div>
+        <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;">Dates</div>
+        <div style="font-size:.875rem;">${sub.dates || '—'}</div>
+      </div>
+      <div>
+        <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;">Cost</div>
+        <div style="font-size:.875rem;">${(course ? course.cost : sub.cost) || '—'}</div>
+      </div>
+      <div>
+        <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;">Funding</div>
+        <div style="font-size:.875rem;">${isCompanyFunds ? '<span class="badge badge-destructive" style="font-size:.7rem;">Coy Funds</span>' : (BB.fundingModeLabel(sub.fundingMode) || '—')}</div>
+      </div>
+      ${sub.submittedBy && sub.submittedBy !== sub.officerId ? `<div>
+        <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem;">Submitted By</div>
+        <div style="font-size:.875rem;">${submitter.rank || ''} ${submitter.name || '—'}</div>
+      </div>` : ''}
+    </div>
+    ${sub.purpose ? `<div style="padding:0.875rem 1.5rem;border-bottom:1px solid var(--border);">
+      <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.375rem;">Purpose</div>
+      <div style="font-size:.875rem;line-height:1.5;">${sub.purpose}</div>
+    </div>` : ''}
+    ${isCompanyFunds ? `<div style="padding:0.75rem 1.5rem;border-bottom:1px solid var(--border);">
+      <div class="alert alert-warning" style="display:flex;gap:0.5rem;align-items:flex-start;padding:0.75rem;margin:0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:.125rem;color:var(--warning);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div style="font-size:.8125rem;"><strong>Coy Funds requested.</strong> Ensure budget approval before proceeding.</div>
+      </div>
+    </div>` : ''}
+    <div style="padding:1rem 1.5rem 0.75rem;">
+      <div style="font-size:.7rem;color:var(--muted-fg);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem;">Officers (${trainees.length})</div>
+      <div id="cr-trainees-list" style="display:flex;flex-direction:column;gap:0.5rem;">
+        ${trainees.map(t => buildCrTraineeRow(t)).join('')}
+      </div>
+    </div>
+    <div style="padding:0 1.5rem 1rem;">
+      <label class="label" style="font-size:.8125rem;">Note <span style="font-weight:400;color:var(--muted-fg);">(optional — visible to officer)</span></label>
+      <textarea class="input" id="cr-note" rows="2" placeholder="Add any instructions or remarks…" style="margin-top:.375rem;"></textarea>
+    </div>`;
+
+  document.getElementById('captain-review-overlay').classList.add('open');
+  updateCrSubmitBtn();
+}
+
+function buildCrTraineeRow(officer) {
+  if (!officer) return '';
+  const id = officer.id;
+  return `<div id="cr-row-${id}" style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:var(--radius);">
+    <div style="display:flex;align-items:center;gap:0.625rem;">
+      <div class="avatar avatar-sm" style="background:${officer.bg||'var(--muted)'};color:${officer.fg||'var(--fg)'};">${officer.initials}</div>
+      <div>
+        <div style="font-size:.875rem;font-weight:500;">${officer.name}</div>
+        <div style="font-size:.75rem;color:var(--muted-fg);">${officer.rank||''}</div>
+      </div>
+    </div>
+    <div id="cr-action-${id}" style="display:flex;gap:0.375rem;flex-shrink:0;">
+      <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="setCrDecision('${id}','return')">Return</button>
+      <button class="btn btn-default btn-sm" onclick="setCrDecision('${id}','approve')">Approve</button>
+    </div>
+  </div>`;
+}
+
+function setCrDecision(officerId, decision) {
+  _crDecisions[officerId] = decision;
+  const row = document.getElementById('cr-row-' + officerId);
+  const actions = document.getElementById('cr-action-' + officerId);
+  if (!row || !actions) return;
+  if (decision === 'approve') {
+    row.style.cssText += 'background:#f0fdf4;border-color:#bbf7d0;';
+    actions.innerHTML = `<span style="display:flex;align-items:center;gap:.375rem;font-size:.8125rem;color:var(--success);font-weight:500;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:.9rem;height:.9rem;"><polyline points="20 6 9 17 4 12"/></svg>Approved
+    </span>
+    <button class="btn btn-ghost btn-sm" style="padding:0 .4rem;font-size:.85rem;" onclick="clearCrDecision('${officerId}')">✕</button>`;
+  } else {
+    row.style.cssText += 'background:#fef2f2;border-color:#fecaca;';
+    actions.innerHTML = `<span style="display:flex;align-items:center;gap:.375rem;font-size:.8125rem;color:var(--destructive);font-weight:500;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:.9rem;height:.9rem;"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>Return
+    </span>
+    <button class="btn btn-ghost btn-sm" style="padding:0 .4rem;font-size:.85rem;" onclick="clearCrDecision('${officerId}')">✕</button>`;
+  }
+  updateCrSubmitBtn();
+}
+
+function clearCrDecision(officerId) {
+  delete _crDecisions[officerId];
+  const row = document.getElementById('cr-row-' + officerId);
+  const actions = document.getElementById('cr-action-' + officerId);
+  if (row) row.style.cssText = row.style.cssText.replace(/background:[^;]+;/g,'').replace(/border-color:[^;]+;/g,'');
+  if (actions) actions.innerHTML = `
+    <button class="btn btn-outline btn-sm" style="color:var(--destructive);border-color:var(--destructive);" onclick="setCrDecision('${officerId}','return')">Return</button>
+    <button class="btn btn-default btn-sm" onclick="setCrDecision('${officerId}','approve')">Approve</button>`;
+  updateCrSubmitBtn();
+}
+
+function updateCrSubmitBtn() {
+  const sub = BB.submissions[_crRef];
+  if (!sub) return;
+  const trainees = (sub.for === 'others' && sub.traineeList) ? sub.traineeList : [sub.officerId];
+  const allDecided = trainees.length > 0 && trainees.every(id => _crDecisions[id]);
+  const btn = document.getElementById('cr-submit-btn');
+  if (btn) btn.disabled = !allDecided;
+}
+
+function closeCaptainReview() {
+  document.getElementById('captain-review-overlay').classList.remove('open');
+}
+
+function submitCaptainDecisions() {
+  const sub = BB.submissions[_crRef];
+  if (!sub) return;
+  const note = document.getElementById('cr-note') ? document.getElementById('cr-note').value.trim() : '';
+  const decisions = Object.values(_crDecisions);
+  const allApproved = decisions.every(d => d === 'approve');
+  closeCaptainReview();
+  if (allApproved) {
+    BB.advanceSubmission(_crRef, 'approve', 'captain', note);
+    showToast('success', 'Submission approved', '"' + BB.courseName(sub) + '" forwarded to Rev Goh.');
+  } else {
+    BB.advanceSubmission(_crRef, 'return', 'captain', note || 'Returned for revision.');
+    showToast('info', 'Submission returned', '"' + BB.courseName(sub) + '" returned to the officer.');
+  }
+  refreshCaptainQueues();
+}
+
 function refreshCaptainQueues() {
   BB.renderCaptainPendingCards(document.getElementById('captain-dashboard-pending'), 'Alpha', 5);
   BB.renderCaptainApprovalsTable('Alpha', document.getElementById('tbody-approvals'));
+  renderCoyStats();
+  // Update approval badge
+  const pendingCount = Object.values(BB.submissions).filter(s => {
+    const o = BB.officers[s.officerId];
+    return s.status === 'pending' && s.stage === 'captain' && o && o.company === 'Alpha';
+  }).length;
+  const badge = document.getElementById('badge-approvals');
+  if (badge) {
+    if (pendingCount > 0) { badge.textContent = pendingCount; badge.style.display = ''; }
+    else badge.style.display = 'none';
+  }
+}
+
+// ── Dashboard toggle ──────────────────────────────────────────────
+let _dashView = 'self';
+function switchDashView(view) {
+  _dashView = view;
+  document.getElementById('dash-self').style.display = view === 'self' ? 'flex' : 'none';
+  document.getElementById('dash-coy').style.display  = view === 'coy'  ? 'flex' : 'none';
+  const selfBtn = document.getElementById('dash-toggle-self');
+  const coyBtn  = document.getElementById('dash-toggle-coy');
+  selfBtn.style.cssText += view === 'self' ? 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);' : 'background:transparent;color:var(--muted-fg);box-shadow:none;';
+  coyBtn.style.cssText  += view === 'coy'  ? 'background:var(--bg);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.06);' : 'background:transparent;color:var(--muted-fg);box-shadow:none;';
+}
+
+// ── Self stats & active subs ──────────────────────────────────────
+(function initSelfDash() {
+  const CAPT_ID = 'js';
+  const recs = BB.records.filter(r => r.officerId === CAPT_ID);
+  const activeStages = ['captain','chaplain','comm','funding-release','closure'];
+  const pendingSubs = Object.values(BB.submissions).filter(s => s.officerId === CAPT_ID && activeStages.includes(s.stage));
+  const expiring = recs.filter(r => r.status === 'expiring' || r.status === 'expired');
+
+  document.getElementById('self-stat-completed').textContent  = recs.length;
+  document.getElementById('self-stat-pending').textContent    = pendingSubs.length;
+  document.getElementById('self-stat-expiring').textContent   = expiring.length;
+  document.getElementById('self-stat-outstanding').textContent = '0'; // placeholder
+
+  // Allowance widget
+  const budget = BB.getOfficerBudget ? BB.getOfficerBudget(CAPT_ID, 2025) : null;
+  if (budget) {
+    const fmt = v => '$' + v.toFixed(0);
+    document.getElementById('cap-allowance-available').textContent  = fmt(budget.annualAllowance);
+    document.getElementById('cap-allowance-pending').textContent    = fmt(budget.pendingAmount || 0);
+    document.getElementById('cap-allowance-committed').textContent  = fmt(budget.committedAmount || 0);
+    document.getElementById('cap-allowance-used').textContent       = fmt(budget.usedAmount || 0);
+  }
+
+  // Active submissions table (same as officer view)
+  BB.renderOfficerActiveSubmissions(CAPT_ID, document.getElementById('cap-tbody-active-subs'));
+  // Upcoming courses
+  BB.renderUpcomingCourses(CAPT_ID, document.getElementById('cap-upcoming-courses-list'));
+})();
+
+// ── Company stats ────────────────────────────────────────────────
+function renderCoyStats() {
+  const officers = Object.values(BB.officers).filter(o => o.company === 'Alpha' && o.role === 'officer');
+  const approvals = Object.values(BB.submissions).filter(s => {
+    const o = BB.officers[s.officerId];
+    return s.stage === 'captain' && o && o.company === 'Alpha';
+  });
+  const expiringRecs = BB.records.filter(r => {
+    const o = BB.officers[r.officerId];
+    return o && o.company === 'Alpha' && (r.status === 'expiring' || r.status === 'expired');
+  });
+  document.getElementById('coy-stat-approvals').textContent = approvals.length;
+  document.getElementById('coy-stat-expiring').textContent  = expiringRecs.length;
+}
+
+// ── Stat detail modal (self view) ────────────────────────────────
+function showCaptainStatDetail(type) {
+  const CAPT_ID = 'js';
+  const titles = { completed:'My Completed Records', pending:'My Pending Submissions', expiring:'My Expiring Certifications', outstanding:'My Outstanding Requirements' };
+  document.getElementById('cap-stat-detail-title').textContent = titles[type] || type;
+  const body = document.getElementById('cap-stat-detail-body');
+  const activeStages = ['captain','chaplain','comm','funding-release','closure'];
+
+  const listItem = (primary, secondary, trailing, onclick) =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:1rem 1.5rem;border-bottom:1px solid var(--border);' + (onclick ? 'cursor:pointer;' : '') + '"' + (onclick ? ' onclick="' + onclick + '"' : '') + '>'
+    + '<div style="min-width:0;"><div style="font-size:.875rem;font-weight:500;">' + primary + '</div>'
+    + (secondary ? '<div style="font-size:.75rem;color:var(--muted-fg);margin-top:.125rem;">' + secondary + '</div>' : '')
+    + '</div><div style="flex-shrink:0;">' + (trailing || '') + '</div></div>';
+
+  if (type === 'completed') {
+    const recs = BB.records.filter(r => r.officerId === CAPT_ID);
+    body.innerHTML = recs.length ? recs.map(r =>
+      listItem(BB.recordCourseName(r), (r.completed || '—') + (r.expiry ? ' · Expires ' + r.expiry : ''),
+        r.status === 'expiring' ? '<span class="status-pill expired" style="font-size:.7rem;">Expiring</span>' : '<span class="status-pill approved" style="font-size:.7rem;">Active</span>')
+    ).join('') : '<p style="padding:1.25rem;color:var(--muted-fg);font-size:.875rem;">No completed records.</p>';
+
+  } else if (type === 'pending') {
+    const subs = Object.values(BB.submissions).filter(s => s.officerId === CAPT_ID && activeStages.includes(s.stage));
+    body.innerHTML = subs.length ? subs.map(s =>
+      listItem(BB.courseName(s), '#' + s.ref + ' · ' + BB.submissionStatusLabel(s), BB.submissionStatusPill(s),
+        'document.getElementById(\'cap-stat-detail-overlay\').classList.remove(\'open\');openDetailDialog(\'' + s.ref + '\')')
+    ).join('') : '<p style="padding:1.25rem;color:var(--muted-fg);font-size:.875rem;">No pending submissions.</p>';
+
+  } else if (type === 'expiring') {
+    const recs = BB.records.filter(r => r.officerId === CAPT_ID && (r.status === 'expiring' || r.status === 'expired'));
+    body.innerHTML = recs.length ? recs.map(r =>
+      listItem(BB.recordCourseName(r), (r.expiry || '—') + (r.expiryNote ? ' · ' + r.expiryNote : ''),
+        '<span class="status-pill expired" style="font-size:.7rem;">' + (r.status === 'expired' ? 'Expired' : 'Expiring') + '</span>')
+    ).join('') : '<p style="padding:1.25rem;color:var(--muted-fg);font-size:.875rem;">No expiring certifications.</p>';
+
+  } else {
+    body.innerHTML = '<p style="padding:1.25rem;color:var(--muted-fg);font-size:.875rem;">No outstanding requirements.</p>';
+  }
+
+  document.getElementById('cap-stat-detail-overlay').classList.add('open');
+}
+
+// ── Surveys ───────────────────────────────────────────────────────
+function renderSurveysTable() {
+  const tbody = document.getElementById('tbody-surveys');
+  if (!tbody) return;
+  // Completed (non-cancelled) submissions that need a survey
+  const pending = Object.values(BB.submissions).filter(s =>
+    s.stage === 'done' &&
+    s.closureOutcome === 'completed' &&
+    s.surveyRequired &&
+    s.surveyStatus !== 'completed'
+  );
+  if (!pending.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted-fg);padding:1.5rem;">No surveys pending — all done!</td></tr>';
+  } else {
+    tbody.innerHTML = pending.map(sub => {
+      const o = BB.officers[sub.officerId] || {};
+      return '<tr>'
+        + '<td>' + BB.officerCell(sub.officerId) + '</td>'
+        + '<td style="font-weight:500;font-size:.875rem;">' + BB.courseName(sub) + '<div class="text-xs text-muted">#' + sub.ref + '</div></td>'
+        + '<td style="font-size:.875rem;color:var(--muted-fg);">' + (sub.dates || '—') + '</td>'
+        + '<td><span class="badge badge-warning" style="font-size:.7rem;">Pending</span></td>'
+        + '<td><a href="survey.html?ref=' + sub.ref + '" class="btn btn-default btn-sm">Complete Survey</a></td>'
+        + '</tr>';
+    }).join('');
+  }
+  // Update badge
+  const badge = document.getElementById('badge-surveys');
+  if (badge) {
+    if (pending.length) { badge.textContent = pending.length; badge.style.display = ''; }
+    else badge.style.display = 'none';
+  }
 }
 
 // ── Render tables from shared data ───────────────────────────────
 refreshCaptainQueues();
-BB.renderCaptainMyRecordsTable('js', document.getElementById('tbody-my-records'));
+renderCoyStats();
+
+// My Submissions (captain's own)
+BB.renderOfficerSubmissionsTable('js', document.getElementById('tbody-cap-submissions'));
+
+// Training Records (captain's own) — dynamic render
+BB.renderCaptainMyRecordsTable('js', document.getElementById('tbody-cap-records'));
+(function updateCapRecordsSummary() {
+  const recs = BB.records.filter(r => r.officerId === 'js');
+  const expired = recs.filter(r => r.status === 'expired');
+  const el1 = document.getElementById('cap-rec-summary-completed');
+  const el2 = document.getElementById('cap-rec-summary-expired');
+  if (el1) el1.textContent = recs.length;
+  if (el2) el2.textContent = expired.length;
+})();
+
+// Company Records
 BB.renderCaptainCompanyRecordsTable('Alpha', document.getElementById('tbody-company-records'));
+
+// Approval badge — dynamic count
+(function updateApprovalBadge() {
+  const count = Object.values(BB.submissions).filter(s => {
+    const o = BB.officers[s.officerId];
+    return s.status === 'pending' && s.stage === 'captain' && o && o.company === 'Alpha';
+  }).length;
+  const badge = document.getElementById('badge-approvals');
+  if (badge) {
+    if (count > 0) { badge.textContent = count; badge.style.display = ''; }
+    else badge.style.display = 'none';
+  }
+})();
+
+renderSurveysTable();
 </script>
 </body>
 </html>
