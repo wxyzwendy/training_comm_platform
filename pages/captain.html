@@ -845,30 +845,13 @@ function filterApprovalType(t) {
 let _activeRef = '', _activeName = '', _activeCourse = '';
 
 function openDetailDialog(ref) {
-  const sub = BB.submissions[ref];
-  if (!sub) return;
-  const o = BB.officers[sub.officerId] || {};
-  document.getElementById('detail-title').textContent = BB.courseName(sub);
-  document.getElementById('detail-ref').textContent   = '#' + ref + ' · ' + o.name + ' · Submitted ' + sub.submitted;
-  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'captain');
-  document.getElementById('detail-return-btn').style.display  = '';
-  document.getElementById('detail-approve-btn').style.display = '';
-  document.getElementById('detail-return-btn').onclick  = () => { closeDetailDialog(); openReturnDialog(ref, '', BB.courseName(sub)); };
-  document.getElementById('detail-approve-btn').onclick = () => { closeDetailDialog(); openApproveDialog(ref, '', BB.courseName(sub)); };
-  document.getElementById('detail-overlay').classList.add('open');
+  window.location.href = 'submit.html?ref=' + ref + '&role=captain';
 }
-function closeDetailDialog(e) { document.getElementById('detail-overlay').classList.remove('open'); }
+function closeDetailDialog(e) { /* no-op — navigated away */ }
 
-// Read-only submission detail for the captain's OWN submissions (self view)
+// Captain's own submission (read-only view as officer)
 function openSubmissionDetail(ref) {
-  const sub = BB.submissions[ref];
-  if (!sub) return;
-  document.getElementById('detail-title').textContent = BB.courseName(sub);
-  document.getElementById('detail-ref').textContent   = '#' + ref + ' · Submitted ' + sub.submitted;
-  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'officer');
-  document.getElementById('detail-return-btn').style.display  = 'none';
-  document.getElementById('detail-approve-btn').style.display = 'none';
-  document.getElementById('detail-overlay').classList.add('open');
+  window.location.href = 'submit.html?ref=' + ref + '&role=officer';
 }
 
 
@@ -1215,7 +1198,7 @@ function showCaptainStatDetail(type) {
     const subs = Object.values(BB.submissions).filter(s => s.officerId === CAPT_ID && activeStages.includes(s.stage));
     body.innerHTML = subs.length ? subs.map(s =>
       listItem(BB.courseName(s), '#' + s.ref + ' · ' + BB.submissionStatusLabel(s), BB.submissionStatusPill(s),
-        'document.getElementById(\'cap-stat-detail-overlay\').classList.remove(\'open\');openDetailDialog(\'' + s.ref + '\')')
+        'window.location.href=\'submit.html?ref=' + s.ref + '&role=officer\'')
     ).join('') : '<p style="padding:1.25rem;color:var(--muted-fg);font-size:.875rem;">No pending submissions.</p>';
 
   } else if (type === 'expiring') {

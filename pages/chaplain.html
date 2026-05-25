@@ -618,19 +618,9 @@ function filterEndorsementCompany(c) {
 let _ref = '', _name = '', _course = '';
 
 function openDetailDialog(ref) {
-  const sub = BB.submissions[ref];
-  if (!sub) return;
-  const o = BB.officers[sub.officerId] || {};
-  document.getElementById('detail-title').textContent = BB.courseName(sub);
-  document.getElementById('detail-ref').textContent   = '#' + ref + ' · ' + o.name + ' · ' + (o.company||'') + ' Company';
-  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'chaplain');
-  document.getElementById('detail-return-btn').style.display  = '';
-  document.getElementById('detail-endorse-btn').style.display = '';
-  document.getElementById('detail-return-btn').onclick  = () => { closeDetailDialog(); openReturnDialog(ref, '', BB.courseName(sub)); };
-  document.getElementById('detail-endorse-btn').onclick = () => { closeDetailDialog(); openEndorseDialog(ref, '', BB.courseName(sub)); };
-  document.getElementById('detail-overlay').classList.add('open');
+  window.location.href = 'submit.html?ref=' + ref + '&role=chaplain';
 }
-function closeDetailDialog() { document.getElementById('detail-overlay').classList.remove('open'); }
+function closeDetailDialog() { /* no-op */ }
 
 
 

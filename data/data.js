@@ -126,71 +126,76 @@ BB.records = [
 ];
 
 // '" -' 4. Submissions '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
-// stage: 'captain' | 'chaplain' | 'comm' | 'done'
+// stage: 'captain' | 'comm' | 'done'  (either captain OR chaplain approves at 'captain' stage)
 BB.submissions = {
   'SUB-00045': {
     ref:'SUB-00045', officerId:'tg', courseKey:'oco', type:'preapproved',
-    dates:'15 Jan 2021', submitted:'5 Nov 2020', cost:'Nil', fundingMode:'no-cost',
+    for:'self', dates:'15 Jan 2021', submitted:'5 Nov 2020', cost:'Nil', fundingMode:'no-cost',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:0}, closureOutcome:'completed',
     status:'approved', stage:'done',
     purpose:'Entry-level officer course. Fulfils OCO requirement for officer appointment.',
     remarks:'Certificate issued by BB HQ.',
   },
   'SUB-00071': {
     ref:'SUB-00071', officerId:'tg', courseKey:'botc', type:'preapproved',
-    dates:'5 Mar 2022', submitted:'10 Feb 2022', cost:'Nil', fundingMode:'no-cost',
+    for:'self', dates:'5 Mar 2022', submitted:'10 Feb 2022', cost:'Nil', fundingMode:'no-cost',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:0}, closureOutcome:'completed',
     status:'approved', stage:'done',
     purpose:'Fulfils BOTC requirement for LTA consideration.',
     remarks:'Certificate issued by BB HQ.',
   },
   'SUB-00098': {
     ref:'SUB-00098', officerId:'tg', courseKey:'cpr', type:'preapproved',
-    dates:'22 Jan 2023', submitted:'3 Jan 2023', cost:'Nil', fundingMode:'company-funds',
+    for:'self', dates:'22 Jan 2023', submitted:'3 Jan 2023', cost:'$35/pax', fundingMode:'company-funds',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:35}, closureOutcome:'completed',
     status:'approved', stage:'done',
     purpose:'CPR+AED certification for camp and activity facilitation.',
     remarks:'Approved. Certificate expires 21 Jun 2025.',
   },
   'SUB-00124': {
     ref:'SUB-00124', officerId:'tg', courseKey:'fa1', type:'preapproved',
-    dates:'- Jun 2025', submitted:'22 May 2025', cost:'Nil', fundingMode:'company-funds',
-    status:'pending', stage:'chaplain',
+    for:'self', dates:'10–12 Jun 2025', submitted:'22 May 2025', cost:'$45/pax', fundingMode:'company-funds',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:45},
+    status:'pending', stage:'captain',
     purpose:'Renewing First Aid certification before expiry to maintain readiness for camp and activity facilitation.',
-    remarks:'Approved by LTA Seet on 23 May 2025. Forwarded to Chaplain for endorsement.',
-    captainApproved:'LTA John Seet � 23 May 2025',
   },
   'SUB-00127': {
     ref:'SUB-00127', officerId:'tg', courseName:'Leadership & Management Workshop', provider:'NTUC Learning Hub', type:'new',
-    dates:'- Jul 2025', submitted:'23 May 2025', cost:'$120/pax', fundingMode:'allowance',
+    for:'self', dates:'15–16 Jul 2025', submitted:'23 May 2025', cost:'$120/pax', fundingMode:'allowance',
+    fundingAllocation:{allowance:120,selfPay:0,companyFunds:0},
     status:'pending', stage:'captain',
     purpose:'Relevant to leadership development required for LTA progression. Course covers conflict resolution and team management.',
     remarks:'Pending initial review by LTA Seet.',
   },
   'SUB-00129': {
     ref:'SUB-00129', officerId:'aw', courseKey:'safeguard', type:'preapproved',
-    dates:'7 Jun 2025', submitted:'19 May 2025', cost:'Nil', fundingMode:'no-cost',
-    status:'pending', stage:'chaplain',
+    for:'self', dates:'7 Jun 2025', submitted:'19 May 2025', cost:'Nil', fundingMode:'no-cost',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:0},
+    status:'pending', stage:'captain',
     purpose:'Mandatory certification renewal. Needed to remain authorised for youth-facing programme roles.',
-    captainApproved:'Capt Marcus Ng � 21 May 2025',
   },
   'SUB-00131': {
     ref:'SUB-00131', officerId:'pr', courseKey:'youthwork', type:'preapproved',
-    dates:'- Jun 2025', submitted:'22 May 2025', cost:'Nil', fundingMode:'company-funds',
+    for:'self', dates:'10–12 Jun 2025', submitted:'22 May 2025', cost:'$120/pax', fundingMode:'company-funds',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:120},
     status:'pending', stage:'captain',
     purpose:'To better support our Boys through structured youth development frameworks in weekly meetings.',
   },
   'SUB-00133': {
     ref:'SUB-00133', officerId:'sl', courseKey:'cpr', type:'preapproved',
-    dates:'5 Jun 2025', submitted:'21 May 2025', cost:'Nil', fundingMode:'company-funds',
+    for:'self', dates:'5 Jun 2025', submitted:'21 May 2025', cost:'$35/pax', fundingMode:'company-funds',
+    fundingAllocation:{allowance:0,selfPay:0,companyFunds:35},
     status:'pending', stage:'captain',
     purpose:'Renewal - current certification expires 30 Jun 2025. Mandatory for camp leadership roles.',
   },
   'SUB-00135': {
     ref:'SUB-00135', officerId:'tg', courseKey:'youthwork', type:'preapproved',
-    dates:'10–12 Jun 2025', submitted:'1 Apr 2025', cost:'Nil', fundingMode:'company-funds',
+    dates:'10–12 Jun 2025', submitted:'1 Apr 2025', cost:'$120/pax', fundingMode:'company-funds',
     status:'approved', stage:'closure', closureStatus:'pending',
     for:'others',
     traineeList: [
-      { id:'pr', name:'Priya Raj', rank:'2LT', unit:'Alpha' },
-      { id:'sl', name:'Samuel Lim', rank:'2LT', unit:'Alpha' },
+      { id:'pr', name:'Priya Raj', rank:'2LT', unit:'Alpha', fundingAllocation:{allowance:0,selfPay:0,companyFunds:120}, fundingMode:'company-funds' },
+      { id:'sl', name:'Samuel Lim', rank:'2LT', unit:'Alpha', fundingAllocation:{allowance:0,selfPay:0,companyFunds:120}, fundingMode:'company-funds' },
     ],
     purpose:'Youth development certificate for company officers attending the Jun intake.',
     captainApproved:'LTA John Seet � 5 Apr 2025',
@@ -198,7 +203,8 @@ BB.submissions = {
   },
   'SUB-00128': {
     ref:'SUB-00128', officerId:'tg', courseKey:'fa2', type:'preapproved',
-    dates:'14–16 Jul 2025', submitted:'20 May 2025', cost:'$80/pax', fundingMode:'allowance',
+    for:'self', dates:'14–16 Jul 2025', submitted:'20 May 2025', cost:'$80/pax', fundingMode:'allowance',
+    fundingAllocation:{allowance:80,selfPay:0,companyFunds:0},
     status:'approved', stage:'funding-release',
     purpose:'Advancing first aid knowledge to Level 2 for camp medical officer duties.',
     captainApproved:'LTA John Seet — 21 May 2025',
@@ -206,10 +212,23 @@ BB.submissions = {
   },
   'SUB-00136': {
     ref:'SUB-00136', officerId:'tg', courseKey:'fa1', type:'preapproved',
-    dates:'10 Jun 2025', submitted:'24 May 2025', cost:'$45/pax', fundingMode:'self-pay',
+    for:'self', dates:'10 Jun 2025', submitted:'24 May 2025', cost:'$45/pax', fundingMode:'self-pay',
+    fundingAllocation:{allowance:0,selfPay:45,companyFunds:0},
     status:'pending', stage:'captain',
     purpose:'First Aid Level 1 certification to strengthen emergency response capability at company events and camps.',
     remarks:'Pending initial review by LTA Seet.',
+  },
+  'SUB-00138': {
+    ref:'SUB-00138', officerId:'tg', courseKey:'outdoor', type:'preapproved',
+    dates:'18–22 Aug 2025', submitted:'25 May 2025', cost:'$180/pax', fundingMode:'company-funds',
+    status:'pending', stage:'captain',
+    for:'others',
+    traineeList: [
+      { id:'pr', name:'Priya Raj',  rank:'2LT', unit:'Alpha', fundingAllocation:{ allowance:50, selfPay:0, companyFunds:130 }, fundingMode:'company-funds' },
+      { id:'sl', name:'Samuel Lim', rank:'2LT', unit:'Alpha', fundingAllocation:{ allowance:50, selfPay:0, companyFunds:130 }, fundingMode:'company-funds' },
+      { id:'aw', name:'Ahmad Wafi', rank:'OCT', unit:'Bravo', fundingAllocation:{ allowance:0,  selfPay:0, companyFunds:180 }, fundingMode:'company-funds' },
+    ],
+    purpose:'Outdoor adventure leadership certification for officers taking on camp commander roles. Required before leading overnight expeditions.',
   },
 };
 
@@ -321,13 +340,7 @@ BB.recordCourseName = function(rec) {
 BB.stageLabel = function(sub) {
   // Accept either a submission object or a stage string directly
   const stage = (typeof sub === 'string') ? sub : sub.stage;
-  if (stage === 'captain') {
-    const officerId = (typeof sub === 'object') ? sub.officerId : null;
-    const o = officerId ? BB.officers[officerId] : null;
-    if (o && o.company === 'Alpha') return 'LTA Seet';
-    return 'Captain';
-  }
-  if (stage === 'chaplain')        return 'Rev Goh';
+  if (stage === 'captain')         return 'CO';
   if (stage === 'comm')            return 'Training Comm';
   if (stage === 'funding-release') return 'Funding Release';
   if (stage === 'closure')         return 'Awaiting Closure';
@@ -338,8 +351,7 @@ BB.stageLabel = function(sub) {
 BB.submissionStatusLabel = function(sub) {
   if (sub.status === 'returned') return 'Returned';
   if (sub.status === 'rejected') return 'Rejected';
-  if (sub.stage === 'captain')         return 'Awaiting Captain';
-  if (sub.stage === 'chaplain')        return 'Awaiting Chaplain';
+  if (sub.stage === 'captain')         return 'Awaiting CO Approval';
   if (sub.stage === 'comm')            return 'Awaiting Training Comm';
   if (sub.stage === 'funding-release') return 'Awaiting Funding Release';
   if (sub.stage === 'closure')         return 'Awaiting Closure';
@@ -371,27 +383,25 @@ BB.submissionStatusPill = function(sub) {
 // '" -' 7. Approval Stepper HTML '" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 /*
  * Generates the 5-step approval stepper HTML for a submission.
- * stage:  'captain' | 'chaplain' | 'comm'  (current review stage)
+ * stage:  'captain' | 'comm' | 'done'  (current review stage)
  * status: 'pending' | 'approved' | 'returned' | 'completed'
  *
  * Step mapping:
  *   1 - Initiation            (always done once submitted)
- *   2 - Captain's Approval
- *   3 - Chaplain's Approval
- *   4 - Training Comm's Approval
- *   5 - Closure
+ *   2 - CO Approval           (captain OR chaplain — whichever approves first)
+ *   3 - Training Comm's Approval
+ *   4 - Closure
  */
 BB.approvalStepperHTML = function(stage, status) {
   const steps = [
     'Initiation',
-    "Captain's Approval",
-    "Chaplain's Approval",
+    'CO Approval',
     "Training Comm's Approval",
     'Closure',
   ];
 
-  // Map stage '�' active step index (0-based)
-  const stageIndex = { captain: 1, chaplain: 2, comm: 3, 'funding-release': 4, closure: 4 };
+  // Map stage → active step index (0-based)
+  const stageIndex = { captain: 1, comm: 2, 'funding-release': 3, closure: 3 };
   let activeIdx = stageIndex[stage] !== undefined ? stageIndex[stage] : 1;
   const allDone = status === 'completed';
 
@@ -445,8 +455,7 @@ BB.submissionDetailHTML = function(ref, role) {
   }
   if (sub.status === 'pending') {
     const stageMap = {
-      captain:  `Awaiting ${BB.stageLabel(sub)}'s approval`,
-      chaplain: `Awaiting Rev Goh's endorsement`,
+      captain:  'Awaiting CO approval (Captain or Chaplain)',
       comm:     'Awaiting Training Comm review',
     };
     rows += `<div style="grid-column:1/-1;">${BB._label('Current Stage')}<div style="font-weight:500;color:var(--warning);">Pending: ${stageMap[sub.stage] || sub.stage}</div></div>`;
@@ -525,7 +534,7 @@ BB.getSubmissionTrainees = function(sub) {
   }
   const o = BB.officers[sub.officerId];
   if (!o) return [];
-  return [{ id: o.id, name: o.name, rank: o.rank, unit: o.company || '' }];
+  return [{ id: o.id, name: o.name, rank: o.rank, unit: o.company || '', fundingAllocation: sub.fundingAllocation || {} }];
 };
 
 BB.recordDetailHTML = function(recordId) {
@@ -568,7 +577,7 @@ BB.recordDetailHTML = function(recordId) {
 /* Officer - active submissions (dashboard card table) */
 BB.renderOfficerActiveSubmissions = function(officerId, tbody) {
   if (!tbody) return;
-  const activeStages = ['captain','chaplain','comm','funding-release','closure'];
+  const activeStages = ['captain','comm','funding-release','closure'];
   const subs = Object.values(BB.submissions)
     .filter(s => (s.officerId === officerId || s.submittedBy === officerId) && activeStages.includes(s.stage));
   if (!subs.length) {
@@ -598,7 +607,7 @@ BB.renderOfficerActiveSubmissions = function(officerId, tbody) {
 /* Upcoming Courses card — active submissions with future-ish dates, sorted by date */
 BB.renderUpcomingCourses = function(officerId, container) {
   if (!container) return;
-  const activeStages = ['captain','chaplain','comm','funding-release','closure'];
+  const activeStages = ['captain','comm','funding-release','closure'];
   const subs = Object.values(BB.submissions)
     .filter(s => (s.officerId === officerId || s.submittedBy === officerId) && activeStages.includes(s.stage))
     .sort((a, b) => {
@@ -622,12 +631,16 @@ BB.renderUpcomingCourses = function(officerId, container) {
   }).join('');
 };
 
-/* Officer - full submissions table (My Submissions section) */
+/* Officer - open submissions table (not yet closed) */
 BB.renderOfficerSubmissionsTable = function(officerId, tbody) {
   if (!tbody) return;
   const subs = Object.values(BB.submissions)
-    .filter(s => s.officerId === officerId || s.submittedBy === officerId)
+    .filter(s => (s.officerId === officerId || s.submittedBy === officerId) && s.stage !== 'done')
     .sort((a, b) => parseInt(b.ref.slice(4)) - parseInt(a.ref.slice(4)));
+  if (!subs.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted-fg);padding:1.5rem;">No open submissions</td></tr>';
+    return;
+  }
   tbody.innerHTML = subs.map(sub => {
     const cName = BB.courseName(sub);
     const forOfficer = BB.officers[sub.officerId];
@@ -646,28 +659,36 @@ BB.renderOfficerSubmissionsTable = function(officerId, tbody) {
   }).join('');
 };
 
-/* Officer - training records table */
+/* Officer - training records table (closed/done submissions) */
 BB.renderOfficerRecordsTable = function(officerId, tbody) {
   if (!tbody) return;
-  const recs = BB.records.filter(r => r.officerId === officerId);
-  tbody.innerHTML = recs.map(rec => {
-    const cName = BB.recordCourseName(rec);
-    const expHTML = rec.expiry
-      ? (rec.status === 'expiring'
-          ? `<span style="color:var(--destructive);font-weight:600;">${rec.expiry}${rec.expiryNote ? ' � ' + rec.expiryNote : ''}</span>`
-          : rec.expiry)
-      : `<span style="color:var(--muted-fg);">No expiry</span>`;
-    const trackBadge = (rec.courseKey === 'oco' || rec.courseKey === 'botc' || rec.courseKey === 'aotc')
-      ? `<span class="badge badge-secondary">${rec.courseKey.toUpperCase()} Track</span>`
-      : `<span class="badge">General</span>`;
-    return `<tr data-rec-status="${rec.status}" data-rec-search="${cName.toLowerCase()}">
-      <td style="font-weight:500;">${cName}</td>
-      <td>${BB.categoryChip(rec.category)}</td>
-      <td>${rec.completed}</td>
-      <td>${expHTML}</td>
-      <td>${BB.statusPill(rec.status)}</td>
-      <td>${trackBadge}</td>
-      <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('${rec.id}')">View details</button></td>
+  const subs = Object.values(BB.submissions)
+    .filter(s => (s.officerId === officerId || s.submittedBy === officerId) && s.stage === 'done')
+    .sort((a, b) => parseInt(b.ref.slice(4)) - parseInt(a.ref.slice(4)));
+  if (!subs.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted-fg);padding:1.5rem;">No completed training records</td></tr>';
+    return;
+  }
+  tbody.innerHTML = subs.map(sub => {
+    const cName = BB.courseName(sub);
+    const forOfficer = BB.officers[sub.officerId];
+    const courseLabel = sub.submittedBy === officerId && sub.officerId !== officerId && forOfficer
+      ? `${cName}<div style="font-size:0.75rem;color:var(--muted-fg);margin-top:0.125rem;">For ${forOfficer.name}</div>`
+      : cName;
+    const outcomeLabel = sub.closureOutcome === 'completed' ? 'Completed'
+      : sub.closureOutcome === 'withdrawn' ? 'Withdrawn'
+      : sub.closureOutcome === 'cancelled' ? 'Cancelled'
+      : 'Closed';
+    const outcomePill = sub.closureOutcome === 'completed'
+      ? `<span class="status-pill approved">${outcomeLabel}</span>`
+      : `<span class="status-pill" style="background:var(--muted);color:var(--muted-fg);">${outcomeLabel}</span>`;
+    return `<tr data-search="${sub.ref.toLowerCase()} ${cName.toLowerCase()} ${(forOfficer?.name || '').toLowerCase()}" style="cursor:pointer;" onclick="openSubmissionDetail('${sub.ref}')">
+      <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#${sub.ref}</td>
+      <td style="font-weight:500;">${courseLabel}</td>
+      <td style="font-size:0.8125rem;">${sub.type === 'preapproved' ? 'Pre-approved' : 'New Course'}</td>
+      <td style="font-size:0.8125rem;color:var(--muted-fg);">${sub.dates || '—'}</td>
+      <td>${outcomePill}</td>
+      <td style="text-align:right;" onclick="event.stopPropagation()"><button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('${sub.ref}')">View</button></td>
     </tr>`;
   }).join('');
 };
@@ -768,7 +789,7 @@ BB.renderCaptainCompanyRecordsTable = function(company, tbody) {
 BB.renderChaplainEndorsementsTable = function(tbody) {
   if (!tbody) return;
   const subs = Object.values(BB.submissions)
-    .filter(s => s.status === 'pending' && s.stage === 'chaplain');
+    .filter(s => s.status === 'pending' && s.stage === 'captain');
   if (!subs.length) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--muted-fg);padding:1.5rem;">No pending endorsements</td></tr>`;
     return;
@@ -894,12 +915,10 @@ BB.advanceSubmission = function(ref, action, role, note) {
     return sub;
   }
 
-  if (role === 'captain' && action === 'approve') {
-    sub.captainApproved = 'LTA John Seet � ' + now;
-    sub.stage = 'chaplain';
-    sub.status = 'pending';
-  } else if (role === 'chaplain' && action === 'endorse') {
-    sub.chaplainEndorsed = 'Rev Joseph Goh — ' + now;
+  if ((role === 'captain' && action === 'approve') || (role === 'chaplain' && (action === 'approve' || action === 'endorse'))) {
+    if (role === 'captain') sub.captainApproved = 'LTA John Seet — ' + now;
+    else sub.chaplainEndorsed = 'Rev Joseph Goh — ' + now;
+    // Either CO approver is sufficient — advance past CO stage immediately
     if (sub.type === 'new') {
       sub.stage = 'comm';
       sub.status = 'pending';
@@ -999,7 +1018,7 @@ BB.renderCaptainPendingCards = function(container, company, limit) {
 BB.renderChaplainPendingCards = function(container, limit) {
   if (!container) return;
   const subs = Object.values(BB.submissions)
-    .filter(function(s) { return s.status === 'pending' && s.stage === 'chaplain'; })
+    .filter(function(s) { return s.status === 'pending' && s.stage === 'captain'; })
     .slice(0, limit || 10);
   container.innerHTML = subs.length
     ? subs.map(function(s) { return BB.submissionCardHTML(s, 'chaplain'); }).join('')

@@ -34,7 +34,7 @@
         </a>
         <a href="#" id="nav-submissions" class="nav-item" onclick="showSection('submissions');return false;">
           <span class="nav-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-          <span class="nav-item-label">My Submissions</span>
+          <span class="nav-item-label">Open Submissions</span>
           <span class="nav-item-badge"><span class="badge badge-info" style="font-size:.65rem;padding:.125rem .4rem;">2</span></span>
         </a>
         <a href="#" id="nav-records" class="nav-item" onclick="showSection('records');return false;">
@@ -285,8 +285,8 @@
 
         <div class="page-header">
           <div>
-            <h1 class="page-title">My Submissions</h1>
-            <p class="page-subtitle">All training requests you have submitted</p>
+            <h1 class="page-title">Open Submissions</h1>
+            <p class="page-subtitle">Training requests currently in progress</p>
           </div>
           <div class="page-actions">
             <a href="submit.html" class="btn btn-default">
@@ -324,83 +324,10 @@
                 <th>Submitted</th>
                 <th>Date(s)</th>
                 <th>Status</th>
-                <th>Stage</th>
                 <th style="width:6rem;"></th>
               </tr>
             </thead>
             <tbody id="tbody-submissions">
-              <tr data-status="pending" data-search="first aid level 1 sub-00124">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00124</td>
-                <td style="font-weight:500;">First Aid Level 1</td>
-                <td><span class="chip">Pre-approved</span></td>
-                <td>22 May 2025</td>
-                <td style="color:var(--muted-fg);">10–12 Jun 2025</td>
-                <td><span class="status-pill pending">Pending</span></td>
-                <td style="font-size:0.8125rem;color:var(--muted-fg);">Chaplain Review</td>
-                <td>
-                  <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00124')">View</button>
-                </td>
-              </tr>
-              <tr data-status="pending" data-search="leadership management workshop sub-00127">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00127</td>
-                <td style="font-weight:500;">Leadership &amp; Management Workshop</td>
-                <td><span class="chip">New Course</span></td>
-                <td>23 May 2025</td>
-                <td style="color:var(--muted-fg);">15–16 Jul 2025</td>
-                <td><span class="status-pill pending">Pending</span></td>
-                <td style="font-size:0.8125rem;color:var(--muted-fg);">Captain Review</td>
-                <td>
-                  <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00127')">View</button>
-                </td>
-              </tr>
-              <tr data-status="approved" data-search="cpr aed certification sub-00098">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00098</td>
-                <td style="font-weight:500;">CPR + AED Certification</td>
-                <td><span class="chip">Pre-approved</span></td>
-                <td>3 Jan 2023</td>
-                <td style="color:var(--muted-fg);">21–22 Jan 2023</td>
-                <td><span class="status-pill approved">Approved</span></td>
-                <td style="font-size:0.8125rem;color:var(--muted-fg);">Completed</td>
-                <td>
-                  <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00098')">View</button>
-                </td>
-              </tr>
-              <tr data-status="approved" data-search="basic officer training course botc sub-00071">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00071</td>
-                <td style="font-weight:500;">BOTC</td>
-                <td><span class="chip">Pre-approved</span></td>
-                <td>10 Feb 2022</td>
-                <td style="color:var(--muted-fg);">1–5 Mar 2022</td>
-                <td><span class="status-pill approved">Approved</span></td>
-                <td style="font-size:0.8125rem;color:var(--muted-fg);">Completed</td>
-                <td>
-                  <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00071')">View</button>
-                </td>
-              </tr>
-              <tr data-status="returned" data-search="mental wellness workshop sub-00115">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00115</td>
-                <td style="font-weight:500;">Mental Wellness Workshop</td>
-                <td><span class="chip">New Course</span></td>
-                <td>8 Apr 2025</td>
-                <td style="color:var(--muted-fg);">20 Apr 2025</td>
-                <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Returned</span></td>
-                <td style="font-size:0.8125rem;color:var(--muted-fg);">Needs revision</td>
-                <td>
-                  <button class="btn btn-outline btn-sm" onclick="showToast('info','Edit Submission','Editing #SUB-00115 — Mental Wellness Workshop')">Edit</button>
-                </td>
-              </tr>
-              <tr data-status="approved" data-search="oco officer cadet officers sub-00045">
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--muted-fg);">#SUB-00045</td>
-                <td style="font-weight:500;">OCO</td>
-                <td><span class="chip">Pre-approved</span></td>
-                <td>5 Nov 2020</td>
-                <td style="color:var(--muted-fg);">10–15 Jan 2021</td>
-                <td><span class="status-pill approved">Approved</span></td>
-                <td style="font-size:0.8125rem;color:var(--muted-fg);">Completed</td>
-                <td>
-                  <button class="btn btn-ghost btn-sm" onclick="openSubmissionDetail('SUB-00045')">View</button>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -417,28 +344,13 @@
         <div class="page-header">
           <div>
             <h1 class="page-title">Training Records</h1>
-            <p class="page-subtitle">Your complete history of approved and completed trainings</p>
+            <p class="page-subtitle">All closed and completed training submissions</p>
           </div>
           <div class="page-actions">
             <button class="btn btn-outline" onclick="showToast('success','Export','Training records exported as CSV')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Export CSV
             </button>
-          </div>
-        </div>
-
-        <!-- Summary chips -->
-        <div style="display:flex;gap:0.625rem;margin-bottom:1.25rem;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius);font-size:0.8125rem;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <span style="font-weight:600;color:#166534;" id="rec-summary-completed">8</span><span style="color:#166534;">Completed</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);font-size:0.8125rem;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <span style="font-weight:600;color:#92400e;" id="rec-summary-expiring">2</span><span style="color:#92400e;">Expiring Soon</span>
-          </div>
-          <div id="rec-summary-lastupdated" style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--muted);border:1px solid var(--border);border-radius:var(--radius);font-size:0.8125rem;color:var(--muted-fg);">
-            Last updated: 24 May 2025
           </div>
         </div>
 
@@ -450,12 +362,6 @@
             </span>
             <input class="input has-icon-left" type="text" placeholder="Search records…" oninput="filterRecords(this.value)" />
           </div>
-          <select class="input" style="width:auto;padding-right:2rem;" onchange="filterRecordStatus(this.value)">
-            <option value="">All</option>
-            <option value="active">Active</option>
-            <option value="expiring">Expiring Soon</option>
-            <option value="expired">Expired</option>
-          </select>
         </div>
 
         <!-- Records table -->
@@ -463,88 +369,15 @@
           <table class="table" id="records-table">
             <thead>
               <tr>
+                <th>Ref #</th>
                 <th>Course / Training</th>
-                <th>Category</th>
-                <th>Completed</th>
-                <th>Expiry</th>
-                <th>Cert Status</th>
-                <th>Curriculum</th>
-                <th style="width:5rem;"></th>
+                <th>Type</th>
+                <th>Training Dates</th>
+                <th>Outcome</th>
+                <th style="width:6rem;"></th>
               </tr>
             </thead>
             <tbody id="tbody-records">
-              <tr data-rec-status="active" data-rec-search="oco officer cadet officers">
-                <td style="font-weight:500;">OCO</td>
-                <td><span class="chip">Mandatory</span></td>
-                <td>15 Jan 2021</td>
-                <td style="color:var(--muted-fg);">No expiry</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge badge-secondary">OCO Track</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('oco')">View details</button></td>
-              </tr>
-              <tr data-rec-status="active" data-rec-search="botc basic officer training">
-                <td style="font-weight:500;">BOTC</td>
-                <td><span class="chip">Mandatory</span></td>
-                <td>5 Mar 2022</td>
-                <td style="color:var(--muted-fg);">No expiry</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge badge-secondary">BOTC Track</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('botc')">View details</button></td>
-              </tr>
-              <tr data-rec-status="expiring" data-rec-search="cpr aed certification first aid">
-                <td style="font-weight:500;">CPR + AED Certification</td>
-                <td><span class="chip">Recurring</span></td>
-                <td>22 Jan 2023</td>
-                <td style="color:var(--destructive);font-weight:600;">21 Jun 2025 · 28 days</td>
-                <td><span class="status-pill" style="background:#fef3c7;color:#92400e;">Expiring</span></td>
-                <td><span class="badge">General</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('cpr')">View details</button></td>
-              </tr>
-              <tr data-rec-status="active" data-rec-search="safeguarding children youth">
-                <td style="font-weight:500;">Safeguarding Children &amp; Youth</td>
-                <td><span class="chip">Mandatory</span></td>
-                <td>10 Aug 2022</td>
-                <td style="color:var(--muted-fg);">10 Aug 2025</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge">General</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('safeguarding')">View details</button></td>
-              </tr>
-              <tr data-rec-status="active" data-rec-search="youth mental health awareness">
-                <td style="font-weight:500;">Youth Mental Health Awareness</td>
-                <td><span class="chip">Elective</span></td>
-                <td>3 Mar 2023</td>
-                <td style="color:var(--muted-fg);">No expiry</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge">General</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('mentalhealth')">View details</button></td>
-              </tr>
-              <tr data-rec-status="active" data-rec-search="rifle range safety rsa">
-                <td style="font-weight:500;">Rifle Range Safety</td>
-                <td><span class="chip">Elective</span></td>
-                <td>18 Nov 2022</td>
-                <td style="color:var(--muted-fg);">18 Nov 2025</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge">General</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('rifle')">View details</button></td>
-              </tr>
-              <tr data-rec-status="active" data-rec-search="outdoor adventure leadership">
-                <td style="font-weight:500;">Outdoor Adventure Leadership</td>
-                <td><span class="chip">Elective</span></td>
-                <td>2 Jul 2021</td>
-                <td style="color:var(--muted-fg);">No expiry</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge">General</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('outdoor')">View details</button></td>
-              </tr>
-              <tr data-rec-status="active" data-rec-search="drill instruction course">
-                <td style="font-weight:500;">Drill Instruction Course</td>
-                <td><span class="chip">Elective</span></td>
-                <td>14 Sep 2020</td>
-                <td style="color:var(--muted-fg);">No expiry</td>
-                <td><span class="status-pill approved">Active</span></td>
-                <td><span class="badge">General</span></td>
-                <td><button class="btn btn-ghost btn-sm" onclick="openRecordDetail('drill')">View details</button></td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -625,7 +458,7 @@ BB.loadUserSubmissions();
 const sections = ['dashboard', 'submissions', 'records'];
 const breadcrumbLabels = {
   dashboard: 'Dashboard',
-  submissions: 'My Submissions',
+  submissions: 'Open Submissions',
   records: 'Training Records'
 };
 
@@ -756,27 +589,14 @@ function filterRecords(query) {
   const rows = document.querySelectorAll('#records-table tbody tr');
   const q = query.toLowerCase();
   rows.forEach(row => {
-    const match = row.dataset.recSearch.includes(q);
-    row.style.display = match ? '' : 'none';
-  });
-}
-
-function filterRecordStatus(status) {
-  const rows = document.querySelectorAll('#records-table tbody tr');
-  rows.forEach(row => {
-    const match = !status || row.dataset.recStatus === status;
+    const match = (row.dataset.search || '').includes(q);
     row.style.display = match ? '' : 'none';
   });
 }
 
 // ── Submission detail panel ──────────────────────────────────────
 function openSubmissionDetail(ref) {
-  const sub = BB.submissions[ref];
-  if (!sub) return;
-  document.getElementById('detail-title').textContent = BB.courseName(sub);
-  document.getElementById('detail-ref').textContent   = '#' + ref + ' · Submitted ' + sub.submitted;
-  document.getElementById('detail-content').innerHTML = BB.submissionDetailHTML(ref, 'officer');
-  document.getElementById('submission-detail-overlay').classList.add('open');
+  window.location.href = 'submit.html?ref=' + ref + '&role=officer';
 }
 function closeSubmissionDetail(e) {
   document.getElementById('submission-detail-overlay').classList.remove('open');

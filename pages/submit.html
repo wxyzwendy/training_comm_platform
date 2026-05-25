@@ -252,6 +252,73 @@
       .funding-allocation-card summary.funding-allocation-head { grid-template-columns: minmax(0, 1fr) auto auto; }
     }
 
+    /* ── Funding arrangements ───────────────────────────────── */
+    .arrangement-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow-sm);
+      padding: 0.875rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .arrangement-card + .arrangement-card { margin-top: 0.5rem; }
+    .arrangement-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .arrangement-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+    }
+    .arrangement-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      flex-shrink: 0;
+    }
+    .arrangement-members-area {
+      border-top: 1px solid var(--border);
+      padding-top: 0.625rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .arrangement-members-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted-fg);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    #unassigned-bin {
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--muted);
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .unassigned-bin-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted-fg);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .chip-allowance-warning {
+      background: #fffbeb !important;
+      color: #b45309 !important;
+      border-color: #fde68a !important;
+    }
+
     /* ── Closure (cert upload) ──────────────────────────────── */
     .closure-cert-list {
       display: flex;
@@ -902,7 +969,8 @@
 
         </div><!-- /tabs-lift-content -->
 
-        <!-- panel-5 (Review tab) is injected dynamically by initReviewMode() -->
+        <!-- Approvals section — shown below the form tabs in review mode -->
+        <div id="approvals-section" style="display:none;margin-top:1.5rem;"></div>
 
     </main>
   </div><!-- /page-wrapper -->
@@ -946,6 +1014,23 @@
   </div>
 </div>
 
+<!-- Assign Officers Modal -->
+<div class="dialog-overlay" id="assign-officers-modal" onclick="closeAssignModal(event)">
+  <div class="dialog" style="max-width:26rem;width:100%;" onclick="event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="dialog-title" id="assign-modal-title">Add Officers</div>
+      <div class="dialog-description" id="assign-modal-subtitle">Select officers to add to this arrangement.</div>
+    </div>
+    <div class="dialog-content" style="padding-top:0;">
+      <div id="assign-modal-list" style="display:flex;flex-direction:column;gap:.25rem;max-height:18rem;overflow-y:auto;"></div>
+    </div>
+    <div class="dialog-footer" style="justify-content:flex-end;">
+      <button class="btn btn-outline" onclick="closeAssignModal()">Cancel</button>
+      <button class="btn btn-default" id="assign-modal-confirm" onclick="confirmAssignModal()">Add Selected</button>
+    </div>
+  </div>
+</div>
+
 
 <script src="../components/components.js"></script>
 <script src="../data/data.js"></script>
@@ -958,6 +1043,7 @@ let currentFor      = 'self';        // 'self' | 'others'
 let currentType     = 'preapproved'; // 'preapproved' | 'new'
 let currentFundingAllocation = { allowance:0, selfPay:0, companyFunds:0 };
 let trainees        = [];            // { id?, name, rank, unit, fundingAllocation }
+let fundingArrangements = [];        // UI-only: [{ id, label, allocation:{allowance,selfPay,companyFunds}, memberIds:[] }]
 let currentTab      = 1;
 let maxUnlocked     = 1;             // highest tab the user has earned access to
 let formSubmitted   = false;
@@ -977,7 +1063,7 @@ let reviewRole       = '';        // 'captain' | 'chaplain' | 'comm'
 function goToTab(n) {
   if (n < 1 || n > TABS) return;
   if (closureMode && n !== 4) return;
-  if (!reviewMode && n > maxUnlocked) return; // locked — can't jump ahead
+  if (n > maxUnlocked) return; // locked — can't jump ahead
 
   currentTab = n;
 
@@ -990,10 +1076,9 @@ function goToTab(n) {
     const btn = document.getElementById('tab-btn-' + i);
     if (!btn) continue;
     btn.classList.remove('active', 'done', 'locked');
-    if (i === n)                         btn.classList.add('active');
-    else if (reviewMode)                 btn.classList.add('done');
-    else if (i < n)                      btn.classList.add('done');
-    else if (i > maxUnlocked)            btn.classList.add('locked');
+    if (i === n)              btn.classList.add('active');
+    else if (i < n)           btn.classList.add('done');
+    else if (i > maxUnlocked) btn.classList.add('locked');
   }
 
   if (!reviewMode) {
@@ -1062,9 +1147,8 @@ function resetCourseFields() {
 
 function resetFundingFields() {
   currentFundingAllocation = defaultFundingAllocation(ME);
-  trainees.forEach(t => {
-    t.fundingAllocation = defaultFundingAllocation(t.id);
-  });
+  trainees.forEach(t => { t.fundingAllocation = defaultFundingAllocation(t.id); });
+  fundingArrangements = [];
   const fundingSection = document.getElementById('funding-section');
   if (fundingSection) fundingSection.style.display = 'none';
   renderPerPersonFunding();
@@ -1310,6 +1394,8 @@ function renderTrainees() {
 
 function removeTrainee(idx) {
   if (formSubmitted) return;
+  const removedId = trainees[idx] && trainees[idx].id;
+  if (removedId) fundingArrangements.forEach(a => { a.memberIds = a.memberIds.filter(id => id !== removedId); });
   trainees.splice(idx, 1);
   renderTrainees();
   renderRosterItems();
@@ -1455,29 +1541,292 @@ function fundingAllocationCardHTML(officer, idx, allocation) {
   </details>`;
 }
 
-function renderPerPersonFunding() {
+/* ── Funding arrangements (for='others' path) ────────────────────── */
+
+function makeDefaultArrangement(id, label) {
+  return { id, label, allocation: { allowance: 0, selfPay: currentCourseFee(), companyFunds: 0 }, memberIds: [] };
+}
+
+function ensureArrangements() {
+  if (fundingArrangements.length === 0 && trainees.length > 0) {
+    const arr = makeDefaultArrangement('arr-1', 'Arrangement 1');
+    arr.memberIds = trainees.map(t => t.id);
+    fundingArrangements.push(arr);
+    return;
+  }
+  const fee = currentCourseFee();
+  const validIds = new Set(trainees.map(t => t.id));
+  fundingArrangements.forEach(arr => {
+    const total = allocationTotal(arr.allocation);
+    if (!arr.allocation || total === 0 || Math.abs(total - fee) >= 0.01)
+      arr.allocation = { allowance: 0, selfPay: fee, companyFunds: 0 };
+    arr.memberIds = arr.memberIds.filter(id => validIds.has(id));
+  });
+}
+
+function _unassignedTrainees() {
+  return trainees.filter(t => !fundingArrangements.some(a => a.memberIds.includes(t.id)));
+}
+
+function arrangementCardHTML(arr) {
+  const fee = currentCourseFee();
+  const total = allocationTotal(arr.allocation);
+  const isBalanced = Math.abs(total - fee) < 0.01;
+  const canRemove = fundingArrangements.length > 1;
+  const memberCount = arr.memberIds.length;
+
+  const iconBin = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:.9rem;height:.9rem;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`;
+  const iconX = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.6875rem;height:.6875rem;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+  const iconChevron = `<svg class="arr-chevron-${arr.id}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;transition:transform .2s;flex-shrink:0;color:var(--muted-fg);"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+  const memberChips = arr.memberIds.map(id => {
+    const t = trainees.find(x => x.id === id);
+    if (!t) return '';
+    const o = BB.officers[id] || t;
+    const warnAllowance = (arr.allocation.allowance || 0) > allowanceAvailable(id);
+    const warnIcon = warnAllowance
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.7rem;height:.7rem;color:#b45309;" title="Insufficient allowance"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>` : '';
+    return `<span class="chip${warnAllowance ? ' chip-allowance-warning' : ''}" id="chip-${arr.id}-${id}">
+      <div class="avatar" style="width:1.125rem;height:1.125rem;font-size:.5rem;border-radius:50%;flex-shrink:0;background:${o.bg||'var(--muted)'};color:${o.fg||'var(--fg)'};">${o.initials||''}</div>
+      ${t.name}${warnIcon}
+      <button type="button" onclick="removeOfficerFromArrangement('${arr.id}','${id}')" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;color:var(--muted-fg);margin-left:.125rem;" title="Remove">${iconX}</button>
+    </span>`;
+  }).join('');
+
+  const emptyMsg = memberCount === 0
+    ? `<span style="font-size:.8125rem;color:var(--muted-fg);font-style:italic;">No officers assigned yet</span>` : '';
+
+  const canAdd = trainees.some(t => !arr.memberIds.includes(t.id));
+
+  return `<details class="arrangement-card" id="arr-card-${arr.id}" open>
+    <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;gap:.625rem;background:var(--muted);padding:.625rem .875rem;border-radius:var(--radius-sm);margin:-0.875rem -0.875rem 0;" onclick="this.parentElement.open=!this.parentElement.open;this.querySelector('.arr-chevron-${arr.id}').style.transform=this.parentElement.open?'':'rotate(-90deg)';event.preventDefault();">
+      <span class="funding-status-dot${isBalanced ? ' ok' : ''}" id="arr-dot-${arr.id}" style="flex-shrink:0;"></span>
+      <span style="font-size:.8125rem;font-weight:600;flex:1;color:var(--fg);">${arr.label}</span>
+      <span style="font-size:.75rem;color:var(--muted-fg);">${memberCount} officer${memberCount !== 1 ? 's' : ''}</span>
+      ${iconChevron}
+    </summary>
+    <div style="display:flex;flex-direction:column;gap:.875rem;padding-top:.875rem;">
+      <div>
+        <div class="funding-allocation-line">
+          <label for="arr-${arr.id}-allowance">Allowance</label>
+          <input class="input" type="number" min="0" step="0.01" id="arr-${arr.id}-allowance" value="${arr.allocation.allowance || 0}" oninput="updateArrangementAllocation('${arr.id}','allowance',this.value)" style="text-align:right;" />
+        </div>
+        <div class="funding-allocation-line">
+          <label for="arr-${arr.id}-self-pay">Self-pay</label>
+          <input class="input" type="number" min="0" step="0.01" id="arr-${arr.id}-self-pay" value="${arr.allocation.selfPay || 0}" oninput="updateArrangementAllocation('${arr.id}','selfPay',this.value)" style="text-align:right;" />
+        </div>
+        <div class="funding-allocation-line">
+          <label for="arr-${arr.id}-company-funds">Coy Funds</label>
+          <input class="input" type="number" min="0" step="0.01" id="arr-${arr.id}-company-funds" value="${arr.allocation.companyFunds || 0}" oninput="updateArrangementAllocation('${arr.id}','companyFunds',this.value)" style="text-align:right;" />
+        </div>
+        <div class="funding-allocation-total" id="arr-total-${arr.id}" style="color:${isBalanced ? 'var(--success)' : 'var(--destructive)'};">${isBalanced ? 'Funding matches the course fee.' : 'Amounts must match the course fee.'}</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:.625rem .75rem;">
+        <div style="font-size:.75rem;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;">Officers (${memberCount})</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.375rem;" id="arr-chips-${arr.id}">${memberChips}${emptyMsg}</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <button type="button" title="Delete arrangement" onclick="removeArrangement('${arr.id}')" style="display:flex;align-items:center;gap:.375rem;font-size:.8125rem;color:${canRemove ? 'var(--destructive)' : 'var(--muted-fg)'};background:none;border:none;cursor:${canRemove ? 'pointer' : 'default'};padding:0;opacity:${canRemove ? '1' : '.4'};">${iconBin} Delete</button>
+        ${canAdd ? `<button type="button" style="font-size:.8125rem;color:var(--primary);background:none;border:none;cursor:pointer;padding:0;" onclick="openAssignModal('${arr.id}')">＋ Add officers</button>` : `<span style="font-size:.8125rem;color:var(--muted-fg);">All officers assigned</span>`}
+      </div>
+    </div>
+  </details>`;
+}
+
+function renderArrangements() {
   const list = document.getElementById('per-person-funding-list');
   if (!list) return;
-  ensureFundingAllocations();
-  if (currentFor === 'others' && !trainees.length) {
+  ensureArrangements();
+  if (!trainees.length) {
     list.innerHTML = '<div style="font-size:0.8125rem;color:var(--muted-fg);padding:0.75rem;border:1px dashed var(--border);border-radius:var(--radius);background:var(--muted);">Add officers first to set funding per person.</div>';
     updateCompanyFundsWarning();
     return;
   }
-  if (currentFor === 'self') {
-    const o = BB.officers[ME];
-    list.innerHTML = fundingAllocationCardHTML(o, 'self', currentFundingAllocation);
-  } else {
-    list.innerHTML = trainees.map((t, idx) => fundingAllocationCardHTML(t, idx, t.fundingAllocation)).join('');
+  const unassignedCount = _unassignedTrainees().length;
+  const unassignedHeader = unassignedCount > 0
+    ? `<div style="display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius);margin-bottom:.75rem;font-size:.8125rem;color:#92400e;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <strong>${unassignedCount}</strong>&nbsp;officer${unassignedCount !== 1 ? 's' : ''} not assigned to any arrangement
+      </div>` : '';
+  list.innerHTML =
+    unassignedHeader +
+    '<div id="arrangements-list">' + fundingArrangements.map(arrangementCardHTML).join('') + '</div>' +
+    '<button type="button" class="btn btn-outline btn-sm" style="margin-top:.625rem;" onclick="addArrangement()">＋ Add arrangement</button>';
+  updateCompanyFundsWarning();
+}
+
+function updateArrangementAllocation(arrId, key, value) {
+  const arr = fundingArrangements.find(a => a.id === arrId);
+  if (!arr || formSubmitted) return;
+  arr.allocation[key] = Math.max(0, moneyValue(value));
+  // Live update totals + warnings without full re-render
+  const fee = currentCourseFee();
+  const total = allocationTotal(arr.allocation);
+  const isBalanced = Math.abs(total - fee) < 0.01;
+  const dot = document.getElementById('arr-dot-' + arrId);
+  const totalEl = document.getElementById('arr-total-' + arrId);
+  if (dot) dot.classList.toggle('ok', isBalanced);
+  if (totalEl) { totalEl.textContent = isBalanced ? 'Funding matches the course fee.' : 'Amounts must match the course fee.'; totalEl.style.color = isBalanced ? 'var(--success)' : 'var(--destructive)'; }
+  // Update allowance warning chips
+  arr.memberIds.forEach(id => {
+    const chip = document.getElementById('chip-' + arrId + '-' + id);
+    if (chip) chip.classList.toggle('chip-allowance-warning', (arr.allocation.allowance || 0) > allowanceAvailable(id));
+  });
+  invalidateFrom(3);
+  updateCompanyFundsWarning();
+}
+
+function addArrangement() {
+  const id = 'arr-' + Date.now();
+  const label = 'Arrangement ' + (fundingArrangements.length + 1);
+  fundingArrangements.push(makeDefaultArrangement(id, label));
+  renderArrangements();
+}
+
+function removeArrangement(arrId) {
+  if (fundingArrangements.length <= 1) return;
+  fundingArrangements = fundingArrangements.filter(a => a.id !== arrId);
+  renderArrangements();
+  invalidateFrom(3);
+  updateCompanyFundsWarning();
+}
+
+function applyArrangementToAll(arrId) {
+  const arr = fundingArrangements.find(a => a.id === arrId);
+  if (!arr) return;
+  _unassignedTrainees().forEach(t => arr.memberIds.push(t.id));
+  renderArrangements();
+  invalidateFrom(3);
+}
+
+function assignOfficerToArrangement(arrId, officerId) {
+  // Remove from any existing arrangement first
+  fundingArrangements.forEach(a => { a.memberIds = a.memberIds.filter(id => id !== officerId); });
+  const arr = fundingArrangements.find(a => a.id === arrId);
+  if (arr) arr.memberIds.push(officerId);
+  renderArrangements();
+  invalidateFrom(3);
+}
+
+function removeOfficerFromArrangement(arrId, officerId) {
+  const arr = fundingArrangements.find(a => a.id === arrId);
+  if (arr) arr.memberIds = arr.memberIds.filter(id => id !== officerId);
+  renderArrangements();
+  invalidateFrom(3);
+}
+
+let _assignModalArrId = null;
+
+function openAssignModal(arrId) {
+  _assignModalArrId = arrId;
+  const arr = fundingArrangements.find(a => a.id === arrId);
+  if (!arr) return;
+  // Officers not already in this arrangement
+  const available = trainees.filter(t => !arr.memberIds.includes(t.id));
+  const modal = document.getElementById('assign-officers-modal');
+  const titleEl = document.getElementById('assign-modal-title');
+  const subtitleEl = document.getElementById('assign-modal-subtitle');
+  const listEl = document.getElementById('assign-modal-list');
+  const confirmBtn = document.getElementById('assign-modal-confirm');
+  if (titleEl) titleEl.textContent = 'Add Officers — ' + arr.label;
+  if (subtitleEl) subtitleEl.textContent = available.length
+    ? 'Select officers to add to this arrangement.'
+    : 'All officers are already in this arrangement.';
+  if (listEl) {
+    if (!available.length) {
+      listEl.innerHTML = '<p style="font-size:.875rem;color:var(--muted-fg);padding:.5rem 0;">No available officers to add.</p>';
+    } else {
+      listEl.innerHTML = available.map(t => {
+        const o = BB.officers[t.id] || t;
+        const currentArr = fundingArrangements.find(a => a.memberIds.includes(t.id));
+        const subLabel = currentArr
+          ? `<span style="font-size:.75rem;color:var(--muted-fg);">Currently in ${currentArr.label}</span>`
+          : `<span style="font-size:.75rem;color:var(--muted-fg);">Unassigned</span>`;
+        return `<label style="display:flex;align-items:center;gap:.75rem;padding:.5rem .375rem;border-radius:var(--radius);cursor:pointer;" onmouseover="this.style.background='var(--muted)'" onmouseout="this.style.background=''">
+          <input type="checkbox" class="assign-modal-chk" value="${t.id}" style="width:1rem;height:1rem;flex-shrink:0;cursor:pointer;" onchange="_updateAssignModalBtn()">
+          <div class="avatar avatar-sm" style="background:${o.bg||'var(--muted)'};color:${o.fg||'var(--fg)'};">${o.initials||''}</div>
+          <div style="display:flex;flex-direction:column;gap:.125rem;line-height:1.2;">
+            <span style="font-size:.875rem;font-weight:500;">${t.rank} ${t.name}</span>
+            ${subLabel}
+          </div>
+        </label>`;
+      }).join('');
+    }
   }
+  if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = 'Add Selected'; }
+  if (modal) modal.classList.add('open');
+}
+
+function _updateAssignModalBtn() {
+  const checked = document.querySelectorAll('#assign-modal-list .assign-modal-chk:checked').length;
+  const btn = document.getElementById('assign-modal-confirm');
+  if (btn) {
+    btn.disabled = checked === 0;
+    btn.textContent = checked > 0 ? `Add ${checked} Officer${checked !== 1 ? 's' : ''}` : 'Add Selected';
+  }
+}
+
+function confirmAssignModal() {
+  if (!_assignModalArrId) return;
+  const arr = fundingArrangements.find(a => a.id === _assignModalArrId);
+  if (!arr) return;
+  const checked = document.querySelectorAll('#assign-modal-list .assign-modal-chk:checked');
+  checked.forEach(chk => {
+    const id = chk.value;
+    // Remove from any existing arrangement first
+    fundingArrangements.forEach(a => { a.memberIds = a.memberIds.filter(mid => mid !== id); });
+    arr.memberIds.push(id);
+  });
+  closeAssignModal();
+  renderArrangements();
+  invalidateFrom(3);
+}
+
+function closeAssignModal(e) {
+  if (e && e.target !== document.getElementById('assign-officers-modal')) return;
+  const modal = document.getElementById('assign-officers-modal');
+  if (modal) modal.classList.remove('open');
+  _assignModalArrId = null;
+}
+
+function validateArrangements() {
+  const fee = currentCourseFee();
+  const assignedIds = new Set(fundingArrangements.flatMap(a => a.memberIds));
+  const unassigned = trainees.filter(t => !assignedIds.has(t.id));
+  if (unassigned.length) {
+    showToast('warning', 'Unassigned officers', unassigned.map(t => t.name).join(', ') + ' must be assigned to an arrangement.');
+    return false;
+  }
+  for (const arr of fundingArrangements) {
+    if (!arr.memberIds.length) continue;
+    if (Math.abs(allocationTotal(arr.allocation) - fee) >= 0.01) {
+      showToast('warning', 'Funding does not add up', arr.label + '\'s funding must total ' + formatMoney(fee) + '.');
+      return false;
+    }
+  }
+  return true;
+}
+
+/* ── Per-person funding renderer (routes self vs others) ─────────── */
+function renderPerPersonFunding() {
+  const list = document.getElementById('per-person-funding-list');
+  if (!list) return;
+  if (currentFor === 'others') {
+    renderArrangements();
+    return;
+  }
+  ensureFundingAllocations();
+  const o = BB.officers[ME];
+  list.innerHTML = fundingAllocationCardHTML(o, 'self', currentFundingAllocation);
   updateCompanyFundsWarning();
 }
 
 function updateCompanyFundsWarning() {
   const hasCompanyFunds = currentFor === 'others'
-    ? trainees.some(t => moneyValue(t.fundingAllocation?.companyFunds) > 0)
+    ? fundingArrangements.some(a => (a.allocation.companyFunds || 0) > 0)
     : moneyValue(currentFundingAllocation.companyFunds) > 0;
-  document.getElementById('company-funds-warning').style.display = hasCompanyFunds ? '' : 'none';
+  const el = document.getElementById('company-funds-warning');
+  if (el) el.style.display = hasCompanyFunds ? '' : 'none';
 }
 
 function updateFundingTotals() {
@@ -1645,7 +1994,7 @@ function validateCourseAndNext() {
 function openConfirmDialog() {
   if (formSubmitted) return;
   if (!validateCourseFields(true)) return;
-  if (!validateFundingAllocations()) return;
+  if (currentFor === 'others' ? !validateArrangements() : !validateFundingAllocations()) return;
 
   const traineeText = currentFor === 'self'
     ? 'Theodor Gunawan (yourself)'
@@ -1761,7 +2110,8 @@ function getTraineesForSubmission() {
     return [{ id: ME, name: o.name, rank: o.rank, unit: o.company || '', fundingAllocation: allocation, fundingMode: fundingModeFromAllocation(allocation), fundingRemarks: fundingRemarksFromAllocation(allocation) }];
   }
   return trainees.map(t => {
-    const allocation = t.fundingAllocation || defaultFundingAllocation(t.id);
+    const arr = fundingArrangements.find(a => a.memberIds.includes(t.id));
+    const allocation = arr ? arr.allocation : (t.fundingAllocation || defaultFundingAllocation(t.id));
     return { id: t.id, name: t.name, rank: t.rank, unit: t.unit || '', fundingAllocation: allocation, fundingMode: fundingModeFromAllocation(allocation), fundingRemarks: fundingRemarksFromAllocation(allocation) };
   });
 }
@@ -2009,29 +2359,63 @@ function setReviewPanels(sub) {
     </div>`;
   }
 
-  // Panel 3 — Funding
+  // Panel 3 — Funding (read-only, grouped by shared allocation)
   const p3 = document.getElementById('panel-3');
   if (p3) {
-    const isCoy = sub.fundingMode === 'company-funds';
-    const fundingBadge = isCoy
-      ? '<span class="badge badge-destructive" style="font-size:.7rem;vertical-align:middle;">Company Funds</span>'
-      : (BB.fundingModeLabel(sub.fundingMode) || '—');
-    let rows = dl('Funding Mode', fundingBadge);
-    if (BB.courseCost(sub) !== '-') rows += dl('Cost per Pax', BB.courseCost(sub));
-    const alert = isCoy
-      ? `<div class="alert alert-warning" style="display:flex;gap:.625rem;align-items:flex-start;padding:.875rem;margin-top:1rem;">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;margin-top:.125rem;color:var(--warning);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-           <div style="font-size:.875rem;"><strong>Company Funds requested.</strong> Verify budget availability before approving.</div>
-         </div>` : '';
+    const fee = moneyValue(BB.courseCost(sub));
+    const traineesWithFunding = BB.getSubmissionTrainees(sub);
+    const fmt = v => v > 0 ? '$' + Number(v).toFixed(2).replace(/\.00$/, '') : '—';
+    const line = (label, val, note) => `<div class="funding-allocation-line">
+      <label style="color:var(--muted-fg);">${label}${note ? `<span style="font-weight:400;"> (${note})</span>` : ''}</label>
+      <div style="font-weight:500;text-align:right;">${fmt(val)}</div>
+    </div>`;
+
+    // Group trainees by allocation fingerprint
+    const groups = new Map();
+    traineesWithFunding.forEach(t => {
+      const a = t.fundingAllocation || {};
+      const key = `${a.allowance||0}|${a.selfPay||0}|${a.companyFunds||0}`;
+      if (!groups.has(key)) groups.set(key, { allocation: a, officers: [] });
+      groups.get(key).officers.push(t);
+    });
+
+    const fundingCards = Array.from(groups.values()).map(g => {
+      const alloc = g.allocation;
+      const allowance = alloc.allowance || 0, selfPay = alloc.selfPay || 0, companyFunds = alloc.companyFunds || 0;
+      const total = allowance + selfPay + companyFunds;
+      const officerLine = g.officers.length === 1
+        ? `<div class="per-person-funding-name">${g.officers[0].name}</div>
+           <div class="per-person-funding-meta">${g.officers[0].rank || '—'} · ${formatMoney(allowanceAvailable(g.officers[0].id))} allowance left</div>`
+        : `<div style="display:flex;flex-wrap:wrap;gap:.25rem;margin-bottom:.25rem;">
+             ${g.officers.map(t => `<span class="chip" style="font-size:.6875rem;padding:.125rem .5rem;">${t.name}</span>`).join('')}
+           </div>
+           <div class="per-person-funding-meta">${g.officers.length} officers · same arrangement</div>`;
+      return `<details class="funding-allocation-card" open>
+        <summary class="funding-allocation-head">
+          <div>${officerLine}</div>
+          <div class="funding-allocation-calc">
+            <span class="funding-status-dot ok"></span>
+            <span>${formatMoney(total)}</span>
+          </div>
+        </summary>
+        <div class="funding-allocation-body">
+          ${line('Allowance', allowance)}
+          ${line('Self-pay', selfPay)}
+          ${line('Coy Funds', companyFunds)}
+        </div>
+      </details>`;
+    }).join('');
+
     const purposeBlock = sub.purpose
       ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
            <div style="font-size:.75rem;color:var(--muted-fg);font-weight:500;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;">Purpose / Justification</div>
            <div style="font-size:.875rem;line-height:1.6;">${sub.purpose}</div>
          </div>` : '';
+
     p3.innerHTML = `<div>
       <div style="font-size:.9375rem;font-weight:600;margin-bottom:1rem;">Funding</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;">${rows}</div>
-      ${alert}${purposeBlock}
+      <div class="per-person-funding-list">${fundingCards}</div>
+      ${purposeBlock}
     </div>`;
   }
 
@@ -2050,66 +2434,62 @@ function setReviewPanels(sub) {
 
 /* ── Build the Review tab (tab 5) content ────────────────────────── */
 function buildReviewTab(sub, role) {
-  const trainees  = BB.getSubmissionTrainees(sub);
-  crTraineeIds = trainees.map(o => o.id);
+  const trainees = BB.getSubmissionTrainees(sub);
+  crTraineeIds   = trainees.map(o => o.id);
+  const roleLabel = 'Approval';
+
+  // Company funds banner — total across all trainees
+  const totalCoyFunds = trainees.reduce((sum, t) => sum + ((t.fundingAllocation || {}).companyFunds || 0), 0);
+  const coyFundsBanner = totalCoyFunds > 0
+    ? `<div style="display:flex;align-items:center;gap:.75rem;padding:.875rem 1rem;background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--radius);margin-bottom:1.25rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;flex-shrink:0;color:#b45309;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div style="flex:1;font-size:.875rem;color:#92400e;"><strong style="color:#78350f;">Company Funds requested</strong> — ${formatMoney(totalCoyFunds)} total to be drawn from company budget.</div>
+      </div>` : '';
+
+  const iconApprove = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.8125rem;height:.8125rem;"><polyline points="20 6 9 17 4 12"/></svg>`;
+  const iconReturn  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.8125rem;height:.8125rem;"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>`;
 
   const officerRows = trainees.map(o => {
     const off = BB.officers[o.id] || o;
-    return `<div id="cr-row-${o.id}" style="display:flex;align-items:center;gap:.625rem;padding:.625rem .75rem;border:1px solid var(--border);border-radius:var(--radius);transition:background .15s,border-color .15s;">
-      <input type="checkbox" id="cr-cb-${o.id}" onchange="crCheckboxChange('${o.id}',this.checked)" style="width:1rem;height:1rem;cursor:pointer;flex-shrink:0;accent-color:var(--success);">
-      <div class="avatar avatar-sm" style="background:${off.bg||'var(--muted)'};color:${off.fg||'var(--fg)'};flex-shrink:0;">${off.initials||o.initials||''}</div>
+    return `<div id="cr-row-${o.id}" style="display:flex;align-items:center;gap:.5rem;padding:.375rem .5rem;border-radius:var(--radius-sm);transition:background .15s;">
+      <div class="avatar avatar-sm" style="background:${off.bg||'var(--muted)'};color:${off.fg||'var(--fg)'};flex-shrink:0;width:1.75rem;height:1.75rem;font-size:.6875rem;">${off.initials||o.initials||''}</div>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:.875rem;font-weight:500;">${o.name}</div>
-        <div style="font-size:.75rem;color:var(--muted-fg);">${o.rank||''}</div>
+        <span style="font-size:.875rem;font-weight:500;">${o.name}</span>
+        <span style="font-size:.75rem;color:var(--muted-fg);margin-left:.375rem;">${o.rank||''}</span>
       </div>
-      <div id="cr-status-${o.id}" style="font-size:.75rem;color:var(--muted-fg);flex-shrink:0;">Pending</div>
-      <button title="Approve" onclick="crSetDecision('${o.id}','approve')"
-        style="width:2rem;height:2rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0;"
-        onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='transparent'">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;"><polyline points="20 6 9 17 4 12"/></svg>
+      <button id="cr-btn-approve-${o.id}" title="Approve" onclick="crSetDecision('${o.id}','approve')"
+        style="width:1.75rem;height:1.75rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);flex-shrink:0;transition:all .15s;"
+        onmouseover="this.style.background='#f0fdf4';this.style.color='var(--success)';this.style.borderColor='#bbf7d0';" onmouseout="if(!this.dataset.active){this.style.background='transparent';this.style.color='var(--muted-fg)';this.style.borderColor='var(--border)';}">
+        ${iconApprove}
       </button>
-      <button title="Return" onclick="crSetDecision('${o.id}','return')"
-        style="width:2rem;height:2rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--destructive);flex-shrink:0;"
-        onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='transparent'">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+      <button id="cr-btn-return-${o.id}" title="Return" onclick="crSetDecision('${o.id}','return')"
+        style="width:1.75rem;height:1.75rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);flex-shrink:0;transition:all .15s;"
+        onmouseover="this.style.background='#fef2f2';this.style.color='var(--destructive)';this.style.borderColor='#fecaca';" onmouseout="if(!this.dataset.active){this.style.background='transparent';this.style.color='var(--muted-fg)';this.style.borderColor='var(--border)';}">
+        ${iconReturn}
       </button>
     </div>`;
   }).join('');
 
-  const submitter = BB.officers[sub.submittedBy || sub.officerId] || {};
-  const roleLabel = role === 'captain' ? "Captain's Approval" : role === 'chaplain' ? "Chaplain's Endorsement" : "Training Comm Review";
-  const backHref  = role === 'captain' ? 'captain.html' : role === 'chaplain' ? 'chaplain.html' : 'comm.html';
-
-  return `<div style="display:grid;grid-template-columns:1fr 22rem;gap:1.25rem;align-items:start;">
-    <!-- Left: summary + tip -->
-    <div>
-      <div style="font-size:.9375rem;font-weight:600;margin-bottom:1rem;">${roleLabel}</div>
-      <div class="card" style="padding:1rem 1.25rem;margin-bottom:1.25rem;">
-        <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-fg);font-weight:600;margin-bottom:.75rem;">Request Summary</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.5rem;font-size:.875rem;">
-          <div><div style="font-size:.75rem;color:var(--muted-fg);">Submitted By</div><div style="font-weight:500;">${submitter.name||'—'}</div></div>
-          <div><div style="font-size:.75rem;color:var(--muted-fg);">Date Submitted</div><div style="font-weight:500;">${sub.submitted||'—'}</div></div>
-          <div><div style="font-size:.75rem;color:var(--muted-fg);">Training Dates</div><div style="font-weight:500;">${sub.dates||'—'}</div></div>
-          <div><div style="font-size:.75rem;color:var(--muted-fg);">Funding</div><div style="font-weight:500;">${BB.fundingModeLabel(sub.fundingMode)||'—'}</div></div>
-        </div>
-      </div>
-      <div style="background:var(--muted);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem 1rem;font-size:.8125rem;color:var(--muted-fg);">
-        <strong style="color:var(--fg);">Tip:</strong> Browse the other tabs to review full trainee, course, and funding details before deciding.
-      </div>
-    </div>
-    <!-- Right: officers + note + submit -->
-    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+  return `<div style="border-top:1px solid var(--border);padding-top:1.5rem;">
+    <div style="font-size:.9375rem;font-weight:600;margin-bottom:1rem;">${roleLabel}</div>
+    ${coyFundsBanner}
+    <div style="display:grid;grid-template-columns:1fr 22rem;gap:1.5rem;align-items:start;">
+      <!-- Left: per-officer decisions -->
       <div class="card" style="padding:0;overflow:hidden;">
-        <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.625rem;">
-          <input type="checkbox" id="cr-select-all" onchange="crSelectAll(this.checked)" style="width:1rem;height:1rem;cursor:pointer;accent-color:var(--success);">
-          <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-fg);font-weight:600;flex:1;">Officers on this request</div>
+        <div style="padding:.5rem .75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;">
+          <div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-fg);font-weight:600;flex:1;">Officers</div>
+          <button style="font-size:.75rem;color:var(--primary);background:none;border:none;cursor:pointer;padding:0;" onclick="crSelectAll(true)">Approve all</button>
+          <span style="color:var(--border);font-size:.75rem;">|</span>
           <div style="font-size:.75rem;color:var(--muted-fg);" id="cr-decision-count"></div>
         </div>
-        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem;">${officerRows}</div>
+        <div style="padding:.375rem .5rem;display:flex;flex-direction:column;">${officerRows}</div>
       </div>
-      <div class="card" style="padding:1rem 1.25rem;">
-        <label class="label" style="font-size:.8125rem;margin-bottom:.375rem;">Note <span style="font-weight:400;color:var(--muted-fg);">(optional)</span></label>
-        <textarea class="input" id="cr-note" rows="3" placeholder="Add any instructions or remarks visible to the officer…" style="margin-bottom:.875rem;"></textarea>
+      <!-- Right: declaration + submit -->
+      <div style="display:flex;flex-direction:column;gap:.875rem;position:sticky;top:1rem;">
+        ${sub.fundingMode === 'company-funds' ? `<label style="display:flex;align-items:flex-start;gap:.625rem;padding:.75rem 1rem;background:var(--muted);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:.8125rem;">
+          <input type="checkbox" id="cr-coy-funds-decl" onchange="crUpdateCount()" style="width:1rem;height:1rem;margin-top:.0625rem;flex-shrink:0;cursor:pointer;">
+          <span>I acknowledge that company funds will be used for this training request and authorise the expenditure.</span>
+        </label>` : ''}
         <button class="btn btn-default" id="cr-submit-btn" onclick="submitCrDecision()" disabled style="width:100%;">Submit Decision</button>
       </div>
     </div>
@@ -2127,8 +2507,8 @@ function initReviewMode(ref, role) {
   crDecisions = {};
 
   // ── Breadcrumb & back
-  const backHref = role === 'captain' ? 'captain.html' : role === 'chaplain' ? 'chaplain.html' : 'comm.html';
-  const homeLabel = role === 'captain' ? 'Captain Dashboard' : role === 'chaplain' ? 'Chaplain Dashboard' : 'Training Comm';
+  const backHref = role === 'captain' ? 'captain.html' : role === 'chaplain' ? 'chaplain.html' : role === 'comm' ? 'comm.html' : 'officer.html';
+  const homeLabel = role === 'captain' ? 'Captain Dashboard' : role === 'chaplain' ? 'Chaplain Dashboard' : role === 'comm' ? 'Training Comm' : 'My Dashboard';
   const chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:.875rem;height:.875rem;"><polyline points="9 18 15 12 9 6"/></svg>';
   const sep = `<div class="breadcrumb-separator">${chevron}</div>`;
   const bc = document.querySelector('.breadcrumb');
@@ -2152,30 +2532,25 @@ function initReviewMode(ref, role) {
   // ── Replace panel 1-4 with read-only views
   setReviewPanels(sub);
 
-  // ── Inject tab 5 "Review"
-  TABS = 5;
-  maxUnlocked = 5;
-  const tabList = document.getElementById('tabs-lift-list');
-  if (tabList && !document.getElementById('tab-btn-5')) {
-    const btn5 = document.createElement('button');
-    btn5.className = 'tabs-lift-trigger';
-    btn5.id = 'tab-btn-5';
-    btn5.setAttribute('onclick', 'goToTab(5)');
-    btn5.innerHTML = '<span class="tab-lift-num">5</span><span class="tab-lift-label">Review</span>';
-    tabList.appendChild(btn5);
-  }
-  const tabContent = document.getElementById('tabs-lift-content');
-  if (tabContent && !document.getElementById('panel-5')) {
-    const p5 = document.createElement('div');
-    p5.id = 'panel-5';
-    p5.style.display = 'none';
-    p5.innerHTML = buildReviewTab(sub, role);
-    tabContent.appendChild(p5);
+  // ── Lock Tab 4 (Certificates) until closure stage
+  const atClosure = (sub.stage === 'closure' || sub.stage === 'done');
+  maxUnlocked = atClosure ? 4 : 3;
+
+  // ── Populate approvals section (reviewers only, not officers viewing own submission)
+  const appSection = document.getElementById('approvals-section');
+  if (appSection) {
+    if (role !== 'officer') {
+      appSection.innerHTML = buildReviewTab(sub, role);
+      appSection.style.display = '';
+    } else {
+      appSection.innerHTML = '';
+      appSection.style.display = 'none';
+    }
   }
 
-  // ── Navigate to Review tab
-  goToTab(5);
-  crUpdateCount();
+  // ── Default tab: reviewers start at funding (tab 3), officers start at tab 1
+  goToTab(role === 'officer' ? 1 : 3);
+  if (role !== 'officer') crUpdateCount();
 }
 
 // Keep old name as alias for captain.html links that use role=captain
@@ -2183,79 +2558,46 @@ function initCaptainReviewMode(ref) { initReviewMode(ref, 'captain'); }
 
 function crSetDecision(officerId, decision) {
   crDecisions[officerId] = decision;
-  const row    = document.getElementById('cr-row-' + officerId);
-  const status = document.getElementById('cr-status-' + officerId);
-  const cb     = document.getElementById('cr-cb-' + officerId);
+  const row       = document.getElementById('cr-row-' + officerId);
+  const btnApprove = document.getElementById('cr-btn-approve-' + officerId);
+  const btnReturn  = document.getElementById('cr-btn-return-' + officerId);
+  // Reset both buttons
+  [btnApprove, btnReturn].forEach(b => { if (b) { b.dataset.active = ''; b.style.background = 'transparent'; b.style.borderColor = 'var(--border)'; b.style.color = 'var(--muted-fg)'; } });
   if (decision === 'approve') {
-    if (row)    { row.style.background = '#f0fdf4'; row.style.borderColor = '#bbf7d0'; }
-    if (status) status.innerHTML = '<span style="color:var(--success);font-weight:600;">Approved</span>';
-    if (cb)     cb.checked = true;
+    if (row) { row.style.background = '#f0fdf4'; }
+    if (btnApprove) { btnApprove.dataset.active = '1'; btnApprove.style.background = '#f0fdf4'; btnApprove.style.borderColor = '#86efac'; btnApprove.style.color = 'var(--success)'; }
   } else {
-    if (row)    { row.style.background = '#fef2f2'; row.style.borderColor = '#fecaca'; }
-    if (status) status.innerHTML = '<span style="color:var(--destructive);font-weight:600;">Returned</span>';
-    if (cb)     cb.checked = false;
+    if (row) { row.style.background = '#fef2f2'; }
+    if (btnReturn)  { btnReturn.dataset.active  = '1'; btnReturn.style.background  = '#fef2f2'; btnReturn.style.borderColor  = '#fca5a5'; btnReturn.style.color  = 'var(--destructive)'; }
   }
   crUpdateCount();
 }
 
-function crCheckboxChange(officerId, checked) {
-  if (checked) {
-    crSetDecision(officerId, 'approve');
-  } else {
-    delete crDecisions[officerId];
-    const row    = document.getElementById('cr-row-' + officerId);
-    const status = document.getElementById('cr-status-' + officerId);
-    if (row)    { row.style.background = ''; row.style.borderColor = ''; }
-    if (status) status.innerHTML = '<span style="color:var(--muted-fg);">Pending</span>';
-    crUpdateCount();
-  }
-}
-
-function crSelectAll(checked) {
-  crTraineeIds.forEach(id => {
-    const cb = document.getElementById('cr-cb-' + id);
-    if (cb) cb.checked = checked;
-    if (checked) {
-      crSetDecision(id, 'approve');
-    } else {
-      delete crDecisions[id];
-      const row    = document.getElementById('cr-row-' + id);
-      const status = document.getElementById('cr-status-' + id);
-      if (row)    { row.style.background = ''; row.style.borderColor = ''; }
-      if (status) status.innerHTML = '<span style="color:var(--muted-fg);">Pending</span>';
-    }
-  });
-  crUpdateCount();
+function crSelectAll(approve) {
+  crTraineeIds.forEach(id => crSetDecision(id, approve ? 'approve' : 'return'));
 }
 
 function crUpdateCount() {
   const decided = Object.keys(crDecisions).length;
   const total   = crTraineeIds.length;
-  const el = document.getElementById('cr-decision-count');
-  if (el) el.textContent = decided + ' / ' + total + ' decided';
+  const el  = document.getElementById('cr-decision-count');
+  if (el)  el.textContent = decided + ' / ' + total;
+  const decl = document.getElementById('cr-coy-funds-decl');
+  const declOk = !decl || decl.checked;
   const btn = document.getElementById('cr-submit-btn');
-  if (btn) btn.disabled = decided < total;
-  // Sync select-all checkbox indeterminate state
-  const selectAll = document.getElementById('cr-select-all');
-  if (selectAll) {
-    const approvedCount = Object.values(crDecisions).filter(d => d === 'approve').length;
-    selectAll.indeterminate = approvedCount > 0 && approvedCount < total;
-    selectAll.checked = approvedCount === total;
-  }
+  if (btn) btn.disabled = (decided < total) || !declOk;
 }
 
 function submitCrDecision() {
   const sub = BB.submissions[captainReviewRef];
   if (!sub) return;
-  const note = (document.getElementById('cr-note') || {}).value?.trim() || '';
   const allApproved = Object.values(crDecisions).every(d => d === 'approve');
-  document.getElementById('cr-submit-btn').disabled = true;
   const backHref = reviewRole === 'captain' ? 'captain.html' : reviewRole === 'chaplain' ? 'chaplain.html' : 'comm.html';
   if (allApproved) {
-    BB.advanceSubmission(captainReviewRef, 'approve', reviewRole, note);
+    BB.advanceSubmission(captainReviewRef, 'approve', reviewRole, '');
     showToast('success', 'Decision submitted', '"' + BB.courseName(sub) + '" approved and forwarded.');
   } else {
-    BB.advanceSubmission(captainReviewRef, 'return', reviewRole, note || 'Returned for revision.');
+    BB.advanceSubmission(captainReviewRef, 'return', reviewRole, 'Returned for revision.');
     showToast('info', 'Submission returned', '"' + BB.courseName(sub) + '" returned to the officer.');
   }
   setTimeout(() => { window.location.href = backHref; }, 1800);
@@ -2267,7 +2609,7 @@ function submitCrDecision() {
   const params = new URLSearchParams(window.location.search);
   const ref = params.get('ref');
   const role = params.get('role');
-  if (ref && (role === 'captain' || role === 'chaplain' || role === 'comm')) initReviewMode(ref, role);
+  if (ref && (role === 'captain' || role === 'chaplain' || role === 'comm' || role === 'officer')) initReviewMode(ref, role);
   else if (ref) initClosureMode(ref);
 })();
 </script>
